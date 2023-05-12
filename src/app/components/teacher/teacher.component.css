@@ -1,0 +1,63 @@
+/* .issue-container {
+    width: 40%;
+    max-width: 580px;
+} */
+
+.notification-container {
+    width: 60%;
+    max-width: 860px;
+}
+
+.notification-btn {
+    
+}
+
+.arrow {
+    font-size: 50px;
+    transform: scale(2);
+}
+
+.background-issue-form {
+    background-color: #f3f5f6;
+    min-height: 80vh;
+    width: 40%;
+    max-width: 580px; /* Replace with your desired maximum width */
+    margin: 0 auto; /* Center the div */
+    position: relative;
+}
+
+
+.background-issue-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -9999px; /* Move the element outside the parent div */
+    width: 9999px; /* Set the width to a very large value */
+    height: 100%;
+    background-color: #f3f5f6;
+  }
+
+  .sticky-buttons {
+    position:absolute;
+    top: 12vh;
+    right: 0;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .background-issue-form {
+        width: 100%;
+    }
+
+    .notification-container {
+        width: 100%;
+    }
+
+    quick-view-wrapper {
+        width: 100%;
+    }
+
+    quick-view {
+        display: flex;
+        flex-direction: column;
+    }
+  }

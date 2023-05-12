@@ -1,0 +1,11 @@
+.flexSpaceBetween {
+    justify-content: space-between;
+}
+
+.color-grey {
+    background-color: #8E9AAF;
+}
+
+.header-custom-height {
+    height: 10vh;
+}

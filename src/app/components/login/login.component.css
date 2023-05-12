@@ -1,0 +1,12 @@
+.width-setter {
+    max-width: 500px;
+    width: 100%;
+}
+/* 
+.color-grey {
+    background-color: #8E9AAF;
+} */
+
+.mat-raised-button.mat-success { 
+    background-color: #8E9AAF;
+}

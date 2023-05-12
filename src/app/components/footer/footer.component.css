@@ -1,0 +1,15 @@
+.set-width {
+    max-width: 280px;
+    font-size: 12px;
+}
+
+
+.gradient {
+    border-top: 1px solid #c1c7cd;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(158,158,158,1) 100%); 
+}
+
+.copy {
+    font-size: 0.9rem;
+}

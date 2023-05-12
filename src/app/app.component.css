@@ -1,0 +1,8 @@
+.max-width {
+    max-width: 1440px;
+    min-width: fit-content;
+}
+
+.main-body {
+    min-height: 75vh;
+}
