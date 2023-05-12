@@ -1,4 +1,4 @@
-<div class="container-fluid d-flex justify-content-evenly p-0 m-0 flex-wrap">
+<div class="container-fluid d-flex justify-content-evenly p-0 m-0 wrapper">
 
     <div class="sticky-buttons d-flex align-items-center">
 
@@ -55,11 +55,13 @@
             </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>
+        <div>
+            <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>
+        </div>
 
     </div>
 
-    <div class="notification-container d-flex flex-column align-items-center w-100 pt-5 pb-5">
+    <div class="notification-container d-flex flex-column align-items-center pt-5 pb-5">
         <!-- panic button -->
 
         <!-- short view issues -->
@@ -68,8 +70,8 @@
             <!-- <p class="h2 w-100">Αίθουσες με βλάβες</p> -->
             <div class="w-100 h-100 d-flex justify-content-center align-items-center">
                 <button mat-button (click)="previousPage()"><mat-icon class="arrow">arrow_back_ios</mat-icon></button>
-                <div class="d-flex flex-column align-items-center quick-view-wrapper">
-                    <div class="border border-1 rounded-pill  quick-view m-2 p-2 d-flex justify-content-evenly align-items-center align-middle" *ngFor="let issue of selectedIssues">
+                <div class="quick-view-wrapper">
+                    <div class="quick-view" *ngFor="let issue of selectedIssues">
                         <span>{{issue.class}}</span>
                         <span>{{issue.issue}}</span>
                         <span class="border border-0 rounded-pill ps-2 pe-2 m-0" style="background-color:{{issue.color}}">{{issue.status}}</span>

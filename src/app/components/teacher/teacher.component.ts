@@ -142,8 +142,8 @@ export class TeacherComponent implements OnInit {
   selectedIssues = this.issues.slice(this.index,this.index+7);
 
   ngOnInit(): void {  }
+
   value = "";
-  building = '';
 
   nextPage(){
     if(this.index + 7 >= this.issues.length) {
@@ -152,18 +152,15 @@ export class TeacherComponent implements OnInit {
     } else {
       this.index += 7;
     }
-    console.log(this.index + " " + this.issues.length)
     this.selectedIssues = this.issues.slice(this.index, this.index + 7);
   }
   
   previousPage(){
     if(this.index - 7 < 0) {
       this.index = this.issues.length - 7;
-      console.log("EQUALS")
     } else {
       this.index -= 7;
     }
-    console.log(this.index + " " + this.issues.length)
     this.selectedIssues = this.issues.slice(this.index, this.index + 7);
   }
 }

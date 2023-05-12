@@ -1,15 +1,7 @@
-/* .issue-container {
-    width: 40%;
-    max-width: 580px;
-} */
 
 .notification-container {
     width: 60%;
     max-width: 860px;
-}
-
-.notification-btn {
-    
 }
 
 .arrow {
@@ -17,47 +9,161 @@
     transform: scale(2);
 }
 
-.background-issue-form {
-    background-color: #f3f5f6;
-    min-height: 80vh;
-    width: 40%;
-    max-width: 580px; /* Replace with your desired maximum width */
-    margin: 0 auto; /* Center the div */
-    position: relative;
-}
-
-
-.background-issue-form::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -9999px; /* Move the element outside the parent div */
-    width: 9999px; /* Set the width to a very large value */
-    height: 100%;
-    background-color: #f3f5f6;
-  }
-
-  .sticky-buttons {
+.sticky-buttons {
     position:absolute;
     top: 12vh;
     right: 0;
-  }
+    z-index: 99;
+}
 
-  @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 667px) {
+    .wrapper {
+        flex-wrap: wrap;
+    }
     .background-issue-form {
-        width: 100%;
+        width: 100vw;
+        margin: 0;
     }
 
+    .background-issue-form p {
+        margin-top: 40px
+    };
+
+    .background-issue-form {
+        content: "";
+        position: relative;
+        width: 100%;
+        background-color: #f3f5f6;
+    }
     .notification-container {
         width: 100%;
     }
 
-    quick-view-wrapper {
+    .quick-view-wrapper {
+        width: 100%;
+    }
+    
+    .quick-view {
+        padding: 10px;
+        border: 0.5px solid #979899;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0;
         width: 100%;
     }
 
-    quick-view {
+}
+
+@media only screen and (min-width: 667px) and (max-width: 1080px) {
+    .wrapper {
+        flex-wrap: wrap;
+    }
+
+    .background-issue-form {
+        content: "";
+        position: relative;
+        width: 100%;
+        background-color: #f3f5f6;
+        display: flex;
+        align-items: center;
+    }
+
+    .background-issue-form > * { 
+        width: 80%;
+    }
+    .notification-container {
+        width: 100%;
+    }
+
+    .quick-view-wrapper {
+        width: 70%;
+    }
+    
+    .quick-view {
+        padding: 10px;
+        border: 0.5px solid #979899;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 10px 0;
+        width: 100%;
+        
+    }
+}
+
+@media only screen and (min-width: 1080px)  {
+    .background-issue-form {
+        background-color: #f3f5f6;
+        min-height: 80vh;
+        width: 40%;
+        max-width: 580px; 
+        margin: 0 auto; 
+        position: relative;
+    } 
+    
+    .background-issue-form::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -9999px; 
+        width: 9999px; 
+        height: 100%;
+        background-color: #f3f5f6;
+    }
+    
+    
+    .quick-view-wrapper {
+        width: 100%;
+    }
+    
+    .quick-view {
+        padding: 10px;
+        border: 0.5px solid #979899;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 10px 0;
+        width: 100%;
+        box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.25);
+    }
+}
+/* @media only screen and (min-width: 1440px){
+   
+    .background-issue-form {
+        background-color: #f3f5f6;
+        min-height: 80vh;
+        width: 40%;
+        max-width: 580px; 
+        margin: 0 auto; 
+        position: relative;
+    } 
+    
+    .background-issue-form::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -9999px; 
+        width: 9999px; 
+        height: 100%;
+        background-color: #f3f5f6;
+    }
+    
+    
+    .quick-view-wrapper {
+        width: 100%;
+    }
+    
+    .quick-view {
+        padding: 10px;
+        border: 0.5px solid #979899;
+        border-radius: 8px;
         display: flex;
         flex-direction: column;
+        margin: 10px 0;
+        width: 100%;
+        box-shadow: 2px 3px 3px rgba(0, 0, 0, 0.25);
     }
-  }
+} */
