@@ -1,83 +1,85 @@
-<div class="container-fluid d-flex justify-content-evenly p-0 m-0 wrapper">
+<div class=" w-100 d-flex justify-content-center">
+    <div class="container-xxl d-flex justify-content-evenly p-0 m-0 wrapper">
 
-    <div class="sticky-buttons d-flex align-items-center">
+        <div class="sticky-buttons d-flex align-items-center">
 
-        <button mat-raised-button matBadge="5" matBadgeColor="warn" color="primary" class="me-3">
-            Notifications
-        </button> 
-        <button mat-fab color="warn" class="me-3"><mat-icon>crisis_alert</mat-icon>
-        </button> 
-    </div>
-    <!-- inputs for new issue -->
-    <div class="d-flex flex-column justify-content-center p-5 m-0 background-issue-form">
-        <p class="h2">Αίτηση νέας βλάβης</p>
+            <button mat-raised-button matBadge="5" matBadgeColor="warn" color="primary" class="me-3">
+                Notifications
+            </button> 
+            <button mat-fab color="warn" class="me-3"><mat-icon>crisis_alert</mat-icon>
+            </button> 
+        </div>
+        <!-- inputs for new issue -->
+        <div class="d-flex flex-column justify-content-center p-5 m-0 background-issue-form">
+            <p class="h2">Αίτηση νέας βλάβης</p>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Επιλέξτε κτήριο</mat-label>
-            <mat-select>
-              <mat-option value="one">Μαρσάλειο Μέγαρο</mat-option>
-              <mat-option value="two">Τροίας</mat-option>
-              <mat-option value="three">Κεφαλληνίας</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Επιλέξτε κτήριο</mat-label>
+                <mat-select>
+                <mat-option value="one">Μαρσάλειο Μέγαρο</mat-option>
+                <mat-option value="two">Τροίας</mat-option>
+                <mat-option value="three">Κεφαλληνίας</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Αναζητήστε αίθουσα</mat-label>
-            <input matInput type="text" [(ngModel)]="value">
-            <button  matSuffix mat-icon-button>
-                <mat-icon>search</mat-icon>
-            </button>
-        </mat-form-field>
-        
+            <mat-form-field appearance="outline">
+                <mat-label>Αναζητήστε αίθουσα</mat-label>
+                <input matInput type="text" [(ngModel)]="value">
+                <button  matSuffix mat-icon-button>
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+            
 
-        <mat-form-field appearance="outline">
-            <mat-label>Επιλέξτε είδος βλάβης</mat-label>
-            <mat-select>
-                <mat-option value="one">Ηλεκτρολογική</mat-option>
-                <mat-option value="two">Τεχνική</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Επιλέξτε είδος βλάβης</mat-label>
+                <mat-select>
+                    <mat-option value="one">Ηλεκτρολογική</mat-option>
+                    <mat-option value="two">Τεχνική</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Επιλέξτε τεχνικό εξοπλισμό</mat-label>
-            <mat-select>
-                <mat-option value="one">Προτζέκτορα</mat-option>
-                <mat-option value="two">HDMI</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Επιλέξτε τεχνικό εξοπλισμό</mat-label>
+                <mat-select>
+                    <mat-option value="one">Προτζέκτορα</mat-option>
+                    <mat-option value="two">HDMI</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <mat-form-field appearance="outline">
-            <mat-label>Είδος βλάβης</mat-label>
-            <mat-select placeholder="Επιλέξτε είδος βλάβης">
-                <mat-option value="one">Κακή επαφή HDMI</mat-option>
-                <mat-option value="two">Δεν ανταποκρίνεται το HDMI</mat-option>
-                <mat-option value="trhe">Άλλο</mat-option>
-            </mat-select>
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Είδος βλάβης</mat-label>
+                <mat-select placeholder="Επιλέξτε είδος βλάβης">
+                    <mat-option value="one">Κακή επαφή HDMI</mat-option>
+                    <mat-option value="two">Δεν ανταποκρίνεται το HDMI</mat-option>
+                    <mat-option value="trhe">Άλλο</mat-option>
+                </mat-select>
+            </mat-form-field>
 
-        <div>
-            <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>
+            <div>
+                <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>                  
+            </div>
+
         </div>
 
-    </div>
+        <div class="notification-container d-flex flex-column align-items-center pt-5 pb-5">
+            <!-- panic button -->
 
-    <div class="notification-container d-flex flex-column align-items-center pt-5 pb-5">
-        <!-- panic button -->
+            <!-- short view issues -->
+            <div class="w-100 h-100">
 
-        <!-- short view issues -->
-        <div class="w-100 h-100">
-
-            <!-- <p class="h2 w-100">Αίθουσες με βλάβες</p> -->
-            <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                <button mat-button (click)="previousPage()"><mat-icon class="arrow">arrow_back_ios</mat-icon></button>
-                <div class="quick-view-wrapper">
-                    <div class="quick-view" *ngFor="let issue of selectedIssues">
-                        <span>{{issue.class}}</span>
-                        <span>{{issue.issue}}</span>
-                        <span class="border border-0 rounded-pill ps-2 pe-2 m-0" style="background-color:{{issue.color}}">{{issue.status}}</span>
+                <!-- <p class="h2 w-100">Αίθουσες με βλάβες</p> -->
+                <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+                    <button mat-button (click)="previousPage()"><mat-icon class="arrow">arrow_back_ios</mat-icon></button>
+                    <div class="quick-view-wrapper">
+                        <div class="quick-view" *ngFor="let issue of selectedIssues">
+                            <span>{{issue.class}}</span>
+                            <span>{{issue.issue}}</span>
+                            <span class="border border-0 rounded-pill ps-2 pe-2 m-0" style="background-color:{{issue.color}}">{{issue.status}}</span>
+                        </div>
                     </div>
+                    <button mat-button (click)="nextPage()"><mat-icon class="arrow">arrow_forward_ios</mat-icon></button>
                 </div>
-                <button mat-button (click)="nextPage()"><mat-icon class="arrow">arrow_forward_ios</mat-icon></button>
             </div>
         </div>
     </div>

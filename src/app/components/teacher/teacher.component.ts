@@ -141,7 +141,8 @@ export class TeacherComponent implements OnInit {
 
   selectedIssues = this.issues.slice(this.index,this.index+7);
 
-  ngOnInit(): void {  }
+  ngOnInit(): void { 
+   }
 
   value = "";
 

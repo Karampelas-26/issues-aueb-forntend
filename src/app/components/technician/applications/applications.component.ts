@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+
+import {FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-applications',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./applications.component.css']
 })
 export class ApplicationsComponent {
-  showFiller = false;
+  
+ value = '';
+  
 }
+

@@ -11,7 +11,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import {MatBadgeModule} from '@angular/material/badge'; 
-import {MatSidenavModule} from '@angular/material/sidenav'; 
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTableModule} from '@angular/material/table'; 
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import {MatRadioModule} from '@angular/material/radio';
+import {CdkTableModule} from '@angular/cdk/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatListModule } from '@angular/material/list';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 import { AppRoutingModule } from './routers/app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +33,8 @@ import { StatisticsComponent } from './components/admin/statistics/statistics.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { AdminRoutingModule } from './routers/admin-routing.module';
+import { UsersComponent } from './components/admin/users/users.component';
+import { DataTableComponent } from './components/technician/data-table/data-table.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +45,9 @@ import { AdminRoutingModule } from './routers/admin-routing.module';
     ApplicationsComponent,
     IssuesComponent,
     StatisticsComponent,
-    LoginComponent
+    LoginComponent,
+    UsersComponent,
+    DataTableComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +64,17 @@ import { AdminRoutingModule } from './routers/admin-routing.module';
     MatSelectModule,
     MatOptionModule,
     MatBadgeModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    CdkTableModule,
+    MatSortModule,
+    MatListModule,
+    MatChipsModule
+    
   ],
-  providers: [],
+  providers: [MatTableDataSource],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
