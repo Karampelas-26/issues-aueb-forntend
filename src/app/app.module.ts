@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {MatIconModule} from '@angular/material/icon';
+import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -24,6 +24,7 @@ import { StatisticsComponent } from './components/admin/statistics/statistics.co
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { AdminRoutingModule } from './routers/admin-routing.module';
+import { NewUserComponent } from './components/admin/new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AdminRoutingModule } from './routers/admin-routing.module';
     ApplicationsComponent,
     IssuesComponent,
     StatisticsComponent,
-    LoginComponent
+    LoginComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,7 @@ import { AdminRoutingModule } from './routers/admin-routing.module';
     MatSelectModule,
     MatOptionModule,
     MatBadgeModule,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
