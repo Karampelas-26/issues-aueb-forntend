@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-evenly p-0 m-0 wrapper">
+    <!-- inputs for new user-->
+    <div class="d-flex flex-column justify-content-center p-3 m-0 ">
+        <p class="h2">Δημιουργία νέου χρήστη</p>
+    
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Όνομα</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Επίθετο</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Email</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Τηλέφωνο</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Διεύθυνση</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Φύλλο</mat-label>
+            <input matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance = "outline"> 
+            <mat-label>Ρόλος</mat-label>
+            <mat-select placeholder="Επιλέξτε ρόλο">
+                <mat-option value="one">Καθηγητής</mat-option>
+                <mat-option value="two">Τεχνκός</mat-option>
+                <mat-option value="three">Διοικητική επιτροπή</mat-option> 
+            </mat-select>
+        </mat-form-field>
+        
+        <div>
+            <button mat-raised-button class="mt-2" color="primary">Δημιουργία χρήστη</button>
+        </div>
+
+    </div>
+    
+    <!--insert csv with users-->
+    <div class="csv-with-users d-flex flex-column justify-content-center p-3 m-0 ">
+        <div>
+            <p class="h2">Εισάγετε αρχείο CSV με δεδομένα χρηστών</p>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control">
+            </div>
+        </div>   
+    </div>
+</div>

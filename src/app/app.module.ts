@@ -38,6 +38,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminRoutingModule } from './routers/admin-routing.module';
 import { UsersComponent } from './components/admin/users/users.component';
 import { DataTableComponent } from './components/technician/data-table/data-table.component';
+import { NewUserComponent } from './components/admin/new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DataTableComponent } from './components/technician/data-table/data-tabl
     StatisticsComponent,
     LoginComponent,
     UsersComponent,
-    DataTableComponent
+    DataTableComponent,
+    NewUserComponent
   ],
   imports: [
     BrowserModule,
