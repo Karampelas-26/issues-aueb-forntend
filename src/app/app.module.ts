@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -52,6 +55,7 @@ import { DataTableComponent } from './components/technician/data-table/data-tabl
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
     MatMenuModule,
@@ -74,7 +78,7 @@ import { DataTableComponent } from './components/technician/data-table/data-tabl
     MatChipsModule
     
   ],
-  providers: [MatTableDataSource],
+  providers: [MatTableDataSource, JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
