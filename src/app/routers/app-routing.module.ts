@@ -6,12 +6,15 @@ import { IssuesComponent } from '../components/admin/issues/issues.component';
 import { StatisticsComponent } from '../components/admin/statistics/statistics.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { TeacherComponent } from '../components/teacher/teacher.component';
+import { AuthGuard } from '../guard/auth.guard';
+import { UnauthrorizedComponent } from '../components/unauthrorized/unauthrorized.component';
 
 const routes: Routes = [
   {path: "", component: LoginComponent},
-  {path: "technician", component: ApplicationsComponent},
-  {path: "teacher", component:TeacherComponent },
-  {path: "admin", loadChildren: () => AdminRoutingModule}
+  {path: "technician", component: ApplicationsComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TECHNICIAN'}},
+  {path: "teacher", component:TeacherComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
+  {path: "admin", loadChildren: () => AdminRoutingModule, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_ADMIN'}},
+  {path: 'unauthorized', component: UnauthrorizedComponent}
 ];
 
 @NgModule({

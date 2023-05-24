@@ -8,10 +8,10 @@ import { NewUserComponent } from '../components/admin/new-user/new-user.componen
 
 
 const routes: Routes = [
-  {path: "issues", component: IssuesComponent},
-  {path: "statistics", component: StatisticsComponent}, 
-  {path: "users", component: UsersComponent},
-  {path: "newuser", component: NewUserComponent}
+  {path: 'issues', component: IssuesComponent},
+  {path: 'statistics', component: StatisticsComponent}, 
+  {path: 'users', component: UsersComponent},
+  {path: 'newuser', component: NewUserComponent}
 ];
 
 @NgModule({
