@@ -39,6 +39,7 @@ import { AdminRoutingModule } from './routers/admin-routing.module';
 import { UsersComponent } from './components/admin/users/users.component';
 import { DataTableComponent } from './components/technician/data-table/data-table.component';
 import { NewUserComponent } from './components/admin/new-user/new-user.component';
+import { UnauthrorizedComponent } from './components/unauthrorized/unauthrorized.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NewUserComponent } from './components/admin/new-user/new-user.component
     LoginComponent,
     UsersComponent,
     DataTableComponent,
-    NewUserComponent
+    NewUserComponent,
+    UnauthrorizedComponent
   ],
   imports: [
     BrowserModule,

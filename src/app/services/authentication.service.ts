@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from '../LoginCredentials';
+import { LoginCredentials } from '../interface/LoginCredentials';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { RouterOutlet } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,9 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthenticationService {
 
   private url = "http://localhost:8080/auth/";
+
+  private isLoggedInSubject: Subject<boolean> = new Subject<boolean>;
+  isLoggedIn$ = this.isLoggedInSubject.asObservable(); 
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -20,17 +25,31 @@ export class AuthenticationService {
   private jwt = new JwtHelperService();
   
   constructor(private http: HttpClient) { }
+  
+  public setLoggedInStatus(status: boolean) {
+    this.isLoggedInSubject.next(status);
+  }
 
-  login(credentials: LoginCredentials) {
+  public isAuthenticated () {
+    const token = localStorage.getItem('token');
+    if(!token) return false; 
+    return !this.isExpired();
+  }
+
+  public login(credentials: LoginCredentials) {
     return this.http.post(`${this.url}login`, credentials, this.httpOptions)
   }
 
+  isExpired(){
+    const token = localStorage.getItem('token');
+    if(token == null) return false;
+    return this.jwt.isTokenExpired(token);
+  }
 
-  token(){
-
-    // const expirationDate = this.jwtHelper.getTokenExpirationDate(res.accessToken);
-    // const isExpired = this.jwtHelper.isTokenExpired(res.accessToken);    
-    // console.log("token expires: " + expirationDate + " and is valid: " + isExpired)
+  getAutority() {
+    const token = localStorage.getItem('token');
+    if(token == null) return;
+    return this.jwt.decodeToken(token).authorities[0];
   }
 
 }
