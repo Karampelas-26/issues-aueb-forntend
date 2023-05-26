@@ -8,9 +8,12 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { TeacherComponent } from '../components/teacher/teacher.component';
 import { AuthGuard } from '../guard/auth.guard';
 import { UnauthrorizedComponent } from '../components/unauthrorized/unauthrorized.component';
+import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
-  {path: "", component: LoginComponent},
+  {path: "", redirectTo: '/login', pathMatch: 'full'},
+  {path: "login", component: LoginComponent},
+  {path: "forgotPassword", component: ForgotPasswordComponent},
   {path: "technician", component: ApplicationsComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TECHNICIAN'}},
   {path: "teacher", component:TeacherComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
   {path: "admin", loadChildren: () => AdminRoutingModule, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_ADMIN'}},
