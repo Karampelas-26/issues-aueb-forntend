@@ -15,20 +15,22 @@ export class LoginComponent implements OnInit {
   isLoggedIn!: boolean;
 
   credentials: LoginCredentials = {
-    email: '',
-    password: ''
+    email: 'george.karampelas.26@gmail.com',
+    password: 'pass'
   }
 
-  private jwtHelper = new JwtHelperService();
-
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(private auth: AuthenticationService) {}
 
   ngOnInit(): void {
+    
+    this.isLoggedIn = this.auth.getLoggedIn();
+    console.log("this is in ngoninit: " + this.isLoggedIn)
+
     this.auth.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status;
     })
-    if(this.auth.isAuthenticated()) {
-      this.redirectUser();
+    if(this.isLoggedIn) {
+      this.auth.redirectUser();
     }
     
   }
@@ -39,43 +41,11 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', JSON.stringify(res.accessToken));
         this.auth.setLoggedInStatus(true);
 
-        this.redirectUser();
+        this.auth.redirectUser();
       },
       error: (err) => {
         console.error(err);
       }
     });
   }
-
-  redirectUser() {
-
-    const storedToken = localStorage.getItem('token');
-    let token: any;
-
-    if(storedToken) {
-      token = JSON.parse(storedToken);
-    } else {
-      console.log('User is not authenticated');
-      this.router.navigate(['/'])
-      return;
-    }
-
-    const role = this.jwtHelper.decodeToken(token).authorities[0];
-
-    switch (role) {
-      case 'ROLE_ADMIN':
-        this.router.navigate(['/admin/issues']);
-        break;
-      case 'ROLE_TEACHER':
-        this.router.navigate(['teacher']);
-        break;
-      case 'ROLE_TECHNICIAN':
-        this.router.navigate(['technician']);
-        break;
-      default:
-        console.error("User has not acceptable authorities");
-        this.router.navigate(['/unauthorized']);
-    }
-  }
-
 }
