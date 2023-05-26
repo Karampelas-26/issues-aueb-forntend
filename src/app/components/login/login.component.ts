@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   isLoggedIn!: boolean;
 
   credentials: LoginCredentials = {
-    email: 'george.karampelas.26@gmail.com',
-    password: 'pass'
+    email: '',
+    password: ''
   }
 
   constructor(private auth: AuthenticationService) {}
