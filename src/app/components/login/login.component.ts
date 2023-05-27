@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginCredentials } from 'src/app/interface/LoginCredentials';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +13,8 @@ export class LoginComponent implements OnInit {
   isLoggedIn!: boolean;
 
   credentials: LoginCredentials = {
-    email: 'george.karampelas.26@gmail.com',
-    password: 'pass'
+    email: '',
+    password: ''
   }
 
   constructor(private auth: AuthenticationService) {}
