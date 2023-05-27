@@ -23,6 +23,7 @@
     "@auth0/angular-jwt": "^5.1.2",
     "angular-jwt": "^0.1.11",
     "bootstrap": "^5.2.3",
+    "chart.js": "^4.3.0",
     "jquery": "^3.6.4",
     "jsonwebtoken": "^9.0.0",
     "popper.js": "^1.16.1",
@@ -42,6 +43,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "source-map-explorer": "^2.5.3",
     "typescript": "~4.9.4"
   }
 }

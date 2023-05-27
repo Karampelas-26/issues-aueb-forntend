@@ -23,6 +23,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatListModule } from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 import { AppRoutingModule } from './routers/app-routing.module';
@@ -32,7 +33,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { ApplicationsComponent } from './components/technician/applications/applications.component';
 import { IssuesComponent } from './components/admin/issues/issues.component';
-import { StatisticsComponent } from './components/admin/statistics/statistics.component';
+import { StatisticsComponent } from './components/admin/statistics-panel/statistics/statistics.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { AdminRoutingModule } from './routers/admin-routing.module';
@@ -41,6 +42,12 @@ import { DataTableComponent } from './components/technician/data-table/data-tabl
 import { NewUserComponent } from './components/admin/new-user/new-user.component';
 import { UnauthrorizedComponent } from './components/unauthrorized/unauthrorized.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { BarChartComponent } from './components/admin/statistics-panel/bar-chart/bar-chart.component';
+import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
+import { EquipmentComponent } from './components/admin/equipment/equipment.component';
+import { BuildingComponent } from './components/admin/building/building.component';
+import { NewissueComponent } from './components/admin/newissue/newissue.component';
+import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +63,13 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     DataTableComponent,
     NewUserComponent,
     UnauthrorizedComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    BarChartComponent,
+    DashboardComponent,
+    EquipmentComponent,
+    BuildingComponent,
+    NewissueComponent,
+    SemesterProgramComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +94,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     CdkTableModule,
     MatSortModule,
     MatListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTabsModule
     
   ],
   providers: [MatTableDataSource, JwtHelperService],
