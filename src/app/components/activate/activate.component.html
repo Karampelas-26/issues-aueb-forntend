@@ -1,0 +1,27 @@
+
+<div class="container-xxl d-flex justify-content-center p-0">
+
+    <p>{{activationAccount.activationToken}}</p>
+    <div class="d-flex flex-column alignitce w-100 wrapper mt-5">
+        <p class="h4">Ενεργοποίηση λογαριασμού</p>
+        <mat-form-field appearance="outline">
+            <mat-label>Κωδικός</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="activationAccount.password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Επιβεβαίωση κωδικού</mat-label>
+            <input matInput [type]="verifyHide ? 'password' : 'text'" [(ngModel)]="verifyPassword" >
+            <button mat-icon-button matSuffix (click)="verifyHide = !verifyHide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" >
+              <mat-icon>{{verifyHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <div>
+            <button mat-raised-button class="mt-2" color="primary" (click)="onActivateAccount()">Ενεργοποίηση λογαριασμού</button>
+        </div>
+
+    </div>
+
+</div>

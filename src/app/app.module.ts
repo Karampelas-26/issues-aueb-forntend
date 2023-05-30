@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import {MatIconModule} from '@angular/material/icon';
@@ -48,6 +48,8 @@ import { EquipmentComponent } from './components/admin/equipment/equipment.compo
 import { BuildingComponent } from './components/admin/building/building.component';
 import { NewissueComponent } from './components/admin/newissue/newissue.component';
 import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
+import { ActivateComponent } from './components/activate/activate.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import { SemesterProgramComponent } from './components/admin/semester-program/se
     EquipmentComponent,
     BuildingComponent,
     NewissueComponent,
-    SemesterProgramComponent
+    SemesterProgramComponent,
+    ActivateComponent
   ],
   imports: [
     BrowserModule,
@@ -95,10 +98,12 @@ import { SemesterProgramComponent } from './components/admin/semester-program/se
     MatSortModule,
     MatListModule,
     MatChipsModule,
-    MatTabsModule
+    MatTabsModule,
     
   ],
-  providers: [MatTableDataSource, JwtHelperService],
+  providers: [MatTableDataSource, JwtHelperService, 
+    {provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi: true}
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

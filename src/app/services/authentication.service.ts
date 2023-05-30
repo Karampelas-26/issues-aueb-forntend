@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ForgotPasswordRequest } from '../interface/ForgotPasswordRequest';
 import { ResetPasswordRequest } from '../interface/ResetPasswordRequest';
+import { ActivateAccount } from '../interface/ActivateAccount';
+import { CreateUser } from '../interface/CreateUser';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +66,10 @@ export class AuthenticationService {
 
   resetPassword(reset: ResetPasswordRequest) {
     return this.http.post(`${this.url}resetPassword`, reset, this.httpOptions);
+  }
+
+  activateUser(actiavation: ActivateAccount) {
+    return this.http.post(`${this.url}activation`, actiavation, this.httpOptions);
   }
 
   public redirectUser() {

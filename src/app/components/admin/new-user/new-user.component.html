@@ -5,45 +5,48 @@
     
         <mat-form-field appearance = "outline"> 
             <mat-label>Όνομα</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="createUserForm.firstname">
         </mat-form-field>
 
         <mat-form-field appearance = "outline"> 
             <mat-label>Επίθετο</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="createUserForm.lastname">
         </mat-form-field>
 
         <mat-form-field appearance = "outline"> 
             <mat-label>Email</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="createUserForm.email">
         </mat-form-field>
 
         <mat-form-field appearance = "outline"> 
             <mat-label>Τηλέφωνο</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="createUserForm.phone">
         </mat-form-field>
 
         <mat-form-field appearance = "outline"> 
             <mat-label>Διεύθυνση</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="createUserForm.address">
         </mat-form-field>
 
         <mat-form-field appearance = "outline"> 
             <mat-label>Φύλλο</mat-label>
-            <input matInput>
+            <mat-select placeholder="Επιλέξτε φύλλο" [(ngModel)]="createUserForm.gender">
+                <mat-option value="M">Άνδρας</mat-option>
+                <mat-option value="F">Γυναίκα</mat-option>
+            </mat-select>
         </mat-form-field>
 
         <mat-form-field appearance = "outline"> 
             <mat-label>Ρόλος</mat-label>
-            <mat-select placeholder="Επιλέξτε ρόλο">
-                <mat-option value="one">Καθηγητής</mat-option>
-                <mat-option value="two">Τεχνκός</mat-option>
-                <mat-option value="three">Διοικητική επιτροπή</mat-option> 
+            <mat-select placeholder="Επιλέξτε ρόλο" [(ngModel)]="createUserForm.role">
+                <mat-option value="TEACHER">Καθηγητής</mat-option>
+                <mat-option value="TECHNICIAN">Τεχνκός</mat-option>
+                <mat-option value="ADMIN">Διοικητική επιτροπή</mat-option> 
             </mat-select>
         </mat-form-field>
         
         <div>
-            <button mat-raised-button class="mt-2" color="primary">Δημιουργία χρήστη</button>
+            <button mat-raised-button class="mt-2" color="primary" (click)="onCreate()">Δημιουργία χρήστη</button>
         </div>
 
     </div>

@@ -23,6 +23,7 @@ export class BarChartComponent implements OnInit {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
+        //we need dates 
         labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
 								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ], 
 	       datasets: [
@@ -37,19 +38,7 @@ export class BarChartComponent implements OnInit {
             data: ['380','76', '872', '479', '92',
 								 '574', '573', '576'],
             backgroundColor: 'blue'
-          }, 
-          {
-            label: "Building",
-            data: ['467','776', '572', '79', '92',
-								 '374', '53', '76'],
-            backgroundColor: 'rgba(128,255,219,0.5)'
-          }, 
-          {
-            label: "Equipment",
-            data: ['467','576', '572', '79', '92',
-								 '574', '573', '576'],
-            backgroundColor: 'pink'
-          }  
+          }
         ]
       },
       options: {
