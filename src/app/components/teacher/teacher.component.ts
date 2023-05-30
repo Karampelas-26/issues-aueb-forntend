@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teacher',
@@ -141,8 +142,19 @@ export class TeacherComponent implements OnInit {
 
   selectedIssues = this.issues.slice(this.index,this.index+7);
 
+  constructor(private teachService: TeacherService){}
+
   ngOnInit(): void { 
-   }
+    this.teachService.getApplications().subscribe({
+      next: (res) => {
+        console.log(res)
+      }, 
+      error: (err) => {
+        console.error(err);
+        
+      }
+    })
+  }
 
   value = "";
 

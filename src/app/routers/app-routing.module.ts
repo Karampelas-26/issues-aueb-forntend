@@ -16,6 +16,7 @@ import { EquipmentComponent } from '../components/admin/equipment/equipment.comp
 import { BuildingComponent } from '../components/admin/building/building.component';
 import { NewissueComponent } from '../components/admin/newissue/newissue.component';
 import { SemesterProgramComponent } from '../components/admin/semester-program/semester-program.component';
+import { ActivateComponent } from '../components/activate/activate.component';
 
 const routes: Routes = [
   {path: "", redirectTo: '/login', pathMatch: 'full'},
@@ -23,24 +24,15 @@ const routes: Routes = [
   {path: "forgotPassword", component: ForgotPasswordComponent},
   {path: "technician", component: ApplicationsComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TECHNICIAN'}},
   {path: "teacher", component:TeacherComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
-  // {path: "admin", loadChildren: () => AdminRoutingModule, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_ADMIN'}},
   {
     path: 'admin', 
     component: DashboardComponent, 
-    children:[
-      {path: 'issues', component: IssuesComponent},
-      {path: 'statistics', component: StatisticsComponent}, 
-      {path: 'users', component: UsersComponent},
-      {path: 'newuser', component: NewUserComponent},
-      {path: 'equipment', component: EquipmentComponent},
-      {path: 'building', component: BuildingComponent},
-      {path: 'newissue', component: NewissueComponent},
-      {path: 'semester-program', component: SemesterProgramComponent},
-    ],
+    loadChildren: () => AdminRoutingModule,
     canActivate: [AuthGuard], 
     data: {expectedAuthority: 'ROLE_ADMIN'}
   },
-  {path: 'unauthorized', component: UnauthrorizedComponent}
+  {path: 'unauthorized', component: UnauthrorizedComponent},
+  {path: 'activate', component: ActivateComponent}
 ];
 
 @NgModule({
