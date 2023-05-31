@@ -16,7 +16,7 @@ export class DataTableComponent implements AfterViewInit {
   dataSource: DataTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'application', 'building', 'room', 'status', 'priority', 'assignee'];
+  displayedColumns = ['id', 'application', 'building', 'room', 'status', 'priority', 'assignee', 'actions'];
 
   constructor() {
     this.dataSource = new DataTableDataSource();

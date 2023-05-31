@@ -9,7 +9,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input'; 
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import {MatSelectModule} from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
@@ -24,6 +24,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatListModule } from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatDialogModule} from '@angular/material/dialog'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 
 
 import { AppRoutingModule } from './routers/app-routing.module';
@@ -50,6 +52,7 @@ import { NewissueComponent } from './components/admin/newissue/newissue.componen
 import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { EditApplicationComponent } from './components/technician/edit-application/edit-application.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     BuildingComponent,
     NewissueComponent,
     SemesterProgramComponent,
-    ActivateComponent
+    ActivateComponent,
+    EditApplicationComponent
   ],
   imports: [
     BrowserModule,
@@ -99,10 +103,16 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatListModule,
     MatChipsModule,
     MatTabsModule,
-    
+    MatDialogModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [MatTableDataSource, JwtHelperService, 
-    {provide: HTTP_INTERCEPTORS,useClass: AuthInterceptor,multi: true}
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
 ],
   bootstrap: [AppComponent]
 })
