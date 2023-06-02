@@ -1,3 +1,4 @@
+import { MatExpansionModule } from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -50,6 +51,9 @@ import { NewissueComponent } from './components/admin/newissue/newissue.componen
 import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { InsertnewbuildingComponent } from './components/admin/insertnewbuilding/insertnewbuilding.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +76,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     BuildingComponent,
     NewissueComponent,
     SemesterProgramComponent,
-    ActivateComponent
+    ActivateComponent,
+    InsertnewbuildingComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +104,8 @@ import { AuthInterceptor } from './services/auth.interceptor';
     MatListModule,
     MatChipsModule,
     MatTabsModule,
+    MatExpansionModule,
+    MatDialogModule,
     
   ],
   providers: [MatTableDataSource, JwtHelperService, 

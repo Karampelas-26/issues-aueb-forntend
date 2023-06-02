@@ -1,1 +1,21 @@
-<p>building works!</p>
+<div class="flex-column justify-content-center p-5 m-5">
+  <button mat-raised-button color="primary" (click) = "openDialog('0ms', '0ms')">
+      Προσθήκη κτηρίου
+      <mat-icon>location_city</mat-icon>
+  </button>
+  <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Self aware panel
+          </mat-panel-title>
+          <mat-panel-description>
+            Currently I am 
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>I'm visible because I am open</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
