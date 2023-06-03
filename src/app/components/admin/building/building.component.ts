@@ -15,8 +15,8 @@ export class BuildingComponent {
   
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(InsertnewbuildingComponent , {
-      width: '500px',
-      height:'500px',
+      width: '750px',
+      height:'700px',
       enterAnimationDuration,
       exitAnimationDuration,
     });

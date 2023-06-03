@@ -1,0 +1,12 @@
+.bottom{
+    position: absolute;
+    bottom: 0;
+}
+
+.complete-btn{
+    background-color: #4CAF50;
+}
+
+.close-btn{
+    background-color: #F44336;
+}

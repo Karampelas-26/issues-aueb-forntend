@@ -53,6 +53,7 @@ import { ActivateComponent } from './components/activate/activate.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { InsertnewbuildingComponent } from './components/admin/insertnewbuilding/insertnewbuilding.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AddfloorComponent } from './components/admin/addfloor/addfloor.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     SemesterProgramComponent,
     ActivateComponent,
     InsertnewbuildingComponent,
+    AddfloorComponent,
   ],
   imports: [
     BrowserModule,
