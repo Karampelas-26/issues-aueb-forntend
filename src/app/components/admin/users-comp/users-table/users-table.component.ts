@@ -22,7 +22,7 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
   dataSource: UsersTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'email', 'firstname', 'lastname', 'phone', 'address', 'gender', 'createdDate', 'role', 'action'];
+  displayedColumns = ['id', 'email', 'firstname', 'lastname', 'phone', 'address', 'gender', 'creationDate', 'role', 'action'];
 
   constructor(private committeeService: CommitteeService, private datePipe: DatePipe, private dialog: MatDialog) {
     this.dataSource = new UsersTableDataSource(committeeService);

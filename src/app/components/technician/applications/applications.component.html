@@ -1,18 +1,11 @@
-<!-- <mat-toolbar>
-    <mat-toolbar-row>
-    <h4>clickckck</h4>
-    <button mat-button (click)="sidenav.toggle();">
-        <mat-icon>menu</mat-icon>Menu
-    </button>
-    </mat-toolbar-row>
-</mat-toolbar> -->
 <mat-sidenav-container class="vh-100" >
     <mat-sidenav #sidenav [fixedInViewport]="true" class="sidenav-width" >
         
-        <div class="m-4 ">
-            <p class="h2">Φίλτρα<mat-icon class="ms-2">tune</mat-icon></p>
-            <div class="mt-3">
-                <p class="h3">Αίθουσα</p>
+        <div class="m-4">
+            <p class="h3">Φίλτρα<mat-icon class="ms-2">tune</mat-icon></p>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Αίθουσα</p>
                 <form>
                     <mat-form-field appearance="outline">
                       <mat-label>Αίθουσα</mat-label>
@@ -20,7 +13,7 @@
                              placeholder="Επιλέξτε αίθουσα"
                              aria-label="room"
                              matInput
-                             [formControl]="myControl"
+                             [formControl]="autoCompleteForm"
                              [matAutocomplete]="auto">
                         <button  matSuffix mat-icon-button>
                             <mat-icon>search</mat-icon>
@@ -34,24 +27,40 @@
                 </form>
                   
             </div>
-
-            <div>
-                <p class="h3">Καταστάσεις</p>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Κτήριο</p>
+                <mat-form-field appearance = "outline" >
+                    <mat-label>Επιλέξτε κτήριο</mat-label>
+                    <mat-select (selectionChange)="onBuildingSelected($event.value)" [(ngModel)]="selectedBuilding">
+                      <mat-option *ngFor="let building of buildings" [value]="building">
+                        {{ building }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+            </div>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Καταστάσεις</p>
                 <mat-chip-listbox aria-label="Status" class="d-flex flex-column justify-content-between">
-                    <mat-chip-option>Status one</mat-chip-option>
-                    <mat-chip-option>Status two</mat-chip-option>
-                    <mat-chip-option>Status three</mat-chip-option>
-                    <mat-chip-option>Status four</mat-chip-option>
+                    <mat-chip-option *ngFor="let chip of chipsStatus" [value]="chip.label"  [selected]="chip.selected" (click)="onStatusSelected(chip)">{{chip.label}}</mat-chip-option>
                 </mat-chip-listbox>
             </div>
-            
-            <div class="mt-3">
-                <p class="h3">Προτεραιότητα</p>
-                <mat-chip-listbox aria-label="Priority" class="d-flex flex-column justify-content-between">
-                    <mat-chip-option>Υψηλή</mat-chip-option>
-                    <mat-chip-option>Μεσαία</mat-chip-option>
-                    <mat-chip-option>Χαμηλή</mat-chip-option>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Προτεραιότητα</p>
+                <mat-chip-listbox aria-label="Priority" class="d-flex flex-column justify-content-between" >
+                    <mat-chip-option *ngFor="let chip of chipsPriority" [value]="chip.value"  [selected]="chip.selected" (click)="onPrioritySelected(chip)">{{chip.label}}</mat-chip-option>
                 </mat-chip-listbox>
+            </div>
+            <hr>
+            <div class="mt-2 d-flex justify-content-between">
+                <div>
+                    <button mat-raised-button color="primary" (click)="onApply()">Εφαρμογή</button>
+                </div>
+                <div>
+                    <button mat-button (click)="onClear()">Καθαρισμός</button>
+                </div>
             </div>
             
         </div>
