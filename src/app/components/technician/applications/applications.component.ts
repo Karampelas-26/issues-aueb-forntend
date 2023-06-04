@@ -78,12 +78,14 @@ export class ApplicationsComponent implements OnInit{
   }
 
 
-
-  onApply(){
+  getData(){
     this.techService.getApplicationsFiltered(this.autoCompleteForm.value, this.selectedBuilding, this.selectedStatus, this.selectedPriority).subscribe({
       next: res => this.dataTable.refreshData(res),
       error: err => console.error(err)
     })
+  }
+  onApply(){
+    this.getData();
     this.sidenav.close();
   }
 
@@ -94,6 +96,7 @@ export class ApplicationsComponent implements OnInit{
     this.chipsStatus.forEach(chip => chip.selected = false);
     this.chipsPriority.forEach(chip => chip.selected = false);
     this.selectedStatus = '';
+    this.getData();
   }
 
   onStatusSelected(option: any):void {
