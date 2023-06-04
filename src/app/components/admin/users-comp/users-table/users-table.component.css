@@ -1,0 +1,8 @@
+.full-width-table {
+  width: 100%;
+}
+
+.table-container {
+  overflow: auto;
+  max-width: 100%;
+}

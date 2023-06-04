@@ -12,6 +12,8 @@ export class ApplicationsComponent implements OnInit{
   
  value = '';
 
+ filter = 'filters'
+
  myControl = new FormControl();
  options: string[] = [
   'Α11', 'Α12', 'Α13', 'Α14',

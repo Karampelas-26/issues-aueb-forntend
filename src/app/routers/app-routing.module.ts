@@ -10,7 +10,7 @@ import { AuthGuard } from '../guard/auth.guard';
 import { UnauthrorizedComponent } from '../components/unauthrorized/unauthrorized.component';
 import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password.component';
 import { DashboardComponent } from '../components/admin/dashboard/dashboard.component';
-import { UsersComponent } from '../components/admin/users/users.component';
+import { UsersComponent } from '../components/admin/users-comp/users/users.component';
 import { NewUserComponent } from '../components/admin/new-user/new-user.component';
 import { EquipmentComponent } from '../components/admin/equipment/equipment.component';
 import { BuildingComponent } from '../components/admin/building/building.component';

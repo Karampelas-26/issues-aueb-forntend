@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { ForgotPasswordRequest } from '../interface/ForgotPasswordRequest';
 import { ResetPasswordRequest } from '../interface/ResetPasswordRequest';
 import { ActivateAccount } from '../interface/ActivateAccount';
-import { CreateUser } from '../interface/CreateUser';
 
 @Injectable({
   providedIn: 'root'
@@ -31,16 +30,22 @@ export class AuthenticationService {
   private loggedIn!: boolean;
   
   constructor(private http: HttpClient, private router: Router) {
-    this.loggedIn = !!localStorage.getItem("loggedIn");
+    let temp = localStorage.getItem("loggedIn");
+    if(temp == null) {
+      this.loggedIn = false;
+      localStorage.setItem("loggedIn", String(false))
+    }
+    this.loggedIn = temp === "true"? true: false;
+    this.isLoggedInSubject.next(this.loggedIn)
   }
   
   public setLoggedInStatus(status: boolean) {
-    this.loggedIn = status;
     localStorage.setItem("loggedIn", String(status));
     this.isLoggedInSubject.next(status);
   }
 
   public getLoggedIn(){
+    console.log("getLoggedIn: " + this.loggedIn)
     return this.loggedIn;
   }
 
@@ -80,10 +85,18 @@ export class AuthenticationService {
     if(storedToken) {
       token = JSON.parse(storedToken);
     } 
-    if (!this.loggedIn) {
+    if (this.loggedIn) {
+      console.log(this.loggedIn)
       console.log('User is not authenticated');
       this.router.navigate(['/login'])
       return;
+    } 
+    else {
+      if(this.isExpired()){
+        console.log('Token is expired');
+        this.router.navigate(['/login'])
+        return;
+      }
     }
 
     const role = this.jwt.decodeToken(token).authorities[0];
