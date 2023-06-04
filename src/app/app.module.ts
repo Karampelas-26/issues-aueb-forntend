@@ -36,7 +36,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { ApplicationsComponent } from './components/technician/applications/applications.component';
-import { IssuesComponent } from './components/admin/issues/issues.component';
+import { IssuesComponent } from './components/admin/issues-comp/issues/issues.component';
 import { StatisticsComponent } from './components/admin/statistics-panel/statistics/statistics.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
@@ -59,6 +59,7 @@ import { UsersTableComponent } from './components/admin/users-comp/users-table/u
 import { DatePipe } from '@angular/common';
 import { EditUserModalComponent } from './components/admin/users-comp/edit-user-modal/edit-user-modal.component';
 import { VerifyDeleteModalComponent } from './components/admin/users-comp/verify-delete-modal/verify-delete-modal.component';
+import { IssuesTableComponent } from './components/admin/issues-comp/issues-table/issues-table.component';
 
 @NgModule({
   declarations: [
@@ -86,6 +87,7 @@ import { VerifyDeleteModalComponent } from './components/admin/users-comp/verify
     UsersTableComponent,
     EditUserModalComponent,
     VerifyDeleteModalComponent,
+    IssuesTableComponent,
     
   ],
   imports: [

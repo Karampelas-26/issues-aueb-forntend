@@ -31,11 +31,13 @@ export class AuthenticationService {
   
   constructor(private http: HttpClient, private router: Router) {
     let temp = localStorage.getItem("loggedIn");
+    console.log("temp on read from constructor is: " + temp)
     if(temp == null) {
       this.loggedIn = false;
       localStorage.setItem("loggedIn", String(false))
     }
     this.loggedIn = temp === "true"? true: false;
+    console.log("loggedin from constructor is: " + this.loggedIn)
     this.isLoggedInSubject.next(this.loggedIn)
   }
   
