@@ -8,7 +8,7 @@ export class TeacherService {
 
   constructor(private http: HttpClient) { }
 
-  private url = "http://localhost:8080/teacher/getApplications";
+  private url = "http://localhost:8080/teacher/";
 
   private httpOptions = {
     headers: new HttpHeaders({

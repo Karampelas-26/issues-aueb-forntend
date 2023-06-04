@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginCredentials } from 'src/app/interface/LoginCredentials';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     
@@ -42,6 +43,9 @@ export class LoginComponent implements OnInit {
         this.auth.redirectUser();
       },
       error: (err) => {
+        this.snackBar.open('Error: ' + err.error.message, "Close", {
+          duration: 3000
+        });
         console.error(err);
       }
     });

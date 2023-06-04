@@ -15,7 +15,6 @@ export class AuthInterceptor implements HttpInterceptor {
           Authorization: `Bearer ${storedToken}`
         }
       });
-      console.log(request);
     }
     
     return next.handle(request);

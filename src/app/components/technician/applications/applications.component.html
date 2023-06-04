@@ -13,13 +13,26 @@
             <p class="h2">Φίλτρα<mat-icon class="ms-2">tune</mat-icon></p>
             <div class="mt-3">
                 <p class="h3">Αίθουσα</p>
-                <mat-form-field appearance="outline">
-                    <mat-label>Αναζητήστε αίθουσα</mat-label>
-                    <input matInput type="text" [(ngModel)]="value">
-                    <button  matSuffix mat-icon-button>
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-form-field>
+                <form>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Αίθουσα</mat-label>
+                      <input type="text"
+                             placeholder="Επιλέξτε αίθουσα"
+                             aria-label="room"
+                             matInput
+                             [formControl]="myControl"
+                             [matAutocomplete]="auto">
+                        <button  matSuffix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+                  
             </div>
 
             <div>
@@ -42,8 +55,6 @@
             </div>
             
         </div>
-
-
     </mat-sidenav>
     <mat-sidenav-content>
         <div class="container-fluid p-5">
@@ -52,7 +63,7 @@
                 <p class="h2 me-4">Αιτήσεις</p>
                 <button mat-raised-button color="primary" (click)="sidenav.toggle()">
                     Φίλτρα
-                    <mat-icon>tune</mat-icon>
+                    <mat-icon matSuffix>tune</mat-icon>
                 </button>
             </div>
         
