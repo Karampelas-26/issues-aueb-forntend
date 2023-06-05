@@ -21,4 +21,9 @@ export class CommitteeService {
     console.log(userForm);
     return this.http.post(`${this.url}create-user`, userForm, this.httpOptions);
   }
+
+  getBuilding(){
+    console.log();
+    return this.http.get(`${this.url}getBuilding`,this.httpOptions);
+  }
 }

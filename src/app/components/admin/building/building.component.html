@@ -3,19 +3,25 @@
       Προσθήκη κτηρίου
       <mat-icon>location_city</mat-icon>
   </button>
-  <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
+  <div *ngFor="let res of request; let i = index" class="flex-column p-3 m-3 justify-content-evenly wrapper">
+    <mat-accordion >
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            Self aware panel
-          </mat-panel-title>
-          <mat-panel-description>
-            Currently I am 
-          </mat-panel-description>
+          <mat-panel-title>{{res.name}}</mat-panel-title>
         </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
+          <div *ngFor="let x of counter(res.floors);let i = index">
+            <p class="h3">{{i+1}}ος όροφος</p>
+            <mat-divider></mat-divider>
+            <div *ngFor="let site of res.sites">
+              <div *ngIf = " i+1 == site.floor">
+                
+                
+                <li>{{site.name}}</li>
+              </div>          
+            </div>
+          </div> 
       </mat-expansion-panel>
     </mat-accordion>
+  </div>
 </div>
 
