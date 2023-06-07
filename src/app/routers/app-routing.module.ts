@@ -25,11 +25,11 @@ const routes: Routes = [
   {path: "technician", component: ApplicationsComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TECHNICIAN'}},
   {path: "teacher", component:TeacherComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
   {
-    path: 'admin', 
-    component: DashboardComponent, 
+    path: 'admin',
+    component: DashboardComponent,
     loadChildren: () => AdminRoutingModule,
-    canActivate: [AuthGuard], 
-    data: {expectedAuthority: 'ROLE_ADMIN'}
+    canActivate: [AuthGuard],
+    data: {expectedAuthority: 'ROLE_COMMITTEE'}
   },
   {path: 'unauthorized', component: UnauthrorizedComponent},
   {path: 'activate', component: ActivateComponent}

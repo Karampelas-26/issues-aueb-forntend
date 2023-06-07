@@ -5,9 +5,9 @@
 
             <button mat-raised-button matBadge="5" matBadgeColor="warn" color="primary" class="me-3">
                 Notifications
-            </button> 
+            </button>
             <button mat-fab color="warn" class="me-3"><mat-icon>crisis_alert</mat-icon>
-            </button> 
+            </button>
         </div>
         <!-- inputs for new issue -->
         <div class="d-flex flex-column justify-content-center p-5 m-0 background-issue-form">
@@ -29,7 +29,7 @@
                     <mat-icon>search</mat-icon>
                 </button>
             </mat-form-field>
-            
+
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε είδος βλάβης</mat-label>
@@ -57,7 +57,7 @@
             </mat-form-field>
 
             <div>
-                <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>                  
+                <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>
             </div>
 
         </div>
@@ -70,7 +70,7 @@
 
                 <!-- <p class="h2 w-100">Αίθουσες με βλάβες</p> -->
                 <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <button mat-button (click)="previousPage()"><mat-icon class="arrow">arrow_back_ios</mat-icon></button>
+                    <button mat-icon-button (click)="previousPage()"><mat-icon >arrow_back_ios</mat-icon></button>
                     <div class="quick-view-wrapper">
                         <div class="quick-view" *ngFor="let issue of selectedIssues">
                             <span>{{issue.class}}</span>
@@ -78,7 +78,7 @@
                             <span class="border border-0 rounded-pill ps-2 pe-2 m-0" style="background-color:{{issue.color}}">{{issue.status}}</span>
                         </div>
                     </div>
-                    <button mat-button (click)="nextPage()"><mat-icon class="arrow">arrow_forward_ios</mat-icon></button>
+                    <button mat-icon-button (click)="nextPage()"><mat-icon>arrow_forward_ios</mat-icon></button>
                 </div>
             </div>
         </div>

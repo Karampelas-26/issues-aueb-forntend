@@ -13,9 +13,8 @@ export class EditUserModalComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<EditUserModalComponent>,@Inject(MAT_DIALOG_DATA) public data: any){}
   ngOnInit(): void {
     this.originalData = this.data;
-    console.log(this.originalData.email)
   }
-  
+
   saveData():void {
     this.dialogRef.close({data: this.data, saveData: true});
   }

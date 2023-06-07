@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     
     this.isLoggedIn = this.auth.getLoggedIn();
-    console.log("this is in ngoninit: " + this.isLoggedIn)
 
     this.auth.isLoggedIn$.subscribe((status: boolean) => {
       this.isLoggedIn = status;

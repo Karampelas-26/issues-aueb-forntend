@@ -6,11 +6,6 @@ import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
 import { Application } from 'src/app/interface/Application';
 import { TechnicianService } from 'src/app/services/technician.service';
 
-/**
- * Data source for the DataTable view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
 export class DataTableDataSource extends DataSource<Application> {
   data: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
   paginator: MatPaginator | undefined;
@@ -50,10 +45,10 @@ export class DataTableDataSource extends DataSource<Application> {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
-  
+
     const sortState: Sort = { active: this.sort.active, direction: this.sort.direction };
     const sortedData = data.slice();
-  
+
     // Perform sorting based on the active sort state
     sortedData.sort((a, b) => {
       const isAsc = sortState.direction === 'asc';
@@ -82,10 +77,10 @@ export class DataTableDataSource extends DataSource<Application> {
           return 0;
       }
     });
-  
+
     return sortedData;
   }
-  
+
   refreshData(applications: Application[]) {
     this.data.next(applications);
   }
@@ -93,6 +88,7 @@ export class DataTableDataSource extends DataSource<Application> {
   initData(): void {
     this.technicianService.getApplications().subscribe({
       next: (applications: Application[]) => {
+        console.table(applications)
         this.data.next(applications);
       },
       error: (err) => {

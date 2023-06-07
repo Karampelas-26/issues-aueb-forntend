@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ForgotPasswordRequest } from 'src/app/interface/ForgotPasswordRequest';
 import { ResetPasswordRequest } from 'src/app/interface/ResetPasswordRequest';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -26,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit{
 
   isLoggedIn!: boolean;
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     
@@ -56,7 +57,9 @@ export class ForgotPasswordComponent implements OnInit{
 
   onResetPassword() {
     if(this.checkPassword === this.resetPassword.password) {
-      //todo bale na bgazei mhnuma error
+      this.snackBar.open('Error: Οι κωδικοί πρόσβασης δεν ταιριάζουν.', "Close", {
+        duration: 3000
+      });
       console.error("Οι κωδικοί πρόσβασης δεν ταιριάζουν.")
     }
     this.resetPassword.email = this.forgotPassword.email;

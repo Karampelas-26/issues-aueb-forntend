@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Application } from '../interface/Application';
 import { Observable } from 'rxjs';
+import {User} from "../interface/User";
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { Observable } from 'rxjs';
 export class TechnicianService {
 
   private url = "http://localhost:8080/technician/";
+  private commonUrl = "http://localhost:8080/common/"
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -21,19 +23,19 @@ export class TechnicianService {
   constructor(private http: HttpClient) {}
 
   getApplications(): Observable<Application[]> {
-    return this.http.get<Application[]>(`${this.url}getAllApplications`, this.httpOptions);
+    return this.http.get<Application[]>(`${this.commonUrl}getAllApplications`, this.httpOptions);
   }
 
   getAllSitesNames() {
-    return this.http.get(`${this.url}getSitesName`, this.httpOptions);
+    return this.http.get(`${this.commonUrl}getSitesName`, this.httpOptions);
   }
 
   getBuildingsName() {
-    return this.http.get(`${this.url}getBuildingsName`, this.httpOptions);
+    return this.http.get(`${this.commonUrl}getBuildingsName`, this.httpOptions);
   }
 
   getBuildingsSitesName(){
-    return this.http.get(`${this.url}getBuildinsSitesName`, this.httpOptions);
+    return this.http.get(`${this.commonUrl}getBuildingsSitesName`, this.httpOptions);
   }
 
   getApplicationsFiltered(site: string, building: string, status: string, priority: string): Observable<Application[]> {
@@ -41,7 +43,7 @@ export class TechnicianService {
     console.log(httpOptionsTemp.params)
 
     if(site !== '' && site !== null){
-      httpOptionsTemp.params = httpOptionsTemp.params.set('site_name', site); 
+      httpOptionsTemp.params = httpOptionsTemp.params.set('site_name', site);
     }
     if( priority !== '' && priority !== null){
       httpOptionsTemp.params = httpOptionsTemp.params.set('priority', priority);
@@ -53,6 +55,24 @@ export class TechnicianService {
       httpOptionsTemp.params = httpOptionsTemp.params.set('buildingName', building);
     }
     console.log(httpOptionsTemp.params)
-    return this.http.get<Application[]>(`${this.url}filtered-applications-s-values`, httpOptionsTemp);
+    return this.http.get<Application[]>(`${this.commonUrl}filtered-applications-s-values`, httpOptionsTemp);
+  }
+
+  completeApplication(id: string) {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('id', id);
+    return this.http.get(`${this.commonUrl}completeApplication`, httpOptionsTemp);
+  }
+
+  getTechnicians(issueType: string): Observable<User[]> {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('issue_type', issueType);
+    return this.http.get<User[]>(`${this.url}getUsersByTechTeam`, httpOptionsTemp);
+  }
+
+  getUsersInComments(usersIdOfComments: string[]): Observable<User[]> {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('usersIds', usersIdOfComments.join(','));
+    return this.http.get<User[]>(`${this.commonUrl}getUsersByIds`,httpOptionsTemp);
   }
 }

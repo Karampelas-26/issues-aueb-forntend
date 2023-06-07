@@ -1,7 +1,100 @@
-<p>Επεξεργασία αίτησης</p>
-<mat-dialog-content>
+<div class="container-fluid pt-2 pe-0 ps-0 pb-0" style="width: 800px">
+  <div class="d-flex justify-content-between align-items-center  h-100 w-100 border-bottom">
+    <p class="h3 ps-4">Επεξεργασία αίτησης</p>
+    <button mat-icon-button><mat-icon>close</mat-icon></button>
+  </div>
+  <div class="d-flex justify-content-between m-0 p-0">
 
-</mat-dialog-content>
-<mat-dialog-actions>
-    
-</mat-dialog-actions>
+    <div class="p-4">
+      <p class="h4">Τίτλος</p>
+      <p>{{data.title}}</p>
+
+      <p class="h4">Τεχνικός Εξοπλισμός</p>
+      <p>{{data.issueType}}</p>
+
+      <p class="h4">Κτήριο</p>
+      <p>{{data.buildingName}}</p>
+
+      <p class="h4">Αίθουσα</p>
+      <p>{{data.siteName}}</p>
+
+      <p class="h4">Ημερομηνία δήλωσης</p>
+      <p>{{data.createDate | date: 'dd/MM/yyyy'}}</p>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Περιγραφή</mat-label>
+        <textarea matInput placeholder="Περιγραφή βλάβης...">{{data.description}}</textarea>
+      </mat-form-field>
+
+      <div class="border-1">
+        <p *ngFor="let comment of data.comments">{{comment.content}}</p>
+      </div>
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title></mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+
+    </div>
+
+    <div class="bg-secondary m-0 p-4 d-flex flex-column justify-content-between">
+
+      <div class="d-flex flex-column">
+
+        <mat-form-field class="pt-1">
+          <mat-label>Εντολοδόχος</mat-label>
+          <mat-select placeholder="Επιλέξτε εντολοδόχο" [(ngModel)]="data.assigneeTechId">
+            <mat-option *ngFor="let tech of technicians" [value]="tech.id">
+              {{tech.lastname + " " + tech.firstname}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="pt-1">
+          <mat-label>Προτεραιότητα</mat-label>
+          <mat-select placeholder="Επιλέξτε προτεραιότητα" [(ngModel)]="data.priority">
+            <mat-option value="LOW">Χαμηλή</mat-option>
+            <mat-option value="MEDIUM">Μέτρια</mat-option>
+            <mat-option value="HIGH">Υψηλή</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="p-1">
+          <mat-label>Select a date</mat-label>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="data.dueDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+      <div class="d-flex justify-content-between">
+        <button mat-raised-button color="accent">Save</button>
+        <button mat-button >Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!--export interface Application {-->
+<!--id: string,-->
+<!--title: string,-->
+<!--siteName: string,-->
+<!--status: string,-->
+<!--buildingName: string,-->
+<!--priority: string,-->
+<!--createDate: Date,-->
+<!--assigneeTechId: string,-->
+<!--comments: Comment[],-->
+<!--description: string,-->
+<!--issueType: string,-->
+<!--dueDate: Date-->
+<!--}-->

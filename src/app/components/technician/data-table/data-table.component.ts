@@ -6,6 +6,10 @@ import { DataTableDataSource } from './data-table-datasource';
 import { Application } from 'src/app/interface/Application';
 import { TechnicianService } from 'src/app/services/technician.service';
 import { DatePipe } from '@angular/common';
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {EditUserModalComponent} from "../../admin/users-comp/edit-user-modal/edit-user-modal.component";
+import {MatDialog} from "@angular/material/dialog";
+import {EditApplicationComponent} from "../edit-application/edit-application.component";
 
 @Component({
   selector: 'app-data-table',
@@ -19,11 +23,11 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   dataSource: DataTableDataSource;
 
   priority: { [key: string]: string } = {
-    LOW: 'expand_more', 
+    LOW: 'expand_more',
     MEDIUM: 'drag_handle',
     HIGH: 'expand_less'
   };
-  
+
   statusColors: { [key: string]: string } = {
     CREATED: 'rgba(4, 102, 200, 0.7)', //blue
     REJECTED: 'rgba(208, 0, 0, 0.7)', //red
@@ -33,9 +37,9 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     ARCHIVED: 'rgba(191, 192, 192, 0.7)' //gray
   };
 
-  displayedColumns = ['id', 'title', 'siteName', 'buildingName', 'status', 'priority',  'description', 'issueType', 'createDate','dueDate'];
+  displayedColumns = ['title', 'siteName', 'buildingName', 'status', 'priority',  'issueType', 'createDate','dueDate', 'actions'];
 
-  constructor(private techService: TechnicianService, private datePipe: DatePipe) {
+  constructor(private techService: TechnicianService, private datePipe: DatePipe, private snackBar: MatSnackBar, private dialog: MatDialog) {
     this.dataSource = new DataTableDataSource(this.techService);
 
   }
@@ -51,5 +55,29 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   refreshData(applications: Application[]){
     this.dataSource.refreshData(applications);
+  }
+
+  onComplete(id: string) {
+    this.techService.completeApplication(id).subscribe({
+      next: (res: any) => {
+        this.dataSource.initData();
+        this.snackBar.open('Application with id: '+ id + " " + res.message, "Close", {
+          duration: 3000
+        });
+        console.log(res.message)
+      },
+      error: err => {
+        this.snackBar.open('Error: ' , "Close", {
+          duration: 3000
+        });
+        console.error(err)
+      }
+    })
+  }
+
+  onEdit(row: Application) {
+    let dialogRef = this.dialog.open(EditApplicationComponent, {
+      data: {...row}
+    });
   }
 }

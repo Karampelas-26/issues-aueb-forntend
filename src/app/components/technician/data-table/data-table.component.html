@@ -1,17 +1,13 @@
+<script src="data-table.component.ts"></script>
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource.data" matSort aria-label="Elements">
-    <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
-    </ng-container>
-    
+
     <!-- Name Column -->
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Τίτλος</th>
       <td mat-cell *matCellDef="let row">{{row.title}}</td>
     </ng-container>
-    
+
     <!-- siteName Column -->
     <ng-container matColumnDef="siteName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Αίθουσα</th>
@@ -23,7 +19,7 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Κτήριο</th>
       <td mat-cell *matCellDef="let row">{{row.buildingName}}</td>
     </ng-container>
-    
+
     <!-- status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Κατάσταση</th>
@@ -35,7 +31,7 @@
 
       </td>
     </ng-container>
-    
+
     <!-- priority Column -->
     <ng-container matColumnDef="priority">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Προτεραιότητα</th>
@@ -44,13 +40,7 @@
         </mat-icon>
       </td>
     </ng-container>
-    
-    <!-- description Column -->
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Περιγραφή</th>
-      <td mat-cell *matCellDef="let row">{{row.description}}</td>
-    </ng-container>
-    
+
     <!-- issueType Column -->
     <ng-container matColumnDef="issueType">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Είδος βλάβης</th>
@@ -68,12 +58,25 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Ημερομηνία λήξης</th>
       <td mat-cell *matCellDef="let row">{{row.dueDate | date: 'dd/MM/yyyy'}}</td>
     </ng-container>
-    
-    
+
+    <!-- actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="onComplete(row.id)">
+          <mat-icon>check</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onEdit(row)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+
   <mat-paginator #paginator
     [length]="dataSource.data.value.length"
     [pageIndex]="0"

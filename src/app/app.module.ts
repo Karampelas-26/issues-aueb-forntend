@@ -8,14 +8,14 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatInputModule} from '@angular/material/input'; 
+import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import {MatBadgeModule} from '@angular/material/badge'; 
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatTableModule} from '@angular/material/table'; 
+import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatRadioModule} from '@angular/material/radio';
@@ -24,9 +24,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatListModule } from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatDialogModule} from '@angular/material/dialog'; 
-import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
 
 
 import { AppRoutingModule } from './routers/app-routing.module';
@@ -59,6 +62,7 @@ import { DatePipe } from '@angular/common';
 import { EditUserModalComponent } from './components/admin/users-comp/edit-user-modal/edit-user-modal.component';
 import { VerifyDeleteModalComponent } from './components/admin/users-comp/verify-delete-modal/verify-delete-modal.component';
 import { IssuesTableComponent } from './components/admin/issues-comp/issues-table/issues-table.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -87,7 +91,7 @@ import { IssuesTableComponent } from './components/admin/issues-comp/issues-tabl
     EditUserModalComponent,
     VerifyDeleteModalComponent,
     IssuesTableComponent,
-    
+
   ],
   imports: [
     BrowserModule,
@@ -119,11 +123,15 @@ import { IssuesTableComponent } from './components/admin/issues-comp/issues-tabl
     ReactiveFormsModule,
     MatSnackBarModule,
     MatSortModule,
-    
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule
+
   ],
   providers: [
     MatTableDataSource,
-    JwtHelperService, 
+    JwtHelperService,
     DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
