@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {CreateBuilding} from "../interface/Create-building";
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class CommitteeService {
     return this.http.post(`${this.url}createBuilding`,buildingForm,this.httpOptions);
   }
 
-  createSite(siteForm:any){
+  createSite(siteForm: CreateBuilding){
     return this.http.post(`${this.url}createSites`,siteForm,this.httpOptions);
   }
 }

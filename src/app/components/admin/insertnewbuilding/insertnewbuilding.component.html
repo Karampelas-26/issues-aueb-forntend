@@ -1,49 +1,74 @@
 <div mat-dialog-content>
-    <div align="right"> 
+    <div align="right">
     <button mat-icon-button color="dark" mat-dialog-close align="right">
         <mat-icon>close</mat-icon>
     </button>
     </div>
     <p class = "h2">Προσθήκη κτηρίου</p>
     <div class="flex-row justify-content-center p-3 m-3 wrapper">
-           
-       <mat-form-field appearance = "outline" class="m-3"> 
+
+       <mat-form-field appearance = "outline" class="m-3">
            <mat-label>Όνομα κτηρίου</mat-label>
-           <input matInput [(ngModel)] = "CreateBuildingForm.name" >
+           <input matInput [(ngModel)] = "buildingName" >
        </mat-form-field>
-       <mat-form-field appearance = "outline"> 
+       <mat-form-field appearance = "outline">
         <mat-label>Διεύθυνση κτηρίου</mat-label>
-        <input matInput [(ngModel)] = "CreateBuildingForm.address" >
+        <input matInput [(ngModel)] = "buildingAddress" >
         </mat-form-field>
        <button mat-raised-button  color="primary" (click) = "createfloorComponent()" class="m-3">
            Προσθήκη ορόφου
            <mat-icon matSuffix>stairs</mat-icon>
        </button>
-        
-    </div>
-    <div class="InsertForm">
-        <div *ngFor="let floor of floors; let y = index" class="InsertForm flex-column p-3 m-3 justify-content-evenly wrapper">
-            <div *ngIf = "floor != 0">
-                <p class="h4">{{y+1}}ος όροφος</p><!--//ΤΟDO:button for adding site -->
-                <button mat-raised-button (click) = "handleKeyUp(y)">Προσθήκη αίθουσας</button>
-                <mat-divider></mat-divider>
-                <div *ngFor="let value of counter(floor); let i = index"  class="flex column p-3 m-0 wrapper">
-                    <mat-form-field appearance = "outline" > 
-                       <mat-label>Όνομα αίθουσας</mat-label>
-                       <input matInput (keyup.enter)="handleKeyUp(y)" [(ngModel)] = "createSiteForm.name">  
-                       <button matSuffix mat-icon-button (click) = "removeValue(i,y)"><mat-icon >close</mat-icon></button>
-                   </mat-form-field>
-                </div>
 
-            </div>
-        </div>
-        <div class = "bottom flex-row justify-content-center">
-            <button mat-raised-button class="complete-btn" md-color="#4CAF50" (click) = "completeAddingBuilding()">
-                Ολοκλήρωση
-            </button>
-            <button mat-raised-button  class="close-btn  m-3" mat-dialog-close>
-               Ακύρωση
-            </button>
-        </div>
     </div>
+    <div class="">
+      <div *ngFor="let floor of siteOnFlors | keyvalue">
+        <p class="h4">{{floor.key + 1 }}ος όροφος</p>
+<!--        <button mat-raised-button (click) = "onAddSiteFromFloor(floor.key)">Προσθήκη αίθουσας</button>-->
+        <div *ngFor="let site of floor.value">
+          <mat-form-field appearance = "outline" >
+            <mat-label>Όνομα αίθουσας</mat-label>
+            <input matInput #siteName (keyup.enter)="onAddSite(floor.key, siteName.value)" [value]="site">
+            <button matSuffix mat-icon-button (click) = "removeValue(floor.key,site)"><mat-icon >close</mat-icon></button>
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance = "outline" >
+          <mat-label>Όνομα αίθουσας</mat-label>
+          <input matInput #siteName (keyup.enter)="onAddSite(floor.key, siteName.value); siteName.value=''" >
+        </mat-form-field>
+      </div>
+      <div class = "bottom d-flex p-3">
+          <button mat-raised-button class="complete-btn"(click) = "completeAddingBuilding()">
+              Ολοκλήρωση
+          </button>
+          <button mat-raised-button  class="close-btn ms-3" mat-dialog-close>
+             Ακύρωση
+          </button>
+      </div>
+    </div>
+<!--    <div class="InsertForm">-->
+<!--        <div *ngFor="let floor of floors; let y = index" class="InsertForm flex-column p-3 m-3 justify-content-evenly wrapper">-->
+<!--            <div *ngIf = "floor != 0">-->
+<!--                <p class="h4">{{y+1}}ος όροφος</p>&lt;!&ndash;//ΤΟDO:button for adding site &ndash;&gt;-->
+<!--                <button mat-raised-button (click) = "handleKeyUp(y)">Προσθήκη αίθουσας</button>-->
+<!--                <mat-divider></mat-divider>-->
+<!--                <div *ngFor="let value of counter(floor); let i = index"  class="flex column p-3 m-0 wrapper">-->
+<!--                    <mat-form-field appearance = "outline" >-->
+<!--                       <mat-label>Όνομα αίθουσας</mat-label>-->
+<!--                       <input matInput #siteName (keyup.enter)="onAddSite(y, siteName.value)">-->
+<!--                       <button matSuffix mat-icon-button (click) = "removeValue(i,y)"><mat-icon >close</mat-icon></button>-->
+<!--                   </mat-form-field>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class = "bottom flex-row justify-content-center">-->
+<!--            <button mat-raised-button class="complete-btn" md-color="#4CAF50" (click) = "completeAddingBuilding()">-->
+<!--                Ολοκλήρωση-->
+<!--            </button>-->
+<!--            <button mat-raised-button  class="close-btn  m-3" mat-dialog-close>-->
+<!--               Ακύρωση-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
