@@ -24,7 +24,6 @@ export class CommitteeService {
   }
 
   getBuilding(){
-    console.log();
     return this.http.get(`${this.url}getBuilding`,this.httpOptions);
   }
 
@@ -34,5 +33,9 @@ export class CommitteeService {
 
   createSite(siteForm: CreateBuilding){
     return this.http.post(`${this.url}createSites`,siteForm,this.httpOptions);
+  }
+
+  getEquipment(){
+    return this.http.get(`${this.url}getEquipment`,this.httpOptions);
   }
 }

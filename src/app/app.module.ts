@@ -54,6 +54,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { InsertnewbuildingComponent } from './components/admin/insertnewbuilding/insertnewbuilding.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AddfloorComponent } from './components/admin/addfloor/addfloor.component';
+import { EquipmentDataTableComponent } from './components/admin/equipment-data-table/equipment-data-table.component';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { AddfloorComponent } from './components/admin/addfloor/addfloor.componen
     ActivateComponent,
     InsertnewbuildingComponent,
     AddfloorComponent,
+    EquipmentDataTableComponent,
   ],
   imports: [
     BrowserModule,
