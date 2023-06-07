@@ -10,7 +10,7 @@
           <mat-panel-title>{{res.name}}</mat-panel-title>
         </mat-expansion-panel-header>
           <div *ngFor="let x of counter(res.floors);let i = index">
-            <p class="h2">{{i+1}}ος όροφος</p>
+            <p class="h4">{{i+1}}ος όροφος</p>
             <mat-divider></mat-divider>
             <div *ngFor="let site of res.sites">
               <div *ngIf = " i+1 == site.floor">

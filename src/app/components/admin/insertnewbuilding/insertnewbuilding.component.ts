@@ -87,7 +87,7 @@ export class InsertnewbuildingComponent implements OnInit{
       for(let sitename of value) {
         sites.push( {
           name: sitename,
-          floor: key.toString()
+          floor: (key+1).toString()
         })
       }
     }

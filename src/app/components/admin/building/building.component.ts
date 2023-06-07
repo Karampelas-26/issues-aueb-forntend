@@ -20,11 +20,20 @@ export class BuildingComponent implements OnInit{
 
   
   ngOnInit(){
+    this.getRequest();
+    this.request = [];
+  }
+
+  getRequest():void {
+    this.request =[];
     this.committee.getBuilding().subscribe({
       next:(res:any) =>{
-        console.log("building");
+        
         for(const key in res){
-          this.request.push(res[key]);
+          if(!this.request.includes(res[key],0)){
+            this.request.push(res[key]);
+          }
+            
         }
         
         console.log(this.request);
@@ -52,5 +61,12 @@ export class BuildingComponent implements OnInit{
       enterAnimationDuration,
       exitAnimationDuration,
     });
+
+   this.dialog.afterAllClosed.subscribe({
+    next: (result) =>{
+      this.getRequest();
+    }
+
+    })
   }
 }
