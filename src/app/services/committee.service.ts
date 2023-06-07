@@ -26,4 +26,12 @@ export class CommitteeService {
     console.log();
     return this.http.get(`${this.url}getBuilding`,this.httpOptions);
   }
+
+  createBuilding(buildingForm:any){
+    return this.http.post(`${this.url}createBuilding`,buildingForm,this.httpOptions);
+  }
+
+  createSite(siteForm:any){
+    return this.http.post(`${this.url}createSites`,siteForm,this.httpOptions);
+  }
 }

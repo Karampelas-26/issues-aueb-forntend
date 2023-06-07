@@ -1,8 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { InsertnewbuildingComponent } from '../insertnewbuilding/insertnewbuilding.component';
 import { CommitteeService } from 'src/app/services/committee.service';
+
 
 @Component({
   selector: 'app-building',
@@ -16,6 +18,7 @@ export class BuildingComponent implements OnInit{
 
   request:any[]=[];
 
+  
   ngOnInit(){
     this.committee.getBuilding().subscribe({
       next:(res:any) =>{
@@ -44,7 +47,7 @@ export class BuildingComponent implements OnInit{
   }
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(InsertnewbuildingComponent , {
-      width: '750px',
+      width: '800px',
       height:'700px',
       enterAnimationDuration,
       exitAnimationDuration,
