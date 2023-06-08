@@ -79,5 +79,13 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     let dialogRef = this.dialog.open(EditApplicationComponent, {
       data: {...row}
     });
+
+    dialogRef.afterClosed().subscribe({
+      next: value => {
+        if(value){
+          this.dataSource.initData();
+        }
+      }
+    })
   }
 }

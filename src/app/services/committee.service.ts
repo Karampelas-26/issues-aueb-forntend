@@ -11,7 +11,7 @@ export class CommitteeService {
 
   private url = "http://localhost:8080/committee/";
 
-  private commonUrl = "http://localhost:8080/common-technician-committee/"
+  private commonUrl = "http://localhost:8080/common/"
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -41,7 +41,7 @@ export class CommitteeService {
   getUsers(): Observable<User[]>  {
     return this.http.get<User[]>(`${this.url}get-users`, this.httpOptions);
   }
-  
+
   updateUser(user: User) {
     return this.http.put(`${this.url}update-user`, user, this.httpOptions);
   }
@@ -73,7 +73,7 @@ export class CommitteeService {
     console.log(httpOptionsTemp.params)
 
     if(site !== '' && site !== null){
-      httpOptionsTemp.params = httpOptionsTemp.params.set('site_name', site); 
+      httpOptionsTemp.params = httpOptionsTemp.params.set('site_name', site);
     }
     if( priority !== '' && priority !== null){
       httpOptionsTemp.params = httpOptionsTemp.params.set('priority', priority);
@@ -88,4 +88,25 @@ export class CommitteeService {
     return this.http.get<Application[]>(`${this.commonUrl}filtered-applications-s-values`, httpOptionsTemp);
   }
 
+  completeApplication(id: string) {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('id', id);
+    return this.http.get(`${this.commonUrl}completeApplication`, httpOptionsTemp);
+  }
+
+  getTechnicians(issueType: string): Observable<User[]> {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('issue_type', issueType);
+    return this.http.get<User[]>(`${this.commonUrl}getUsersByTechTeam`, httpOptionsTemp);
+  }
+
+  getUsersInComments(usersIdOfComments: string[]): Observable<User[]> {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('usersIds', usersIdOfComments.join(','));
+    return this.http.get<User[]>(`${this.commonUrl}getUsersByIds`,httpOptionsTemp);
+  }
+
+  updateApplication(data: Application): Observable<Application> {
+    return this.http.put<Application>(`${this.commonUrl}update`, data, this.httpOptions);
+  }
 }

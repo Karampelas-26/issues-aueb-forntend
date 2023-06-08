@@ -1,18 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {User} from "../../../../interface/User";
+import {Comment} from "../../../../interface/Comment";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Application} from "../../../interface/Application";
+import {Application} from "../../../../interface/Application";
 import {DatePipe} from "@angular/common";
-import {User} from "../../../interface/User";
-import {Comment} from "../../../interface/Comment";
-import {TechnicianService} from "../../../services/technician.service";
-import positioners from "chart.js/dist/plugins/plugin.tooltip";
+import {TechnicianService} from "../../../../services/technician.service";
+import {CommitteeService} from "../../../../services/committee.service";
 
 @Component({
-  selector: 'app-edit-application',
-  templateUrl: './edit-application.component.html',
-  styleUrls: ['./edit-application.component.css']
+  selector: 'app-edit-application-committee',
+  templateUrl: './edit-application-committee.component.html',
+  styleUrls: ['./edit-application-committee.component.css']
 })
-export class EditApplicationComponent implements OnInit {
+export class EditApplicationCommitteeComponent {
 
   selectedDate!: Date;
 
@@ -21,14 +21,14 @@ export class EditApplicationComponent implements OnInit {
   usersInComment: User[] = [];
   commentsWithUsers: { comment: Comment, user: User }[] = [];
   newComment = '';
-  constructor(private dialogRef: MatDialogRef<EditApplicationComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private technicianService: TechnicianService) {}
+  constructor(private dialogRef: MatDialogRef<EditApplicationCommitteeComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private committeeService: CommitteeService) {}
   ngOnInit(): void {
     let usersIdOfComments: string[] = [];
     for(let comment of this.data.comments){
       usersIdOfComments.push(comment.user);
     }
     console.log(usersIdOfComments)
-    this.technicianService.getUsersInComments(usersIdOfComments).subscribe({
+    this.committeeService.getUsersInComments(usersIdOfComments).subscribe({
       next: (usersC: User[]) => {
         this.usersInComment = usersC;
         for(let comment of this.data.comments){
@@ -41,7 +41,7 @@ export class EditApplicationComponent implements OnInit {
 
       }, error: err => console.error(err)
     })
-    this.technicianService.getTechnicians(this.data.issueType).subscribe({
+    this.committeeService.getTechnicians(this.data.issueType).subscribe({
       next: (techs: User[]) => {
         this.technicians = techs;
         console.table(techs)
@@ -58,7 +58,7 @@ export class EditApplicationComponent implements OnInit {
     if(this.data.assigneeTechId){
       this.data.status = "ASSIGNED";
     }
-    this.technicianService.updateApplication(this.data).subscribe({
+    this.committeeService.updateApplication(this.data).subscribe({
       next: (application: Application) => console.log(application),
       error: err => console.error(err)
     });
@@ -68,6 +68,4 @@ export class EditApplicationComponent implements OnInit {
   onCancel() {
     this.dialogRef.close(false)
   }
-
-
 }

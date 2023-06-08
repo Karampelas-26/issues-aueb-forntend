@@ -97,6 +97,12 @@ export class ApplicationsComponent implements OnInit{
     this.chipsPriority.forEach(chip => chip.selected = false);
     this.selectedStatus = '';
     this.getData();
+    this.techService.getAllSitesNames().subscribe({
+      next: (res: any) => {
+        this.options = res;
+      },
+      error: err => console.error(err)
+    });
   }
 
   onStatusSelected(option: any):void {

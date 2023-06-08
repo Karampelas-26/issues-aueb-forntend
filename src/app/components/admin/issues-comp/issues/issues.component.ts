@@ -96,6 +96,12 @@ export class IssuesComponent {
     this.chipsPriority.forEach(chip => chip.selected = false);
     this.selectedStatus = '';
     this.getData();
+    this.committeeService.getAllSitesNames().subscribe({
+      next: (res: any) => {
+        this.options = res;
+      },
+      error: err => console.error(err)
+    });
   }
 
   onStatusSelected(option: any):void {

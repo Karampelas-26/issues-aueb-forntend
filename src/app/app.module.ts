@@ -63,6 +63,7 @@ import { EditUserModalComponent } from './components/admin/users-comp/edit-user-
 import { VerifyDeleteModalComponent } from './components/admin/users-comp/verify-delete-modal/verify-delete-modal.component';
 import { IssuesTableComponent } from './components/admin/issues-comp/issues-table/issues-table.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { EditApplicationCommitteeComponent } from './components/admin/issues-comp/edit-application-committee/edit-application-committee.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     EditUserModalComponent,
     VerifyDeleteModalComponent,
     IssuesTableComponent,
+    EditApplicationCommitteeComponent,
 
   ],
   imports: [
