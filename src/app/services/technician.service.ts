@@ -1,16 +1,15 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interface/User';
-import { Observable } from 'rxjs';
 import { Application } from '../interface/Application';
+import { Observable } from 'rxjs';
+import {User} from "../interface/User";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommitteeService {
+export class TechnicianService {
 
-  private url = "http://localhost:8080/committee/";
-
+  private url = "http://localhost:8080/technician/";
   private commonUrl = "http://localhost:8080/common/"
 
   private httpOptions = {
@@ -23,34 +22,9 @@ export class CommitteeService {
 
   constructor(private http: HttpClient) {}
 
-
-  //endpoints for users
-
-  createUser(userForm: any) {
-    console.log(userForm);
-    return this.http.post(`${this.url}create-user`, userForm, this.httpOptions);
+  getApplications(): Observable<Application[]> {
+    return this.http.get<Application[]>(`${this.commonUrl}getAllApplications`, this.httpOptions);
   }
-
-  uploadUsersCSV(users: FormData) {
-    let headers = new HttpHeaders();
-    headers.append('Content-Type','multipart/form-data');
-    headers.append('Accept', 'application/json');
-    return this.http.post(`${this.url}upload-users`, users, {headers: headers});
-  }
-
-  getUsers(): Observable<User[]>  {
-    return this.http.get<User[]>(`${this.url}get-users`, this.httpOptions);
-  }
-
-  updateUser(user: User) {
-    return this.http.put(`${this.url}update-user`, user, this.httpOptions);
-  }
-
-  deleteUser(userId: string) {
-    return this.http.delete(`${this.url}delete-user/${userId}`, this.httpOptions);
-  }
-
-  //endpoints about issues
 
   getAllSitesNames() {
     return this.http.get(`${this.commonUrl}getSitesName`, this.httpOptions);
@@ -62,10 +36,6 @@ export class CommitteeService {
 
   getBuildingsSitesName(){
     return this.http.get(`${this.commonUrl}getBuildingsSitesName`, this.httpOptions);
-  }
-
-  getApplications(): Observable<Application[]> {
-    return this.http.get<Application[]>(`${this.commonUrl}getAllApplications`, this.httpOptions);
   }
 
   getApplicationsFiltered(site: string, building: string, status: string, priority: string): Observable<Application[]> {

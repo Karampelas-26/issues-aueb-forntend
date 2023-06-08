@@ -1,27 +1,26 @@
+import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { DataTableDataSource } from './data-table-datasource';
 import { Application } from 'src/app/interface/Application';
-import { TechnicianService } from 'src/app/services/technician.service';
-import { DatePipe } from '@angular/common';
+import { CommitteeService } from 'src/app/services/committee.service';
+import { IssuesTableDataSource } from './issues-table-datasource';
+import {EditApplicationComponent} from "../../../technician/edit-application/edit-application.component";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {EditUserModalComponent} from "../../admin/users-comp/edit-user-modal/edit-user-modal.component";
 import {MatDialog} from "@angular/material/dialog";
-import {EditApplicationComponent} from "../edit-application/edit-application.component";
+import {EditApplicationCommitteeComponent} from "../edit-application-committee/edit-application-committee.component";
 
 @Component({
-  selector: 'app-data-table',
-  templateUrl: './data-table.component.html',
-  styleUrls: ['./data-table.component.css']
+  selector: 'app-issues-table',
+  templateUrl: './issues-table.component.html',
+  styleUrls: ['./issues-table.component.css']
 })
-export class DataTableComponent implements AfterViewInit, OnInit {
+export class IssuesTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<Application>;
-  dataSource: DataTableDataSource;
-
+  dataSource: IssuesTableDataSource;
   priority: { [key: string]: string } = {
     LOW: 'expand_more',
     MEDIUM: 'drag_handle',
@@ -37,14 +36,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
     ARCHIVED: 'rgba(191, 192, 192, 0.7)' //gray
   };
 
-  displayedColumns = ['title', 'siteName', 'buildingName', 'status', 'priority',  'issueType', 'createDate','dueDate', 'actions'];
+  displayedColumns = ['title', 'siteName', 'buildingName', 'status', 'priority', 'issueType', 'createDate','dueDate', 'actions'];
 
-  constructor(private techService: TechnicianService, private datePipe: DatePipe, private snackBar: MatSnackBar, private dialog: MatDialog) {
-    this.dataSource = new DataTableDataSource(this.techService);
+  constructor(private committeeService: CommitteeService, private datePipe: DatePipe, private snackBar: MatSnackBar, private dialog: MatDialog) {
+    this.dataSource = new IssuesTableDataSource(this.committeeService);
 
   }
   ngOnInit(): void {
-    this.dataSource.initData();
+    this.dataSource.initdData();
   }
 
   ngAfterViewInit(): void {
@@ -58,9 +57,9 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   }
 
   onComplete(id: string) {
-    this.techService.completeApplication(id).subscribe({
+    this.committeeService.completeApplication(id).subscribe({
       next: (res: any) => {
-        this.dataSource.initData();
+        this.dataSource.initdData();
         this.snackBar.open('Application with id: '+ id + " " + res.message, "Close", {
           duration: 3000
         });
@@ -76,14 +75,14 @@ export class DataTableComponent implements AfterViewInit, OnInit {
   }
 
   onEdit(row: Application) {
-    let dialogRef = this.dialog.open(EditApplicationComponent, {
+    let dialogRef = this.dialog.open(EditApplicationCommitteeComponent, {
       data: {...row}
     });
 
     dialogRef.afterClosed().subscribe({
       next: value => {
         if(value){
-          this.dataSource.initData();
+          this.dataSource.initdData();
         }
       }
     })

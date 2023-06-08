@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { IssuesComponent } from '../components/admin/issues/issues.component';
+import { IssuesComponent } from '../components/admin/issues-comp/issues/issues.component';
 import { RouterModule, Routes } from '@angular/router';
 import { StatisticsComponent } from '../components/admin/statistics-panel/statistics/statistics.component';
 import { UsersComponent } from '../components/admin/users-comp/users/users.component';

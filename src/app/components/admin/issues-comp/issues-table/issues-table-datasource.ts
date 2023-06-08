@@ -3,19 +3,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
+import { Application } from 'src/app/interface/Application';
 import { CommitteeService } from 'src/app/services/committee.service';
-import { User } from 'src/app/interface/User';
 
-export class UsersTableDataSource extends DataSource<User> {
-  data: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+export class IssuesTableDataSource extends DataSource<Application> {
+  data: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
   paginator: MatPaginator | undefined;
-  sort!: MatSort;
+  sort: MatSort | undefined;
 
   constructor(private committeeService: CommitteeService) {
     super();
   }
 
-  connect(): Observable<User[]> {
+  connect(): Observable<Application[]> {
     if (this.paginator && this.sort) {
       return merge(this.data, this.paginator.page, this.sort.sortChange)
         .pipe(
@@ -30,10 +30,9 @@ export class UsersTableDataSource extends DataSource<User> {
     }
   }
 
-
   disconnect(): void {}
 
-  private getPagedData(data: User[]): User[] {
+  private getPagedData(data: Application[]): Application[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -42,7 +41,7 @@ export class UsersTableDataSource extends DataSource<User> {
     }
   }
 
-  private getSortedData(data: User[]): User[] {
+  private getSortedData(data: Application[]): Application[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -56,22 +55,24 @@ export class UsersTableDataSource extends DataSource<User> {
       switch (sortState.active) {
         case 'id':
           return compare(a.id, b.id, isAsc);
-        case 'email':
-          return compare(a.email, b.email, isAsc);
-        case 'firstname':
-          return compare(a.firstname, b.firstname, isAsc);
-        case 'lastname':
-          return compare(a.lastname, b.lastname, isAsc);
-        case 'phone':
-          return compare(a.phone, b.phone, isAsc);
-        case 'address':
-          return compare(a.address, b.address, isAsc);
-        case 'gender':
-          return compare(a.gender, b.gender, isAsc);
-        case 'role':
-          return compare(a.role, b.role, isAsc);
-        case 'creationDate':
-          return compare(a.creationDate, b.creationDate, isAsc);
+        case 'title':
+          return compare(a.title, b.title, isAsc);
+        case 'siteName':
+          return compare(a.siteName, b.siteName, isAsc);
+        case 'status':
+          return compare(a.status, b.status, isAsc);
+        case 'buildingName':
+          return compare(a.buildingName, b.buildingName, isAsc);
+        case 'priority':
+          return compare(a.priority, b.priority, isAsc);
+        case 'description':
+          return compare(a.description, b.description, isAsc);
+        case 'issueType':
+          return compare(a.issueType, b.issueType, isAsc);
+        case 'createDate':
+          return compare(a.createDate, b.createDate, isAsc);
+        case 'dueDate':
+          return compare(a.dueDate, b.dueDate, isAsc);
         default:
           return 0;
       }
@@ -79,13 +80,21 @@ export class UsersTableDataSource extends DataSource<User> {
   
     return sortedData;
   }
+  
+  refreshData(applications: Application[]) {
+    this.data.next(applications);
+  }
 
-  initData(): void {
-    this.committeeService.getUsers().subscribe({
-      next: (users: User[]) => {
-        this.data.next(users);
+  initdData(): void {
+    this.committeeService.getApplications().subscribe({
+      next: (applications: Application[]) => {
+        console.table(applications)
+        this.data.next(applications);
+        console.log("dww tha prepei na eisaia");
       },
       error: (err) => {
+        // console.log("dww tha prepei na eisaia");
+        
         console.error(err);
       }
     });
@@ -103,4 +112,3 @@ function compare(a: string | number | Date, b: string | number | Date, isAsc: bo
     return 0;
   }
 }
-

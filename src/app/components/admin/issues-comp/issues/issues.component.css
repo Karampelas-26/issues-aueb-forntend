@@ -1,0 +1,7 @@
+mat-sidenav-container {
+    height: 100%;
+}
+
+.sidenav-width {
+    max-width: 360px;
+}

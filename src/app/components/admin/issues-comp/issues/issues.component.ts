@@ -3,18 +3,17 @@ import {FormControl} from '@angular/forms';
 import { MatSidenav } from '@angular/material/sidenav';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { TechnicianService } from 'src/app/services/technician.service';
-import { DataTableComponent } from '../data-table/data-table.component';
-
+import { IssuesTableComponent } from '../issues-table/issues-table.component';
+import { CommitteeService } from 'src/app/services/committee.service';
 
 @Component({
-  selector: 'app-applications',
-  templateUrl: './applications.component.html',
-  styleUrls: ['./applications.component.css']
+  selector: 'app-issues',
+  templateUrl: './issues.component.html',
+  styleUrls: ['./issues.component.css']
 })
-export class ApplicationsComponent implements OnInit{
+export class IssuesComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
-  @ViewChild(DataTableComponent) dataTable!: DataTableComponent;
+  @ViewChild(IssuesTableComponent) dataTable!: IssuesTableComponent;
 
   value = '';
 
@@ -43,7 +42,7 @@ export class ApplicationsComponent implements OnInit{
   options: string[] = [];
   filteredOptions!: Observable<string[]>;
 
-  constructor(private techService: TechnicianService){}
+  constructor(private committeeService: CommitteeService){}
 
   ngOnInit() {
     this.filteredOptions = this.autoCompleteForm.valueChanges.pipe(
@@ -51,21 +50,21 @@ export class ApplicationsComponent implements OnInit{
       map((value: any) => this._filter(value || '')),
     );
 
-    this.techService.getAllSitesNames().subscribe({
+    this.committeeService.getAllSitesNames().subscribe({
       next: (res: any) => {
         this.options = res;
       },
       error: err => console.error(err)
     });
 
-    this.techService.getBuildingsName().subscribe({
+    this.committeeService.getBuildingsName().subscribe({
         next: (res: any) => {
           this.buildings = res;
         },
         error: err => console.error(err)
       });
 
-    this.techService.getBuildingsSitesName().subscribe({
+    this.committeeService.getBuildingsSitesName().subscribe({
       next: (res: any) => this.buildingSitesNames = new Map<string, string[]>(Object.entries(res)),
       error: err => console.error(err)
     })
@@ -79,7 +78,7 @@ export class ApplicationsComponent implements OnInit{
 
 
   getData(){
-    this.techService.getApplicationsFiltered(this.autoCompleteForm.value, this.selectedBuilding, this.selectedStatus, this.selectedPriority).subscribe({
+    this.committeeService.getApplicationsFiltered(this.autoCompleteForm.value, this.selectedBuilding, this.selectedStatus, this.selectedPriority).subscribe({
       next: res => this.dataTable.refreshData(res),
       error: err => console.error(err)
     })
@@ -97,7 +96,7 @@ export class ApplicationsComponent implements OnInit{
     this.chipsPriority.forEach(chip => chip.selected = false);
     this.selectedStatus = '';
     this.getData();
-    this.techService.getAllSitesNames().subscribe({
+    this.committeeService.getAllSitesNames().subscribe({
       next: (res: any) => {
         this.options = res;
       },
@@ -127,4 +126,3 @@ export class ApplicationsComponent implements OnInit{
     }
   }
 }
-

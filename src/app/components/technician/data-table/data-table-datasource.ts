@@ -1,69 +1,38 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
+import { Application } from 'src/app/interface/Application';
+import { TechnicianService } from 'src/app/services/technician.service';
 
-export interface IssuseDataTable {
-  id: string;
-  application: string;
-  building: string;
-  room: string;
-  status: string;
-  priority: string;
-  assignee: string;
-}
-
-const ISSUES_DATA: IssuseDataTable[] = [
-  {id: "49588", application: "Βλάβη προτζέκτορα", building: "marsaleio megaro",room: "Α32", status: "Προς ανάθεση", priority: "Υψηλή", assignee: "Γιάννης Κ"},
-  {id: "49588", application: "Βλάβη προτζέκτορα", building: "marsaleio megaro",room: "Α32", status: "Προς ανάθεση", priority: "Υψηλή", assignee: "Γιάννης Κ"},
-  {id: "49588", application: "Βλάβη προτζέκτορα", building: "marsaleio megaro",room: "Α32", status: "Προς ανάθεση", priority: "Υψηλή", assignee: "Γιάννης Κ"},
-  {id: "49588", application: "Βλάβη προτζέκτορα", building: "marsaleio megaro",room: "Α32", status: "Προς ανάθεση", priority: "Υψηλή", assignee: "Γιάννης Κ"},
-];
-
-/**
- * Data source for the DataTable view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
-export class DataTableDataSource extends DataSource<IssuseDataTable> {
-  data: IssuseDataTable[] = ISSUES_DATA;
+export class DataTableDataSource extends DataSource<Application> {
+  data: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
-  constructor() {
+  constructor(private technicianService: TechnicianService) {
     super();
   }
 
-  /**
-   * Connect this data source to the table. The table will only update when
-   * the returned stream emits new items.
-   * @returns A stream of the items to be rendered.
-   */
-  connect(): Observable<IssuseDataTable[]> {
+  connect(): Observable<Application[]> {
     if (this.paginator && this.sort) {
-      // Combine everything that affects the rendered data into one update
-      // stream for the data-table to consume.
-      return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
-        .pipe(map(() => {
-          return this.getPagedData(this.getSortedData([...this.data ]));
-        }));
+      return merge(this.data, this.paginator.page, this.sort.sortChange)
+        .pipe(
+          map(() => {
+            let sortedData = this.getSortedData([...this.data.value]);
+            sortedData = this.getPagedData(sortedData);
+            return sortedData;
+          })
+        );
     } else {
       throw Error('Please set the paginator and sort on the data source before connecting.');
     }
   }
 
-  /**
-   *  Called when the table is being destroyed. Use this function, to clean up
-   * any open connections or free any held resources that were set up during connect.
-   */
   disconnect(): void {}
 
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getPagedData(data: IssuseDataTable[]): IssuseDataTable[] {
+  private getPagedData(data: Application[]): Application[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -72,27 +41,72 @@ export class DataTableDataSource extends DataSource<IssuseDataTable> {
     }
   }
 
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getSortedData(data: IssuseDataTable[]): IssuseDataTable[] {
+  private getSortedData(data: Application[]): Application[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
 
-    return data.sort((a, b) => {
-      const isAsc = this.sort?.direction === 'asc';
-      switch (this.sort?.active) {
-        // case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        default: return 0;
+    const sortState: Sort = { active: this.sort.active, direction: this.sort.direction };
+    const sortedData = data.slice();
+
+    // Perform sorting based on the active sort state
+    sortedData.sort((a, b) => {
+      const isAsc = sortState.direction === 'asc';
+      switch (sortState.active) {
+        case 'id':
+          return compare(a.id, b.id, isAsc);
+        case 'title':
+          return compare(a.title, b.title, isAsc);
+        case 'siteName':
+          return compare(a.siteName, b.siteName, isAsc);
+        case 'status':
+          return compare(a.status, b.status, isAsc);
+        case 'buildingName':
+          return compare(a.buildingName, b.buildingName, isAsc);
+        case 'priority':
+          return compare(a.priority, b.priority, isAsc);
+        case 'description':
+          return compare(a.description, b.description, isAsc);
+        case 'issueType':
+          return compare(a.issueType, b.issueType, isAsc);
+        case 'createDate':
+          return compare(a.createDate, b.createDate, isAsc);
+        case 'dueDate':
+          return compare(a.dueDate, b.dueDate, isAsc);
+        default:
+          return 0;
+      }
+    });
+
+    return sortedData;
+  }
+
+  refreshData(applications: Application[]) {
+    this.data.next(applications);
+  }
+
+  initData(): void {
+    this.technicianService.getApplications().subscribe({
+      next: (applications: Application[]) => {
+        console.table(applications)
+        this.data.next(applications);
+      },
+      error: (err) => {
+        console.error(err);
       }
     });
   }
 }
 
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a: string | number, b: string | number, isAsc: boolean): number {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+function compare(a: string | number | Date, b: string | number | Date, isAsc: boolean): number {
+  if (typeof a === 'string' && typeof b === 'string') {
+    return (a.localeCompare(b)) * (isAsc ? 1 : -1);
+  } else if (typeof a === 'number' && typeof b === 'number') {
+    return (a - b) * (isAsc ? 1 : -1);
+  } else if (a instanceof Date && b instanceof Date) {
+    return (a.getTime() - b.getTime()) * (isAsc ? 1 : -1);
+  } else {
+    return 0;
+  }
 }
+

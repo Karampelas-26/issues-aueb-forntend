@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../components/login/login.component';
 import { ApplicationsComponent } from '../components/technician/applications/applications.component';
-import { IssuesComponent } from '../components/admin/issues/issues.component';
+import { IssuesComponent } from '../components/admin/issues-comp/issues/issues.component';
 import { StatisticsComponent } from '../components/admin/statistics-panel/statistics/statistics.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { TeacherComponent } from '../components/teacher/teacher.component';
@@ -25,11 +25,11 @@ const routes: Routes = [
   {path: "technician", component: ApplicationsComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TECHNICIAN'}},
   {path: "teacher", component:TeacherComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
   {
-    path: 'admin', 
-    component: DashboardComponent, 
+    path: 'admin',
+    component: DashboardComponent,
     loadChildren: () => AdminRoutingModule,
-    canActivate: [AuthGuard], 
-    data: {expectedAuthority: 'ROLE_ADMIN'}
+    canActivate: [AuthGuard],
+    data: {expectedAuthority: 'ROLE_COMMITTEE'}
   },
   {path: 'unauthorized', component: UnauthrorizedComponent},
   {path: 'activate', component: ActivateComponent}

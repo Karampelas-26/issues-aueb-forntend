@@ -5,9 +5,9 @@
 
             <button mat-raised-button matBadge="5" matBadgeColor="warn" color="primary" class="me-3">
                 Notifications
-            </button> 
+            </button>
             <button mat-fab color="warn" class="me-3"><mat-icon>crisis_alert</mat-icon>
-            </button> 
+            </button>
         </div>
         <!-- inputs for new issue -->
         <div class="d-flex flex-column justify-content-center p-5 m-0 background-issue-form">
@@ -15,49 +15,51 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε κτήριο</mat-label>
-                <mat-select>
-                <mat-option value="one">Μαρσάλειο Μέγαρο</mat-option>
-                <mat-option value="two">Τροίας</mat-option>
-                <mat-option value="three">Κεφαλληνίας</mat-option>
+                <mat-select (selectionChange)="onBuildingSelected($event.value)" [(ngModel)]="buildingName">
+                <mat-option *ngFor="let building of buildingsWithSites | keyvalue" [value]="building.key">{{building.key}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Αναζητήστε αίθουσα</mat-label>
-                <input matInput type="text" [(ngModel)]="value">
-                <button  matSuffix mat-icon-button>
-                    <mat-icon>search</mat-icon>
-                </button>
+              <mat-label>Αίθουσα</mat-label>
+              <input type="text"
+                     placeholder="Επιλέξτε αίθουσα"
+                     aria-label="room"
+                     matInput
+                     [formControl]="autoCompleteForm"
+                     [matAutocomplete]="auto">
+              <button  matSuffix mat-icon-button>
+                <mat-icon>search</mat-icon>
+              </button>
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
             </mat-form-field>
-            
+
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε είδος βλάβης</mat-label>
-                <mat-select>
-                    <mat-option value="one">Ηλεκτρολογική</mat-option>
-                    <mat-option value="two">Τεχνική</mat-option>
+                <mat-select [(ngModel)]="typeIssue">
+                    <mat-option *ngFor="let issue of issueTypes" [value]="issue">{{issue}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε τεχνικό εξοπλισμό</mat-label>
-                <mat-select>
-                    <mat-option value="one">Προτζέκτορα</mat-option>
-                    <mat-option value="two">HDMI</mat-option>
+                <mat-select [(ngModel)]="equipment">
+                    <mat-option *ngFor="let equip of equipments" [value]="equip">{{equip.typeOfEquipment}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Είδος βλάβης</mat-label>
-                <mat-select placeholder="Επιλέξτε είδος βλάβης">
-                    <mat-option value="one">Κακή επαφή HDMI</mat-option>
-                    <mat-option value="two">Δεν ανταποκρίνεται το HDMI</mat-option>
-                    <mat-option value="trhe">Άλλο</mat-option>
-                </mat-select>
+              <mat-label>Περιγραφή</mat-label>
+              <textarea matInput placeholder="Περιγραφή βλάβης..." [(ngModel)]="description"></textarea>
             </mat-form-field>
 
             <div>
-                <button mat-raised-button class="mt-2" color="primary">Δήλωση βλάβης</button>                  
+                <button mat-raised-button class="mt-2" color="primary" (click)="onSubmit()">Δήλωση βλάβης</button>
             </div>
 
         </div>
@@ -70,7 +72,7 @@
 
                 <!-- <p class="h2 w-100">Αίθουσες με βλάβες</p> -->
                 <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-                    <button mat-button (click)="previousPage()"><mat-icon class="arrow">arrow_back_ios</mat-icon></button>
+                    <button mat-icon-button (click)="previousPage()"><mat-icon >arrow_back_ios</mat-icon></button>
                     <div class="quick-view-wrapper">
                         <div class="quick-view" *ngFor="let issue of selectedIssues">
                             <span>{{issue.class}}</span>
@@ -78,7 +80,7 @@
                             <span class="border border-0 rounded-pill ps-2 pe-2 m-0" style="background-color:{{issue.color}}">{{issue.status}}</span>
                         </div>
                     </div>
-                    <button mat-button (click)="nextPage()"><mat-icon class="arrow">arrow_forward_ios</mat-icon></button>
+                    <button mat-icon-button (click)="nextPage()"><mat-icon>arrow_forward_ios</mat-icon></button>
                 </div>
             </div>
         </div>
