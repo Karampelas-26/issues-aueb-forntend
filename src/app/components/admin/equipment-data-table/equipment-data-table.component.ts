@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
-import { IssuseDataTable } from '../../technician/data-table/data-table-datasource';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { EquipmentDataTableSource } from './equipment-data-tableSource';
 import { CommitteeService } from 'src/app/services/committee.service';
 import { Observable } from 'rxjs';
+import {DataTableDataSource} from "../../technician/data-table/data-table-datasource";
 
 
 @Component({
@@ -16,11 +16,11 @@ import { Observable } from 'rxjs';
 export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<IssuseDataTable>;
-  
+  @ViewChild(MatTable) table!: MatTable<DataTableDataSource>;
+
   dataSource:EquipmentDataTableSource;
   data:any[]=
-  [  
+  [
     {typeOfEquipment: 'Προτζεκτορας', buildingName: null, siteName: null},
     {typeOfEquipment: 'Πίνακας', buildingName: null, siteName: null},
     {typeOfEquipment: 'Ethernet', buildingName: null, siteName: null},
@@ -35,7 +35,7 @@ export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
   constructor(private committee: CommitteeService){
     console.log(this.data);
     this.dataSource = new EquipmentDataTableSource(this.data);
-    
+
   }
 
 
@@ -47,20 +47,20 @@ export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
     const observable = this.committee.getEquipment();
     observable.subscribe({
       next:(res:any) =>{
-        
+
         for(const key in res){
-          
+
           this.data.push(res[key]);
-          
-            
+
+
         }
-        
+
         console.log(this.data);
       },
       error: (err) =>{
         console.error(err.error.message);
       }
-    
+
     })
   }
 
