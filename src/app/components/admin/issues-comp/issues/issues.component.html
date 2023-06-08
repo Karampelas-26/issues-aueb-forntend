@@ -1,0 +1,89 @@
+<mat-sidenav-container class="vh-100" >
+    <mat-sidenav #sidenav [fixedInViewport]="true" class="sidenav-width" >
+        
+        <div class="m-4">
+            <p class="h3">Φίλτρα<mat-icon class="ms-2">tune</mat-icon></p>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Αίθουσα</p>
+                <form>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Αίθουσα</mat-label>
+                      <input type="text"
+                             placeholder="Επιλέξτε αίθουσα"
+                             aria-label="room"
+                             matInput
+                             [formControl]="autoCompleteForm"
+                             [matAutocomplete]="auto">
+                        <button  matSuffix mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+                  
+            </div>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Κτήριο</p>
+                <mat-form-field appearance = "outline" >
+                    <mat-label>Επιλέξτε κτήριο</mat-label>
+                    <mat-select (selectionChange)="onBuildingSelected($event.value)" [(ngModel)]="selectedBuilding">
+                      <mat-option *ngFor="let building of buildings" [value]="building">
+                        {{ building }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+            </div>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Καταστάσεις</p>
+                <mat-chip-listbox aria-label="Status" class="d-flex flex-column justify-content-between">
+                    <mat-chip-option *ngFor="let chip of chipsStatus" [value]="chip.label"  [selected]="chip.selected" (click)="onStatusSelected(chip)">{{chip.label}}</mat-chip-option>
+                </mat-chip-listbox>
+            </div>
+            <hr>
+            <div class="mt-2 mb-2">
+                <p class="h4">Προτεραιότητα</p>
+                <mat-chip-listbox aria-label="Priority" class="d-flex flex-column justify-content-between" >
+                    <mat-chip-option *ngFor="let chip of chipsPriority" [value]="chip.value"  [selected]="chip.selected" (click)="onPrioritySelected(chip)">{{chip.label}}</mat-chip-option>
+                </mat-chip-listbox>
+            </div>
+            <hr>
+            <div class="mt-2 d-flex justify-content-between">
+                <div>
+                    <button mat-raised-button color="primary" (click)="onApply()">Εφαρμογή</button>
+                </div>
+                <div>
+                    <button mat-button (click)="onClear()">Καθαρισμός</button>
+                </div>
+            </div>
+            
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container-fluid p-5">
+
+            <div class="d-flex flex-row">
+                <p class="h2 me-4">Αιτήσεις</p>
+                <button mat-raised-button color="primary" (click)="sidenav.toggle()">
+                    Φίλτρα
+                    <mat-icon matSuffix>tune</mat-icon>
+                </button>
+            </div>
+        
+            <div>
+              <app-issues-table></app-issues-table>
+            </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+  
+
+
+
+

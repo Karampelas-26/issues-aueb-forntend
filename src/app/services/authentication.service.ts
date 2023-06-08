@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { ForgotPasswordRequest } from '../interface/ForgotPasswordRequest';
 import { ResetPasswordRequest } from '../interface/ResetPasswordRequest';
 import { ActivateAccount } from '../interface/ActivateAccount';
-import { CreateUser } from '../interface/CreateUser';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class AuthenticationService {
   private url = "http://localhost:8080/auth/";
 
   private isLoggedInSubject: Subject<boolean> = new Subject<boolean>;
-  isLoggedIn$ = this.isLoggedInSubject.asObservable(); 
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   private httpOptions = {
     headers: new HttpHeaders({
@@ -29,14 +28,20 @@ export class AuthenticationService {
   private jwt = new JwtHelperService();
 
   private loggedIn!: boolean;
-  
+
   constructor(private http: HttpClient, private router: Router) {
-    this.loggedIn = !!localStorage.getItem("loggedIn");
+    let temp = localStorage.getItem("loggedIn");
+    if(temp == null) {
+      this.loggedIn = false;
+      localStorage.setItem("loggedIn", String(false))
+    }
+    this.loggedIn = temp === "true"? true: false;
+    this.isLoggedInSubject.next(this.loggedIn)
   }
-  
+
   public setLoggedInStatus(status: boolean) {
-    this.loggedIn = status;
     localStorage.setItem("loggedIn", String(status));
+    this.loggedIn = true;
     this.isLoggedInSubject.next(status);
   }
 
@@ -61,7 +66,7 @@ export class AuthenticationService {
   }
 
   forgotPassword(email: ForgotPasswordRequest) {
-    return this.http.post(`${this.url}forgotPassword`, email, this.httpOptions); 
+    return this.http.post(`${this.url}forgotPassword`, email, this.httpOptions);
   }
 
   resetPassword(reset: ResetPasswordRequest) {
@@ -79,17 +84,24 @@ export class AuthenticationService {
 
     if(storedToken) {
       token = JSON.parse(storedToken);
-    } 
+    }
     if (!this.loggedIn) {
-      console.log('User is not authenticated');
+      console.error('User is not authenticated');
       this.router.navigate(['/login'])
       return;
+    }
+    else {
+      if(this.isExpired()){
+        console.error('Token is expired');
+        this.router.navigate(['/login'])
+        return;
+      }
     }
 
     const role = this.jwt.decodeToken(token).authorities[0];
 
     switch (role) {
-      case 'ROLE_ADMIN':
+      case 'ROLE_COMMITTEE':
         this.router.navigate(['/admin/issues']);
         break;
       case 'ROLE_TEACHER':

@@ -5,5 +5,6 @@ export interface CreateUser {
     lastname: string,
     gender: string,
     address: string,
-    role: string
+    role: string,
+    technicianTeam: string
 }
