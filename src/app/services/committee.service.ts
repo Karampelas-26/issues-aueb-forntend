@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../interface/User';
 import { Observable } from 'rxjs';
 import { Application } from '../interface/Application';
+import {CreateBuilding} from "../interface/Create-building";
 
 @Injectable({
   providedIn: 'root'
@@ -108,5 +109,21 @@ export class CommitteeService {
 
   updateApplication(data: Application): Observable<Application> {
     return this.http.put<Application>(`${this.commonUrl}update`, data, this.httpOptions);
+  }
+
+  getBuilding(){
+    return this.http.get(`${this.url}getBuilding`,this.httpOptions);
+  }
+
+  createBuilding(buildingForm:any){
+    return this.http.post(`${this.url}createBuilding`,buildingForm,this.httpOptions);
+  }
+
+  createSite(siteForm: CreateBuilding){
+    return this.http.post(`${this.url}createSites`,siteForm,this.httpOptions);
+  }
+
+  getEquipment(){
+    return this.http.get(`${this.url}getEquipment`,this.httpOptions);
   }
 }

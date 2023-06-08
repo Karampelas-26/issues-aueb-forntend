@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+import { MatExpansionModule } from '@angular/material/expansion';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
@@ -30,6 +31,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 
 import { AppRoutingModule } from './routers/app-routing.module';
@@ -56,13 +58,15 @@ import { NewissueComponent } from './components/admin/newissue/newissue.componen
 import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { InsertnewbuildingComponent } from './components/admin/insertnewbuilding/insertnewbuilding.component';
+import { AddfloorComponent } from './components/admin/addfloor/addfloor.component';
+import { EquipmentDataTableComponent } from './components/admin/equipment-data-table/equipment-data-table.component';
 import { EditApplicationComponent } from './components/technician/edit-application/edit-application.component';
 import { UsersTableComponent } from './components/admin/users-comp/users-table/users-table.component';
 import { DatePipe } from '@angular/common';
 import { EditUserModalComponent } from './components/admin/users-comp/edit-user-modal/edit-user-modal.component';
 import { VerifyDeleteModalComponent } from './components/admin/users-comp/verify-delete-modal/verify-delete-modal.component';
 import { IssuesTableComponent } from './components/admin/issues-comp/issues-table/issues-table.component';
-import {MatDatepickerModule} from "@angular/material/datepicker";
 import { EditApplicationCommitteeComponent } from './components/admin/issues-comp/edit-application-committee/edit-application-committee.component';
 
 @NgModule({
@@ -86,6 +90,10 @@ import { EditApplicationCommitteeComponent } from './components/admin/issues-com
     BuildingComponent,
     NewissueComponent,
     SemesterProgramComponent,
+    ActivateComponent,
+    InsertnewbuildingComponent,
+    AddfloorComponent,
+    EquipmentDataTableComponent,
     ActivateComponent,
     EditApplicationComponent,
     UsersTableComponent,
@@ -120,6 +128,9 @@ import { EditApplicationCommitteeComponent } from './components/admin/issues-com
     MatListModule,
     MatChipsModule,
     MatTabsModule,
+    MatExpansionModule,
+    MatDialogModule,
+
     MatDialogModule,
     MatAutocompleteModule,
     ReactiveFormsModule,

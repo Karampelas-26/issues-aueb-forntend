@@ -7,7 +7,6 @@ import { Application } from 'src/app/interface/Application';
 import { TechnicianService } from 'src/app/services/technician.service';
 import { DatePipe } from '@angular/common';
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {EditUserModalComponent} from "../../admin/users-comp/edit-user-modal/edit-user-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditApplicationComponent} from "../edit-application/edit-application.component";
 

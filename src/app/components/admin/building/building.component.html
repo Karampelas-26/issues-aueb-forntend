@@ -1,1 +1,27 @@
-<p>building works!</p>
+<div class="flex-column justify-content-center p-5 m-5">
+  <button mat-raised-button color="primary" (click) = "openDialog('0ms', '0ms')">
+      Προσθήκη κτηρίου
+      <mat-icon>location_city</mat-icon>
+  </button>
+  <div *ngFor="let res of request; let i = index" class="flex-column p-3 m-3 justify-content-evenly wrapper">
+    <mat-accordion >
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{res.name}}</mat-panel-title>
+        </mat-expansion-panel-header>
+          <div *ngFor="let x of counter(res.floors);let i = index">
+            <p class="h4">{{i+1}}ος όροφος</p>
+            <mat-divider></mat-divider>
+            <div *ngFor="let site of res.sites">
+              <div *ngIf = " i+1 == site.floor">
+                
+                <!-- //TODO:επεξεργασια οροφων -->
+                <p>{{site.name}}</p>
+              </div>          
+            </div>
+          </div> 
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
