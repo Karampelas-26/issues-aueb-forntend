@@ -1,0 +1,27 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource.data" aria-label="Equipments" matSort>
+        <ng-container matColumnDef="typeOfEquipment">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Είδος εξοπλισμού</th>
+            <td mat-cell *matCellDef="let element">{{ element.typeOfEquipment }}</td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <div class="w-100 d-flex justify-content-end">
+                <button mat-icon-button><mat-icon>add</mat-icon></button>
+                <button mat-icon-button><mat-icon>delete</mat-icon></button>
+              </div>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator #paginator
+      [length]="dataSource.data.value.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+    </mat-paginator>
+ </div>

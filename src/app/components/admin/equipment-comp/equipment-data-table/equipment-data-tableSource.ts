@@ -1,13 +1,13 @@
 import { DataSource } from '@angular/cdk/collections';
+import {BehaviorSubject, merge, Observable} from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, BehaviorSubject } from 'rxjs';
-import { Application } from 'src/app/interface/Application';
-import { CommitteeService } from 'src/app/services/committee.service';
+import {MatSort, Sort} from '@angular/material/sort';
+import {CommitteeService} from "../../../../services/committee.service";
+import {map} from "rxjs/operators";
+import {Equipment} from "../../../../interface/Equipment";
 
-export class IssuesTableDataSource extends DataSource<Application> {
-  data: BehaviorSubject<Application[]> = new BehaviorSubject<Application[]>([]);
+export class EquipmentDataTableSource extends DataSource<Equipment>{
+  data: BehaviorSubject<Equipment[]> = new BehaviorSubject<Equipment[]>([]);
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -15,7 +15,7 @@ export class IssuesTableDataSource extends DataSource<Application> {
     super();
   }
 
-  connect(): Observable<Application[]> {
+  connect(): Observable<Equipment[]> {
     if (this.paginator && this.sort) {
       return merge(this.data, this.paginator.page, this.sort.sortChange)
         .pipe(
@@ -32,7 +32,7 @@ export class IssuesTableDataSource extends DataSource<Application> {
 
   disconnect(): void {}
 
-  private getPagedData(data: Application[]): Application[] {
+  private getPagedData(data: Equipment[]): Equipment[] {
     if (this.paginator) {
       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
       return data.splice(startIndex, this.paginator.pageSize);
@@ -41,7 +41,7 @@ export class IssuesTableDataSource extends DataSource<Application> {
     }
   }
 
-  private getSortedData(data: Application[]): Application[] {
+  private getSortedData(data: Equipment[]): Equipment[] {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
@@ -55,24 +55,8 @@ export class IssuesTableDataSource extends DataSource<Application> {
       switch (sortState.active) {
         case 'id':
           return compare(a.id, b.id, isAsc);
-        case 'title':
-          return compare(a.title, b.title, isAsc);
-        case 'siteName':
-          return compare(a.siteName, b.siteName, isAsc);
-        case 'status':
-          return compare(a.status, b.status, isAsc);
-        case 'buildingName':
-          return compare(a.buildingName, b.buildingName, isAsc);
-        case 'priority':
-          return compare(a.priority, b.priority, isAsc);
-        case 'description':
-          return compare(a.description, b.description, isAsc);
-        case 'issueType':
-          return compare(a.issueType, b.issueType, isAsc);
-        case 'createDate':
-          return compare(a.createDate, b.createDate, isAsc);
-        case 'dueDate':
-          return compare(a.dueDate, b.dueDate, isAsc);
+        case 'typeOfEquipment':
+          return compare(a.typeOfEquipment, b.typeOfEquipment, isAsc);
         default:
           return 0;
       }
@@ -81,15 +65,15 @@ export class IssuesTableDataSource extends DataSource<Application> {
     return sortedData;
   }
 
-  refreshData(applications: Application[]) {
+  refreshData(applications: Equipment[]) {
     this.data.next(applications);
   }
 
-  initdData(): void {
-    this.committeeService.getApplications().subscribe({
-      next: (applications: Application[]) => {
-        console.table(applications)
-        this.data.next(applications);
+  initData(): void {
+    this.committeeService.getEquipment().subscribe({
+      next: (equipments: Equipment[]) => {
+        console.table(equipments)
+        this.data.next(equipments);
       },
       error: err => console.error(err)
     });

@@ -4,6 +4,7 @@ import { User } from '../interface/User';
 import { Observable } from 'rxjs';
 import { Application } from '../interface/Application';
 import {CreateBuilding} from "../interface/Create-building";
+import {Equipment} from "../interface/Equipment";
 
 @Injectable({
   providedIn: 'root'
@@ -123,7 +124,9 @@ export class CommitteeService {
     return this.http.post(`${this.url}createSites`,siteForm,this.httpOptions);
   }
 
-  getEquipment(){
-    return this.http.get(`${this.url}getEquipment`,this.httpOptions);
+  getEquipment(): Observable<Equipment[]>{
+    return this.http.get<Equipment[]>(`${this.commonUrl}getEquipment`,this.httpOptions);
   }
 }
+
+

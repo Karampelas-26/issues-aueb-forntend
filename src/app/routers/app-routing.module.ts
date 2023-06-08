@@ -12,7 +12,7 @@ import { ForgotPasswordComponent } from '../components/forgot-password/forgot-pa
 import { DashboardComponent } from '../components/admin/dashboard/dashboard.component';
 import { UsersComponent } from '../components/admin/users-comp/users/users.component';
 import { NewUserComponent } from '../components/admin/new-user/new-user.component';
-import { EquipmentComponent } from '../components/admin/equipment/equipment.component';
+import { EquipmentComponent } from '../components/admin/equipment-comp/equipment/equipment.component';
 import { BuildingComponent } from '../components/admin/building/building.component';
 import { NewissueComponent } from '../components/admin/newissue/newissue.component';
 import { SemesterProgramComponent } from '../components/admin/semester-program/semester-program.component';
