@@ -52,7 +52,7 @@ import { UnauthrorizedComponent } from './components/unauthrorized/unauthrorized
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { BarChartComponent } from './components/admin/statistics-panel/bar-chart/bar-chart.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
-import { EquipmentComponent } from './components/admin/equipment/equipment.component';
+import { EquipmentComponent } from './components/admin/equipment-comp/equipment/equipment.component';
 import { BuildingComponent } from './components/admin/building/building.component';
 import { NewissueComponent } from './components/admin/newissue/newissue.component';
 import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
@@ -60,7 +60,7 @@ import { ActivateComponent } from './components/activate/activate.component';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { InsertnewbuildingComponent } from './components/admin/insertnewbuilding/insertnewbuilding.component';
 import { AddfloorComponent } from './components/admin/addfloor/addfloor.component';
-import { EquipmentDataTableComponent } from './components/admin/equipment-data-table/equipment-data-table.component';
+import { EquipmentDataTableComponent } from './components/admin/equipment-comp/equipment-data-table/equipment-data-table.component';
 import { EditApplicationComponent } from './components/technician/edit-application/edit-application.component';
 import { UsersTableComponent } from './components/admin/users-comp/users-table/users-table.component';
 import { DatePipe } from '@angular/common';
@@ -130,12 +130,9 @@ import { EditApplicationCommitteeComponent } from './components/admin/issues-com
     MatTabsModule,
     MatExpansionModule,
     MatDialogModule,
-
-    MatDialogModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatSortModule,
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,

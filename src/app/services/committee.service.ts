@@ -4,6 +4,8 @@ import { User } from '../interface/User';
 import { Observable } from 'rxjs';
 import { Application } from '../interface/Application';
 import {CreateBuilding} from "../interface/Create-building";
+import {Equipment} from "../interface/Equipment";
+import {Comment} from "../interface/Comment";
 
 @Injectable({
   providedIn: 'root'
@@ -123,7 +125,36 @@ export class CommitteeService {
     return this.http.post(`${this.url}createSites`,siteForm,this.httpOptions);
   }
 
-  getEquipment(){
-    return this.http.get(`${this.url}getEquipment`,this.httpOptions);
+  getEquipment(): Observable<Equipment[]>{
+    return this.http.get<Equipment[]>(`${this.commonUrl}getEquipment`,this.httpOptions);
+  }
+
+  public getBuildingsWithSites(): Observable<Map<string, string[]>>{
+    return this.http.get<Map<string, string[]>>(`${this.commonUrl}getBuildingsSitesName`, this.httpOptions);
+  }
+
+  public getEquipments(): Observable<Equipment[]>{
+    return this.http.get<Equipment[]>(`${this.commonUrl}getEquipment`, this.httpOptions);
+  }
+
+  public getStaticEnums(){
+    return this.http.get(`${this.commonUrl}staticEnums`, this.httpOptions);
+  }
+
+
+  public submitIssue(data: { issueType: any; siteName: any; title: any; equipment: any }) {
+    return this.http.post(`${this.commonUrl}submit-new-issue`, data, this.httpOptions);
+  }
+
+  public comment(newComment: string, issue_id: string): Observable<Comment> {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('issue_id', issue_id);
+    return this.http.post<Comment>(`${this.commonUrl}add_comment`,newComment, httpOptionsTemp);
+  }
+
+  public getPersonalInfo(): Observable<User> {
+    return this.http.get<User>(`${this.commonUrl}getPersonalInfo`, this.httpOptions);
   }
 }
+
+
