@@ -127,6 +127,10 @@ export class CommitteeService {
   getEquipment(): Observable<Equipment[]>{
     return this.http.get<Equipment[]>(`${this.commonUrl}getEquipment`,this.httpOptions);
   }
+
+  deleteEquipment(equipmentId:number) {
+    return this.http.delete(`${this.commonUrl}deleteEquipment/${equipmentId}`,this.httpOptions);
+  }
 }
 
 
