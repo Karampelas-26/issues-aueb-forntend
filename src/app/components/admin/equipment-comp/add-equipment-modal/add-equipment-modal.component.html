@@ -1,1 +1,56 @@
-<p>add-equipment-modal works!</p>
+<div mat-dialog-content>
+    <div align="right">
+    <button mat-icon-button color="dark" mat-dialog-close align="right">
+        <mat-icon>close</mat-icon>
+    </button>
+    </div>
+    <p class = "h2">Προσθήκη εξοπλισμού</p>
+    <div class="flex-row justify-content-center p-3 m-3 wrapper">
+
+       <mat-form-field appearance = "outline" class="m-3">
+           <mat-label>Όνομα εξοπλισμού</mat-label>
+           <input matInput [(ngModel)] = "createEquipmentForm.typeOfEquipment">
+       </mat-form-field>
+       <div class="mt-2 mb-2">
+        <p class="h4">Αίθουσα</p>
+        <form >
+            <mat-form-field appearance="outline">
+              <mat-label>Αίθουσα</mat-label>
+              <input type="text"
+                     placeholder="Επιλέξτε αίθουσα"
+                     aria-label="room"
+                     matInput 
+                     [formControl]="autoCompleteForm"
+                     [matAutocomplete]="auto"
+                     [formControl]="siteNameoption">
+                <button  matSuffix mat-icon-button>
+                    <mat-icon>search</mat-icon>
+                </button>
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option" >
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+        </form>
+          
+    </div>
+
+    <hr>
+    <div class="mt-2 mb-2">
+        <p class="h4">Κτήριο</p>
+        <mat-form-field appearance = "outline" >
+            <mat-label>Επιλέξτε κτήριο</mat-label>
+            <mat-select (selectionChange)="onBuildingSelected($event.value)" [(ngModel)]="selectedBuilding">
+              <mat-option *ngFor="let building of buildings" [value]="building">
+                {{ building }}
+              </mat-option>
+            </mat-select>
+        </mat-form-field> 
+    </div>
+    
+       <button mat-raised-button  color="primary" (click)="onAddEquipment()" class="m-3">
+           Προσθήκη 
+       </button>
+
+    </div>
