@@ -68,6 +68,9 @@ import { EditUserModalComponent } from './components/admin/users-comp/edit-user-
 import { VerifyDeleteModalComponent } from './components/admin/users-comp/verify-delete-modal/verify-delete-modal.component';
 import { IssuesTableComponent } from './components/admin/issues-comp/issues-table/issues-table.component';
 import { EditApplicationCommitteeComponent } from './components/admin/issues-comp/edit-application-committee/edit-application-committee.component';
+import { DeleteModalComponent } from './components/admin/equipment-comp/delete-modal/delete-modal.component';
+import { AddEquipmentModalComponent } from './components/admin/equipment-comp/add-equipment-modal/add-equipment-modal.component';
+import { AddEquipmentToSiteModalComponent } from './components/admin/equipment-comp/add-equipment-to-site-modal/add-equipment-to-site-modal.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +104,9 @@ import { EditApplicationCommitteeComponent } from './components/admin/issues-com
     VerifyDeleteModalComponent,
     IssuesTableComponent,
     EditApplicationCommitteeComponent,
+    DeleteModalComponent,
+    AddEquipmentModalComponent,
+    AddEquipmentToSiteModalComponent,
 
   ],
   imports: [

@@ -155,6 +155,10 @@ export class CommitteeService {
   public getPersonalInfo(): Observable<User> {
     return this.http.get<User>(`${this.commonUrl}getPersonalInfo`, this.httpOptions);
   }
+
+  deleteEquipment(equipmentId:number) {
+    return this.http.delete(`${this.commonUrl}deleteEquipment/${equipmentId}`,this.httpOptions);
+  }
 }
 
 
