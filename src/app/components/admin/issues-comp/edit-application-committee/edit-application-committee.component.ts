@@ -21,17 +21,27 @@ export class EditApplicationCommitteeComponent {
   usersInComment: User[] = [];
   commentsWithUsers: { comment: Comment, user: User }[] = [];
   newComment = '';
+  personalInfo!: User;
   constructor(private dialogRef: MatDialogRef<EditApplicationCommitteeComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private committeeService: CommitteeService) {}
   ngOnInit(): void {
+    console.log(this.data.comments)
     let usersIdOfComments: string[] = [];
+
     for(let comment of this.data.comments){
+      console.log(comment.user)
       usersIdOfComments.push(comment.user);
     }
-    console.log(usersIdOfComments)
+
+    this.committeeService.getPersonalInfo().subscribe({
+      next: (user: User) => this.personalInfo = user,
+      error: err => console.error(err)
+    })
+
     this.committeeService.getUsersInComments(usersIdOfComments).subscribe({
       next: (usersC: User[]) => {
         this.usersInComment = usersC;
         for(let comment of this.data.comments){
+          console.log('incomments: ' + comment.user)
           let user = this.usersInComment.find(user => user.id == comment.user);
           if(user) {
             this.commentsWithUsers.push({comment, user});
@@ -41,6 +51,7 @@ export class EditApplicationCommitteeComponent {
 
       }, error: err => console.error(err)
     })
+
     this.committeeService.getTechnicians(this.data.issueType).subscribe({
       next: (techs: User[]) => {
         this.technicians = techs;
@@ -51,7 +62,13 @@ export class EditApplicationCommitteeComponent {
   }
 
   onComment(){
-
+    console.log(this.data.id)
+    this.committeeService.comment(this.newComment, this.data.id).subscribe({
+      next: (res: Comment) => {
+        this.commentsWithUsers.push({comment: res, user: this.personalInfo});
+        console.log(res)
+      }
+    })
   }
 
   onSave(){

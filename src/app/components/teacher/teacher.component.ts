@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { TeacherService } from 'src/app/services/teacher.service';
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {Equipment} from "../../interface/Equipment";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-teacher',
@@ -145,19 +147,14 @@ export class TeacherComponent implements OnInit {
   selectedIssues = this.issues.slice(this.index,this.index+7);
 
   buildingsWithSites: Map<string, string[]> = new Map<string, string[]>();
-  buildingName = '';
-  typeIssue = '';
-  equipment = '';
-  description = '';
-  value = "";
-  autoCompleteForm = new FormControl();
+  siteName = new FormControl('', Validators.required);
   options: string[] = [];
   filteredOptions!: Observable<string[]>;
-  equipments:any[] = [];
+  equipments: Equipment[] = [];
   issueTypes: string[] = [];
+  issueForm!: FormGroup;
 
-
-  constructor(private teachService: TeacherService){}
+  constructor(private teachService: TeacherService, private snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     // this.teachService.getApplications().subscribe({
@@ -170,7 +167,17 @@ export class TeacherComponent implements OnInit {
     //   }
     // })
 
-    this.filteredOptions = this.autoCompleteForm.valueChanges.pipe(
+    this.issueForm = new FormGroup({
+      buildingName: new FormControl('', Validators.required),
+      issueType: new FormControl(),
+      equipment: new FormControl(),
+      title: new FormControl('', Validators.required),
+
+    })
+
+    this.issueForm.addControl("siteName", this.siteName)
+
+    this.filteredOptions = this.siteName.valueChanges.pipe(
       startWith(''),
       map((value: any) => this._filter(value || '')),
     );
@@ -180,7 +187,7 @@ export class TeacherComponent implements OnInit {
     })
 
     this.teachService.getEquipments().subscribe({
-      next: (res: any) => this.equipments = res,
+      next: (res: Equipment[]) => this.equipments = res,
       error: err => console.log(err)
     })
 
@@ -195,8 +202,6 @@ export class TeacherComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-
-
 
   nextPage(){
     if(this.index + 7 >= this.issues.length) {
@@ -220,24 +225,41 @@ export class TeacherComponent implements OnInit {
   protected readonly onsubmit = onsubmit;
 
   onSubmit() {
-    let data = {
-      buildingName: this.buildingName,
-      siteName: this.autoCompleteForm.value,
-      issueType: this.typeIssue,
-      equipment: this.equipment,
-      description: this.description
+
+    if(this.issueForm.valid){
+      const data = {
+        siteName: this.siteName.value,
+        issueType: this.issueForm.get("issueType")?.value,
+        equipment: this.issueForm.get("equipmentId")?.value,
+        title: this.issueForm.get("title")?.value
+      }
+      console.log(this.issueForm.value)
+      this.teachService.submitIssue(this.issueForm.value).subscribe({
+        next: (res: any) => {
+          this.snackBar.open('Success: ' + res.message, "Close", {
+            duration: 3000
+          });
+          console.log(res)
+        },
+        error: err => {
+          this.snackBar.open('Error: ' + err.error.message, "Close", {
+            duration: 3000
+          });
+          console.error(err)
+        }
+      })
     }
-    console.log(data);
   }
 
   onBuildingSelected(value: string) {
     if (this.buildingsWithSites.has(value)) {
       this.options = this.buildingsWithSites.get(value) || [];
-      this.filteredOptions = this.autoCompleteForm.valueChanges.pipe(
+      this.filteredOptions = this.siteName.valueChanges.pipe(
         startWith(''),
         map((value: any) => this._filter(value || '')),
       );
     } else {
+      this.siteName.reset();
       this.options = [];
     }
   }
