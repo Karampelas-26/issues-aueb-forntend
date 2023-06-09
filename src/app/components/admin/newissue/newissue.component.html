@@ -1,1 +1,62 @@
-<p>newissue works!</p>
+<div class="container-fluid">
+  <div class="container-xxl d-flex justify-content-evenly p-0 m-0 wrapper">
+
+    <!-- inputs for new issue -->
+    <div class="d-flex flex-column justify-content-center p-5 m-0 background-issue-form">
+      <form class="d-flex flex-column justify-content-center" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
+
+        <p class="h2">Αίτηση νέας βλάβης</p>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Επιλέξτε κτήριο</mat-label>
+          <mat-select (selectionChange)="onBuildingSelected($event.value)" formControlName="buildingName">
+            <mat-option *ngFor="let building of buildingsWithSites | keyvalue" [value]="building.key">{{building.key}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Αίθουσα</mat-label>
+          <input type="text"
+                 placeholder="Επιλέξτε αίθουσα"
+                 aria-label="room"
+                 matInput
+                 [formControl]="siteName"
+                 [matAutocomplete]="auto">
+          <button  matSuffix mat-icon-button>
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Επιλέξτε είδος βλάβης</mat-label>
+          <mat-select formControlName="issueType">
+            <mat-option *ngFor="let issue of issueTypes" [value]="issue">{{issue}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Επιλέξτε τεχνικό εξοπλισμό</mat-label>
+          <mat-select formControlName="equipment">
+            <mat-option *ngFor="let equip of equipments" [value]="equip.id">{{equip.typeOfEquipment}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Τίτλος</mat-label>
+          <textarea matInput placeholder="Τίτλος βλάβης..." formControlName="title"></textarea>
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button class="mt-2" color="primary" type="submit">Δήλωση βλάβης</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>

@@ -11,12 +11,14 @@
         </div>
         <!-- inputs for new issue -->
         <div class="d-flex flex-column justify-content-center p-5 m-0 background-issue-form">
+          <form class="d-flex flex-column justify-content-center" [formGroup]="issueForm" (ngSubmit)="onSubmit()">
+
             <p class="h2">Αίτηση νέας βλάβης</p>
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε κτήριο</mat-label>
-                <mat-select (selectionChange)="onBuildingSelected($event.value)" [(ngModel)]="buildingName">
-                <mat-option *ngFor="let building of buildingsWithSites | keyvalue" [value]="building.key">{{building.key}}</mat-option>
+                <mat-select (selectionChange)="onBuildingSelected($event.value)" formControlName="buildingName">
+                  <mat-option *ngFor="let building of buildingsWithSites | keyvalue" [value]="building.key">{{building.key}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
@@ -26,7 +28,7 @@
                      placeholder="Επιλέξτε αίθουσα"
                      aria-label="room"
                      matInput
-                     [formControl]="autoCompleteForm"
+                     [formControl]="siteName"
                      [matAutocomplete]="auto">
               <button  matSuffix mat-icon-button>
                 <mat-icon>search</mat-icon>
@@ -41,26 +43,27 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε είδος βλάβης</mat-label>
-                <mat-select [(ngModel)]="typeIssue">
+                <mat-select formControlName="issueType">
                     <mat-option *ngFor="let issue of issueTypes" [value]="issue">{{issue}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Επιλέξτε τεχνικό εξοπλισμό</mat-label>
-                <mat-select [(ngModel)]="equipment">
-                    <mat-option *ngFor="let equip of equipments" [value]="equip">{{equip.typeOfEquipment}}</mat-option>
+                <mat-select formControlName="equipment">
+                    <mat-option *ngFor="let equip of equipments" [value]="equip.id">{{equip.typeOfEquipment}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Περιγραφή</mat-label>
-              <textarea matInput placeholder="Περιγραφή βλάβης..." [(ngModel)]="description"></textarea>
+              <mat-label>Τίτλος</mat-label>
+              <textarea matInput placeholder="Τίτλος βλάβης..." formControlName="title"></textarea>
             </mat-form-field>
 
             <div>
-                <button mat-raised-button class="mt-2" color="primary" (click)="onSubmit()">Δήλωση βλάβης</button>
+                <button mat-raised-button class="mt-2" color="primary" type="submit">Δήλωση βλάβης</button>
             </div>
+          </form>
 
         </div>
 
