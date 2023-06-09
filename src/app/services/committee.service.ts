@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interface/User';
-import { Observable } from 'rxjs';
+import {from, Observable} from 'rxjs';
 import { Application } from '../interface/Application';
 import {CreateBuilding} from "../interface/Create-building";
 import {Equipment} from "../interface/Equipment";
@@ -62,6 +62,9 @@ export class CommitteeService {
   getBuildingsName() {
     return this.http.get(`${this.commonUrl}getBuildingsName`, this.httpOptions);
   }
+  getBuildings() {
+    return this.http.get(`${this.commonUrl}getBuilding`, this.httpOptions);
+  }
 
   getBuildingsSitesName(){
     return this.http.get(`${this.commonUrl}getBuildingsSitesName`, this.httpOptions);
@@ -73,7 +76,6 @@ export class CommitteeService {
 
   getApplicationsFiltered(site: string, building: string, status: string, priority: string): Observable<Application[]> {
     let httpOptionsTemp = {...this.httpOptions}
-    console.log(httpOptionsTemp.params)
 
     if(site !== '' && site !== null){
       httpOptionsTemp.params = httpOptionsTemp.params.set('site_name', site);
@@ -87,7 +89,6 @@ export class CommitteeService {
     if( building !== '' && building !== null){
       httpOptionsTemp.params = httpOptionsTemp.params.set('buildingName', building);
     }
-    console.log(httpOptionsTemp.params)
     return this.http.get<Application[]>(`${this.commonUrl}filtered-applications-s-values`, httpOptionsTemp);
   }
 
@@ -156,8 +157,27 @@ export class CommitteeService {
     return this.http.get<User>(`${this.commonUrl}getPersonalInfo`, this.httpOptions);
   }
 
-  deleteEquipment(equipmentId:number) {
+  public deleteEquipment(equipmentId:number) {
     return this.http.delete(`${this.commonUrl}deleteEquipment/${equipmentId}`,this.httpOptions);
+  }
+
+  public getStatistics(fromDate: Date | null, toDate: Date | null, selectedIssue: string | null, selectedBuilding: string | null) {
+    let httpOptionsTemp = {...this.httpOptions}
+    if(fromDate){
+      httpOptionsTemp.params = httpOptionsTemp.params.set('createStart', fromDate.toISOString());
+    }
+    if(toDate){
+      httpOptionsTemp.params = httpOptionsTemp.params.set('createEnd', toDate.toISOString());
+    }
+    if( selectedIssue){
+      console.log("i m in: " + selectedIssue)
+      httpOptionsTemp.params = httpOptionsTemp.params.set('issueType', selectedIssue);
+    }
+    if( selectedBuilding){
+      httpOptionsTemp.params = httpOptionsTemp.params.set('buildingId', selectedBuilding);
+    }
+    console.log(httpOptionsTemp.params)
+    return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
   }
 }
 

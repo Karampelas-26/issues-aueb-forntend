@@ -23,28 +23,37 @@ export class BarChartComponent implements OnInit {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
-        //we need dates 
+        //we need dates
         labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ], 
+								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
 	       datasets: [
           {
-            label: "Sales",
+            label: "patisiwn 76",
             data: ['167','376', '52', '79', '92',
 								 '574', '673', '546'],
             backgroundColor: 'green'
-          }, 
-          {
-            label: "Issues",
-            data: ['380','76', '872', '479', '92',
-								 '574', '573', '576'],
+          },{
+            label: "patisiwn 80",
+            data: ['167','376', '52', '79', '92',
+								 '574', '673', '546'],
+            backgroundColor: 'yellow'
+          },{
+            label: "patisiwn 96",
+            data: ['167','376', '52', '79', '92',
+								 '574', '673', '546'],
             backgroundColor: 'blue'
-          }
+          },{
+            label: "troias 3",
+            data: ['167','376', '52', '79', '92',
+								 '574', '673', '546'],
+            backgroundColor: 'red'
+          },
         ]
       },
       options: {
         aspectRatio:2.5
       }
-      
+
     });
 
 

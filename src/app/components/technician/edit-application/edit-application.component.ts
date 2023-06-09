@@ -5,7 +5,6 @@ import {DatePipe} from "@angular/common";
 import {User} from "../../../interface/User";
 import {Comment} from "../../../interface/Comment";
 import {TechnicianService} from "../../../services/technician.service";
-import positioners from "chart.js/dist/plugins/plugin.tooltip";
 
 @Component({
   selector: 'app-edit-application',
