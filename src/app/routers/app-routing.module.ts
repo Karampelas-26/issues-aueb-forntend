@@ -17,13 +17,18 @@ import { BuildingComponent } from '../components/admin/building/building.compone
 import { NewissueComponent } from '../components/admin/newissue/newissue.component';
 import { SemesterProgramComponent } from '../components/admin/semester-program/semester-program.component';
 import { ActivateComponent } from '../components/activate/activate.component';
+import {TechnicanTeamsComponent} from "../components/admin/users-comp/technican-teams/technican-teams.component";
 
 const routes: Routes = [
   {path: "", redirectTo: '/login', pathMatch: 'full'},
   {path: "login", component: LoginComponent},
   {path: "forgotPassword", component: ForgotPasswordComponent},
   {path: "technician", component: ApplicationsComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TECHNICIAN'}},
-  {path: "teacher", component:TeacherComponent, canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
+  {path: "teacher", component:TeacherComponent,
+    children: [
+      {path: 'technician-team', component: TechnicanTeamsComponent}
+    ],
+    canActivate: [AuthGuard], data: {expectedAuthority: 'ROLE_TEACHER'} },
   {
     path: 'admin',
     component: DashboardComponent,

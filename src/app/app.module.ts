@@ -71,6 +71,7 @@ import { EditApplicationCommitteeComponent } from './components/admin/issues-com
 import { DeleteModalComponent } from './components/admin/equipment-comp/delete-modal/delete-modal.component';
 import { AddEquipmentModalComponent } from './components/admin/equipment-comp/add-equipment-modal/add-equipment-modal.component';
 import { AddEquipmentToSiteModalComponent } from './components/admin/equipment-comp/add-equipment-to-site-modal/add-equipment-to-site-modal.component';
+import { TechnicanTeamsComponent } from './components/admin/users-comp/technican-teams/technican-teams.component';
 
 @NgModule({
   declarations: [
@@ -107,6 +108,7 @@ import { AddEquipmentToSiteModalComponent } from './components/admin/equipment-c
     DeleteModalComponent,
     AddEquipmentModalComponent,
     AddEquipmentToSiteModalComponent,
+    TechnicanTeamsComponent,
 
   ],
   imports: [

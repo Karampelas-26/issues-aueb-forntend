@@ -17,18 +17,17 @@ export class EditApplicationCommitteeComponent {
   selectedDate!: Date;
 
   technicians: User[] = [];
+  hasComment = false;
 
   usersInComment: User[] = [];
   commentsWithUsers: { comment: Comment, user: User }[] = [];
-  newComment = '';
+  newComment: string = '';
   personalInfo!: User;
   constructor(private dialogRef: MatDialogRef<EditApplicationCommitteeComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private committeeService: CommitteeService) {}
   ngOnInit(): void {
-    console.log(this.data.comments)
     let usersIdOfComments: string[] = [];
 
     for(let comment of this.data.comments){
-      console.log(comment.user)
       usersIdOfComments.push(comment.user);
     }
 
@@ -37,37 +36,48 @@ export class EditApplicationCommitteeComponent {
       error: err => console.error(err)
     })
 
-    this.committeeService.getUsersInComments(usersIdOfComments).subscribe({
-      next: (usersC: User[]) => {
-        this.usersInComment = usersC;
-        for(let comment of this.data.comments){
-          console.log('incomments: ' + comment.user)
-          let user = this.usersInComment.find(user => user.id == comment.user);
-          if(user) {
-            this.commentsWithUsers.push({comment, user});
-          }
-        }
-
-
-      }, error: err => console.error(err)
-    })
+    // this.committeeService.getUsersInComments(usersIdOfComments).subscribe({
+    //   next: (usersC: User[]) => {
+    //     this.usersInComment = usersC;
+    //     // for(let comment of this.data.comments){
+    //     //   // let user = this.usersInComment.find(user => user.id == comment.user);
+    //     //   // this.commentsWithUsers.push({comment, user})
+    //     //   // if(user) {
+    //     //   //   console.log(comment)
+    //     //   //   // this.commentsWithUsers.push({comment, user});
+    //     //   // }
+    //     //   // else {
+    //     //   //   console.log(comment)
+    //     //   // }
+    //     // }
+    //
+    //
+    //   }, error: err => console.error(err)
+    // })
 
     this.committeeService.getTechnicians(this.data.issueType).subscribe({
       next: (techs: User[]) => {
         this.technicians = techs;
-        console.table(techs)
       },
       error: err => console.error(err)
     })
   }
 
   onComment(){
-    console.log(this.data.id)
+    this.hasComment = true;
     this.committeeService.comment(this.newComment, this.data.id).subscribe({
       next: (res: Comment) => {
-        this.commentsWithUsers.push({comment: res, user: this.personalInfo});
+        // this.commentsWithUsers.push({comment: res, user: this.personalInfo});
+        let username = this.personalInfo.lastname + " " + this.personalInfo.firstname;
+        let comm: Comment = {
+          content: this.newComment,
+          dateTime: new Date(),
+          user: username
+        }
+        this.data.comments.push(comm);
+        this.newComment = '';
         console.log(res)
-      }
+      }, error: err => console.error(err)
     })
   }
 
@@ -83,6 +93,6 @@ export class EditApplicationCommitteeComponent {
   }
 
   onCancel() {
-    this.dialogRef.close(false)
+    this.dialogRef.close(this.hasComment)
   }
 }
