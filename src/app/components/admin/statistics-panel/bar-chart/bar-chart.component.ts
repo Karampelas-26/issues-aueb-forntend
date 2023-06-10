@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables  } from 'chart.js';
+import {BehaviorSubject} from "rxjs";
 Chart.register(...registerables);
 
 
@@ -10,53 +11,58 @@ Chart.register(...registerables);
 })
 export class BarChartComponent implements OnInit {
 
-  ngOnInit(): void {
-    this.createChart();
-  }
 
   public chart: any;
 
+  public labels$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  public datasets$: BehaviorSubject<{label: string, data: string[], backgroundColor: string}[]> = new BehaviorSubject<{label: string, data: string[], backgroundColor: string}[]>([]);
+
+
+  ngOnInit(): void {
+    this.labels$.subscribe(labels => {
+      if(this.chart){
+        this.destroyChart()
+      }
+      this.createChart();
+    });
+
+    this.datasets$.subscribe(datasets => {
+      if(this.chart){
+        this.destroyChart()
+      }
+      this.createChart();
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    this.destroyChart();
+  }
+
+  destroyChart() {
+    if (this.chart) {
+      this.chart.destroy();
+      this.chart = null;
+    }
+  }
 
   createChart() {
-
     this.chart = new Chart("MyChart", {
       type: 'bar', //this denotes tha type of chart
 
       data: {// values on X-Axis
         //we need dates
-        labels: ['2022-05-10', '2022-05-11', '2022-05-12','2022-05-13',
-								 '2022-05-14', '2022-05-15', '2022-05-16','2022-05-17', ],
-	       datasets: [
-          {
-            label: "patisiwn 76",
-            data: ['167','376', '52', '79', '92',
-								 '574', '673', '546'],
-            backgroundColor: 'green'
-          },{
-            label: "patisiwn 80",
-            data: ['167','376', '52', '79', '92',
-								 '574', '673', '546'],
-            backgroundColor: 'yellow'
-          },{
-            label: "patisiwn 96",
-            data: ['167','376', '52', '79', '92',
-								 '574', '673', '546'],
-            backgroundColor: 'blue'
-          },{
-            label: "troias 3",
-            data: ['167','376', '52', '79', '92',
-								 '574', '673', '546'],
-            backgroundColor: 'red'
-          },
-        ]
+        labels: this.labels$.value,
+        datasets: this.datasets$.value
       },
       options: {
         aspectRatio:2.5
       }
 
     });
-
-
   }
-
+  con(){
+    console.log(this.labels$.value)
+    console.log(this.datasets$.value)
+  }
 }

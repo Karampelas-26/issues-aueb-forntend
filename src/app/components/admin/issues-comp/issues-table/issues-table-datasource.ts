@@ -88,7 +88,6 @@ export class IssuesTableDataSource extends DataSource<Application> {
   initdData(): void {
     this.committeeService.getApplications().subscribe({
       next: (applications: Application[]) => {
-        console.table(applications)
         this.data.next(applications);
       },
       error: err => console.error(err)

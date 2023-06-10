@@ -17,6 +17,7 @@ import {default as _rollupMoment, Moment} from 'moment';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {from} from "rxjs";
+import {BarChartComponent} from "../bar-chart/bar-chart.component";
 
 const moment = _rollupMoment || _moment;
 
@@ -55,7 +56,7 @@ export const MY_FORMATS = {
 
 
 export class StatisticsComponent implements OnInit {
-
+  @ViewChild(BarChartComponent) barChart!: BarChartComponent;
 
 
   fromDate: Date | null = null;
@@ -102,16 +103,47 @@ export class StatisticsComponent implements OnInit {
 
 
   onFiltersChange(): void {
+    console.log("this.should be the buiilding")
+    console.log(this.buildingForm.value);
+    let arrBuild: any;
+    if (this.buildingForm.value) {
+      arrBuild = this.buildingForm.value;
+    }
+    let formDate = '';
+    let toDate = '';
     if (this.fromdate && this.fromdate.value) {
-      console.log(this.fromdate.value.toISOString());
+      formDate = this.fromdate.value.toISOString();
     }
     if (this.todate && this.todate.value) {
-      console.log(this.todate.value.toISOString());
+      toDate = this.todate.value.toISOString();
     }
-    this.committeeService.getStatistics(this.fromDate, this.toDate, this.selectedIssue, this.selectedBuilding).subscribe({
-      next: value => console.table(value),
+  this.committeeService.getStatistics(formDate, toDate, this.selectedIssue, arrBuild).subscribe({
+      next: (value: any) => {
+        this.barChart.labels$.next(value.monthNumbers);
+        let tempArr = [];
+        for(let val of value.otherPOJOs){
+          tempArr.push({
+            label: val.id,
+            data: val.counts,
+            backgroundColor: this.getRandomColor()
+          })
+        }
+        this.barChart.datasets$.next(tempArr);
+      },
       error: err => console.error(err)
     })
+  }
+
+  getRandomColor(): string {
+    // Generate random RGB values between 0 and 255
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+
+    // Convert RGB values to hexadecimal format
+    const color = `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
+
+    return color;
   }
 
   clearFilters(): void {
@@ -119,12 +151,10 @@ export class StatisticsComponent implements OnInit {
     this.toDate = null;
     this.selectedIssue = '';
     this.selectedBuilding = '';
-    this.committeeService.getStatistics(this.fromDate, this.toDate, this.selectedIssue, this.selectedBuilding).subscribe({
-      next: value => console.table(value),
-      error: err => console.error(err)
-    })
+    // this.committeeService.getStatistics(this.fromDate, this.toDate, this.selectedIssue, this.selectedBuilding).subscribe({
+    //   next: value => console.table(value),
+    //   error: err => console.error(err)
+    // })
   }
 
-
-  protected readonly from = from;
 }

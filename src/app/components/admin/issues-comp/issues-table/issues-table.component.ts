@@ -75,6 +75,7 @@ export class IssuesTableComponent implements AfterViewInit, OnInit {
   }
 
   onEdit(row: Application) {
+    console.log(row)
     let dialogRef = this.dialog.open(EditApplicationCommitteeComponent, {
       data: {...row}
     });

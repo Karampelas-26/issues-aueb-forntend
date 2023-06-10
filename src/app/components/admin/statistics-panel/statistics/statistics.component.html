@@ -39,7 +39,7 @@
 <!--    building-->
     <mat-form-field appearance="outline">
       <mat-label>Choose an option</mat-label>
-      <mat-select [formControl]="buildingForm" (selectionChange)="onFiltersChange()">
+      <mat-select (selectionChange)="onFiltersChange()">
         <mat-select-trigger>
           {{buildingForm.value?.[0] || ''}}
           <span *ngIf="(buildingForm.value?.length || 0) > 1" class="example-additional-selection">

@@ -161,20 +161,20 @@ export class CommitteeService {
     return this.http.delete(`${this.commonUrl}deleteEquipment/${equipmentId}`,this.httpOptions);
   }
 
-  public getStatistics(fromDate: Date | null, toDate: Date | null, selectedIssue: string | null, selectedBuilding: string | null) {
+  public getStatistics(fromDate: string | null, toDate: string | null, selectedIssue: string | null, selectedBuilding: string[] | null) {
     let httpOptionsTemp = {...this.httpOptions}
     if(fromDate){
-      httpOptionsTemp.params = httpOptionsTemp.params.set('createStart', fromDate.toISOString());
+      httpOptionsTemp.params = httpOptionsTemp.params.set('createStart', fromDate);
     }
     if(toDate){
-      httpOptionsTemp.params = httpOptionsTemp.params.set('createEnd', toDate.toISOString());
+      httpOptionsTemp.params = httpOptionsTemp.params.set('createEnd', toDate);
     }
     if( selectedIssue){
       console.log("i m in: " + selectedIssue)
       httpOptionsTemp.params = httpOptionsTemp.params.set('issueType', selectedIssue);
     }
     if( selectedBuilding){
-      httpOptionsTemp.params = httpOptionsTemp.params.set('buildingId', selectedBuilding);
+      httpOptionsTemp.params = httpOptionsTemp.params.set('buildingId', selectedBuilding.join(','));
     }
     console.log(httpOptionsTemp.params)
     return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
