@@ -161,20 +161,19 @@ export class CommitteeService {
     return this.http.delete(`${this.commonUrl}deleteEquipment/${equipmentId}`,this.httpOptions);
   }
 
-  public getStatistics(fromDate: string | null, toDate: string | null, selectedIssue: string | null, selectedBuilding: string[] | null) {
+  public getStatistics(fromDate: string, toDate: string, selectedIssue: string, selectedBuilding: string) {
     let httpOptionsTemp = {...this.httpOptions}
-    if(fromDate){
+    if(fromDate !== '' && fromDate != undefined ){
       httpOptionsTemp.params = httpOptionsTemp.params.set('createStart', fromDate);
     }
     if(toDate){
       httpOptionsTemp.params = httpOptionsTemp.params.set('createEnd', toDate);
     }
     if( selectedIssue){
-      console.log("i m in: " + selectedIssue)
       httpOptionsTemp.params = httpOptionsTemp.params.set('issueType', selectedIssue);
     }
     if( selectedBuilding){
-      httpOptionsTemp.params = httpOptionsTemp.params.set('buildingId', selectedBuilding.join(','));
+      httpOptionsTemp.params = httpOptionsTemp.params.set('buildingId', selectedBuilding);
     }
     return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
   }

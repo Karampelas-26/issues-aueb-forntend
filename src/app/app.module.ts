@@ -32,6 +32,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 import { AppRoutingModule } from './routers/app-routing.module';
@@ -144,7 +145,8 @@ import { TechnicanTeamsComponent } from './components/admin/users-comp/technican
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
 
   ],
   providers: [
