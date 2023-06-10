@@ -31,7 +31,6 @@ export class CommitteeService {
   //endpoints for users
 
   createUser(userForm: any) {
-    console.log(userForm);
     return this.http.post(`${this.url}create-user`, userForm, this.httpOptions);
   }
 
@@ -177,7 +176,6 @@ export class CommitteeService {
     if( selectedBuilding){
       httpOptionsTemp.params = httpOptionsTemp.params.set('buildingId', selectedBuilding.join(','));
     }
-    console.log(httpOptionsTemp.params)
     return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
   }
 
@@ -185,16 +183,8 @@ export class CommitteeService {
     return this.http.post<CreateEquipment>(`${this.url}createEquipment`,data,this.httpOptions);
   }
 
-    // let httpOptionsTemp = { ...this.httpOptions };
-    // httpOptionsTemp.headers = httpOptionsTemp.headers
-    //   .set('Accept', 'application/octet-stream'); // Set the Accept header to indicate the expected response type
-    // httpOptionsTemp.responseType = 'blob'; // Set the responseType to 'blob' to handle binary data
   public downloadStats() {
-
-
-    return this.http.get(`${this.url}downloadStatistics`, {
-      responseType: 'blob',
-    });
+    return this.http.get(`${this.url}downloadStatistics`, {responseType: 'blob'});
   }
 
 }

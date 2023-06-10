@@ -5,6 +5,7 @@ import {DatePipe} from "@angular/common";
 import {User} from "../../../interface/User";
 import {Comment} from "../../../interface/Comment";
 import {TechnicianService} from "../../../services/technician.service";
+import {CommitteeService} from "../../../services/committee.service";
 
 @Component({
   selector: 'app-edit-application',
@@ -13,44 +14,41 @@ import {TechnicianService} from "../../../services/technician.service";
 })
 export class EditApplicationComponent implements OnInit {
 
-  selectedDate!: Date;
-
   technicians: User[] = [];
+  hasComment = false;
 
-  usersInComment: User[] = [];
-  commentsWithUsers: { comment: Comment, user: User }[] = [];
-  newComment = '';
+  newComment: string = '';
+  personalInfo!: User;
   constructor(private dialogRef: MatDialogRef<EditApplicationComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private technicianService: TechnicianService) {}
   ngOnInit(): void {
-    let usersIdOfComments: string[] = [];
-    for(let comment of this.data.comments){
-      usersIdOfComments.push(comment.user);
-    }
-    console.log(usersIdOfComments)
-    this.technicianService.getUsersInComments(usersIdOfComments).subscribe({
-      next: (usersC: User[]) => {
-        this.usersInComment = usersC;
-        for(let comment of this.data.comments){
-          let user = this.usersInComment.find(user => user.id == comment.user);
-          if(user) {
-            this.commentsWithUsers.push({comment, user});
-          }
-        }
 
-
-      }, error: err => console.error(err)
+    this.technicianService.getPersonalInfo().subscribe({
+      next: (user: User) => this.personalInfo = user,
+      error: err => console.error(err)
     })
+
     this.technicianService.getTechnicians(this.data.issueType).subscribe({
       next: (techs: User[]) => {
         this.technicians = techs;
-        console.table(techs)
       },
       error: err => console.error(err)
     })
   }
 
   onComment(){
-
+    this.hasComment = true;
+    this.technicianService.comment(this.newComment, this.data.id).subscribe({
+      next: (res: Comment) => {
+        let username = this.personalInfo.lastname + " " + this.personalInfo.firstname;
+        let comm: Comment = {
+          content: this.newComment,
+          dateTime: new Date(),
+          user: this.personalInfo
+        }
+        this.data.comments.push(comm);
+        this.newComment = '';
+      }, error: err => console.error(err)
+    })
   }
 
   onSave(){
@@ -65,7 +63,7 @@ export class EditApplicationComponent implements OnInit {
   }
 
   onCancel() {
-    this.dialogRef.close(false)
+    this.dialogRef.close(this.hasComment)
   }
 
 
