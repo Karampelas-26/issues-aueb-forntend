@@ -63,19 +63,18 @@ export class IssuesTableComponent implements AfterViewInit, OnInit {
         this.snackBar.open('Application with id: '+ id + " " + res.message, "Close", {
           duration: 3000
         });
-        console.log(res.message)
+        console.log('Application with id: '+ id + " " + res.message)
       },
       error: err => {
-        this.snackBar.open('Error: ' , "Close", {
+        this.snackBar.open('Error: ' + err.error.message, "Close", {
           duration: 3000
         });
-        console.error(err)
+        console.error(err.error.message)
       }
     })
   }
 
   onEdit(row: Application) {
-    console.log(row)
     let dialogRef = this.dialog.open(EditApplicationCommitteeComponent, {
       data: {...row}
     });

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Application } from '../interface/Application';
 import { Observable } from 'rxjs';
 import {User} from "../interface/User";
+import {Comment} from "../interface/Comment";
 
 @Injectable({
   providedIn: 'root'
@@ -78,5 +79,15 @@ export class TechnicianService {
 
   updateApplication(data: Application): Observable<Application> {
     return this.http.put<Application>(`${this.commonUrl}update`, data, this.httpOptions);
+  }
+
+  public comment(newComment: string, issue_id: string): Observable<Comment> {
+    let httpOptionsTemp = {...this.httpOptions};
+    httpOptionsTemp.params = httpOptionsTemp.params.set('issue_id', issue_id);
+    return this.http.post<Comment>(`${this.commonUrl}add_comment`,newComment, httpOptionsTemp);
+  }
+
+  public getPersonalInfo(): Observable<User> {
+    return this.http.get<User>(`${this.commonUrl}getPersonalInfo`, this.httpOptions);
   }
 }

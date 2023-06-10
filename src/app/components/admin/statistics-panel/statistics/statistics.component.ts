@@ -2,27 +2,17 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommitteeService} from "../../../../services/committee.service";
 
 import {ViewEncapsulation} from '@angular/core';
-import {Form, FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MatDatepicker, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDatepicker} from '@angular/material/datepicker';
 
-// Depending on whether rollup is used, moment needs to be imported differently.
-// Since Moment.js doesn't have a default export, we normally need to import using the `* as`
-// syntax. However, rollup creates a synthetic default module and we thus need to import it using
-// the `default as` syntax.
 import * as _moment from 'moment';
-// tslint:disable-next-line:no-duplicate-imports
 import {default as _rollupMoment, Moment} from 'moment';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {from} from "rxjs";
 import {BarChartComponent} from "../bar-chart/bar-chart.component";
 
 const moment = _rollupMoment || _moment;
 
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
@@ -40,9 +30,6 @@ export const MY_FORMATS = {
   templateUrl: './statistics.component.html',
   styleUrls: ['./statistics.component.css'],
   providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
@@ -65,13 +52,10 @@ export class StatisticsComponent implements OnInit {
   selectedBuilding!: string;
   typeOfIssues: string[] = [];
   buildings: any[] = [];
-  startDate = new Date();
 
   buildingForm = new FormControl('');
 
-  constructor(private committeeService: CommitteeService) {
-
-  }
+  constructor(private committeeService: CommitteeService) {  }
 
   fromdate = new FormControl(moment());
   todate = new FormControl(moment());
@@ -103,8 +87,6 @@ export class StatisticsComponent implements OnInit {
 
 
   onFiltersChange(): void {
-    console.log("this.should be the buiilding")
-    console.log(this.buildingForm.value);
     let arrBuild: any;
     if (this.buildingForm.value) {
       arrBuild = this.buildingForm.value;
@@ -139,8 +121,6 @@ export class StatisticsComponent implements OnInit {
     const red = Math.floor(Math.random() * 256);
     const green = Math.floor(Math.random() * 256);
     const blue = Math.floor(Math.random() * 256);
-
-    // Convert RGB values to hexadecimal format
     const color = `#${red.toString(16)}${green.toString(16)}${blue.toString(16)}`;
 
     return color;
@@ -169,9 +149,25 @@ export class StatisticsComponent implements OnInit {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'workbook.xlsx';
+    link.download = `statistics_${this.getCurrentDate()}.xlsx`;
     link.click();
     window.URL.revokeObjectURL(url);
     link.remove();
+  }
+
+  public getCurrentDate(): string {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const formattedDate = `${this.padNumber(day)}/${this.padNumber(month)}/${year}`;
+    return formattedDate;
+  }
+
+  private padNumber(number: number): string {
+    if (number < 10) {
+      return '0' + number;
+    }
+    return number.toString();
   }
 }
