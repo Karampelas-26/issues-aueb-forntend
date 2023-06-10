@@ -45,9 +45,6 @@ export const MY_FORMATS = {
 export class StatisticsComponent implements OnInit {
   @ViewChild(BarChartComponent) barChart!: BarChartComponent;
 
-
-  fromDate: Date | null = null;
-  toDate: Date | null = null;
   selectedIssue!: string;
   selectedBuilding!: string;
   typeOfIssues: string[] = [];
@@ -57,8 +54,8 @@ export class StatisticsComponent implements OnInit {
 
   constructor(private committeeService: CommitteeService) {  }
 
-  fromdate = new FormControl(moment());
-  todate = new FormControl(moment());
+  fromDate = new FormControl(moment());
+  toDate = new FormControl(moment());
 
   setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>, date: FormControl) {
     const ctrlValue = date.value!;
@@ -72,7 +69,7 @@ export class StatisticsComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    this.clearFilters()
 
 
     this.committeeService.getBuilding().subscribe({
@@ -91,29 +88,26 @@ export class StatisticsComponent implements OnInit {
     if (this.buildingForm.value) {
       arrBuild = this.buildingForm.value;
     }
-    let formDate = '';
-    let toDate = '';
-    if (this.fromdate && this.fromdate.value) {
-      formDate = this.fromdate.value.toISOString();
+    let from_date = '';
+    let to_date = '';
+    if (this.fromDate && this.fromDate.value) {
+      from_date = this.fromDate.value.toISOString();
     }
-    if (this.todate && this.todate.value) {
-      toDate = this.todate.value.toISOString();
+    if (this.toDate && this.toDate.value) {
+      to_date = this.toDate.value.toISOString();
     }
-  this.committeeService.getStatistics(formDate, toDate, this.selectedIssue, arrBuild).subscribe({
+    this.committeeService.getStatistics(from_date, to_date, this.selectedIssue, this.selectedBuilding).subscribe({
       next: (value: any) => {
-        this.barChart.labels$.next(value.monthNumbers);
-        let tempArr = [];
-        for(let val of value.otherPOJOs){
-          tempArr.push({
-            label: val.id,
-            data: val.counts,
-            backgroundColor: this.getRandomColor()
-          })
-        }
+        this.barChart.labels$.next(value.labels);
+        let tempArr = [{
+          label: value.label,
+          data: value.data,
+          backgroundColor: this.getRandomColor()
+        }]
         this.barChart.datasets$.next(tempArr);
       },
-      error: err => console.error(err)
-    })
+        error: err => console.error(err)
+      })
   }
 
   getRandomColor(): string {
@@ -127,14 +121,12 @@ export class StatisticsComponent implements OnInit {
   }
 
   clearFilters(): void {
-    this.fromDate = null;
-    this.toDate = null;
     this.selectedIssue = '';
     this.selectedBuilding = '';
-    // this.committeeService.getStatistics(this.fromDate, this.toDate, this.selectedIssue, this.selectedBuilding).subscribe({
-    //   next: value => console.table(value),
-    //   error: err => console.error(err)
-    // })
+    this.toDate.reset();
+    this.fromDate.reset();
+    this.onFiltersChange();
+
   }
 
   onDownload() {
