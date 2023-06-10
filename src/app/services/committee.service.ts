@@ -181,9 +181,22 @@ export class CommitteeService {
     return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
   }
 
-  createEquipment(data:CreateEquipment):Observable<CreateEquipment>{
+  public createEquipment(data:CreateEquipment):Observable<CreateEquipment>{
     return this.http.post<CreateEquipment>(`${this.url}createEquipment`,data,this.httpOptions);
   }
+
+    // let httpOptionsTemp = { ...this.httpOptions };
+    // httpOptionsTemp.headers = httpOptionsTemp.headers
+    //   .set('Accept', 'application/octet-stream'); // Set the Accept header to indicate the expected response type
+    // httpOptionsTemp.responseType = 'blob'; // Set the responseType to 'blob' to handle binary data
+  public downloadStats() {
+
+
+    return this.http.get(`${this.url}downloadStatistics`, {
+      responseType: 'blob',
+    });
+  }
+
 }
 
 

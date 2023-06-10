@@ -9,6 +9,7 @@ import { EquipmentComponent } from '../components/admin/equipment-comp/equipment
 import { BuildingComponent } from '../components/admin/building/building.component';
 import { NewissueComponent } from '../components/admin/newissue/newissue.component';
 import { SemesterProgramComponent } from '../components/admin/semester-program/semester-program.component';
+import {TechnicanTeamsComponent} from "../components/admin/users-comp/technican-teams/technican-teams.component";
 
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'building', component: BuildingComponent},
   {path: 'newissue', component: NewissueComponent},
   {path: 'semester-program', component: SemesterProgramComponent},
+  {path: 'technician-team', component: TechnicanTeamsComponent}
 ];
 
 @NgModule({

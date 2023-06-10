@@ -157,4 +157,21 @@ export class StatisticsComponent implements OnInit {
     // })
   }
 
+  onDownload() {
+    this.committeeService.downloadStats().subscribe({
+      next: value => this.saveFile(value),
+      error: err => console.error(err)
+    })
+  }
+
+  private saveFile(response: any) {
+    const blob = new Blob([response], { type: 'application/octet-stream' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'workbook.xlsx';
+    link.click();
+    window.URL.revokeObjectURL(url);
+    link.remove();
+  }
 }
