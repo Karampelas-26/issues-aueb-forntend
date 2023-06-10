@@ -6,6 +6,7 @@ import { Application } from '../interface/Application';
 import {CreateBuilding} from "../interface/Create-building";
 import {Equipment} from "../interface/Equipment";
 import {Comment} from "../interface/Comment";
+import { CreateEquipment } from '../interface/create-equipment';
 
 @Injectable({
   providedIn: 'root'
@@ -178,6 +179,10 @@ export class CommitteeService {
     }
     console.log(httpOptionsTemp.params)
     return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
+  }
+
+  createEquipment(data:CreateEquipment):Observable<CreateEquipment>{
+    return this.http.post<CreateEquipment>(`${this.url}createEquipment`,data,this.httpOptions);
   }
 }
 

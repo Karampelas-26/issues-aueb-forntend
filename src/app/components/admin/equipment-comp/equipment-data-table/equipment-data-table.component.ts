@@ -11,6 +11,7 @@ import {IssuesTableDataSource} from "../../issues-comp/issues-table/issues-table
 import {Equipment} from "../../../../interface/Equipment";
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { AddEquipmentToSiteModalComponent } from '../add-equipment-to-site-modal/add-equipment-to-site-modal.component';
 
 
 @Component({
@@ -39,7 +40,12 @@ export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
-
+  onUpdate(equipmentId:number){
+    let dialogRef = this.dialog.open(AddEquipmentToSiteModalComponent,{
+      width: '500px',
+      height:'500px'
+    });
+  }
   onDelete(equipmentId:number){
     let dialogRef = this.dialog.open(DeleteModalComponent);
 
