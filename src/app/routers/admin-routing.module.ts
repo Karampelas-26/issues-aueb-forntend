@@ -6,10 +6,9 @@ import { UsersComponent } from '../components/admin/users-comp/users/users.compo
 import { NewUserComponent } from '../components/admin/new-user/new-user.component';
 import { DashboardComponent } from '../components/admin/dashboard/dashboard.component';
 import { EquipmentComponent } from '../components/admin/equipment-comp/equipment/equipment.component';
-import { BuildingComponent } from '../components/admin/building/building.component';
+import { BuildingComponent } from '../components/admin/building-comp/building/building.component';
 import { NewissueComponent } from '../components/admin/newissue/newissue.component';
-import { SemesterProgramComponent } from '../components/admin/semester-program/semester-program.component';
-import {TechnicanTeamsComponent} from "../components/admin/users-comp/technican-teams/technican-teams.component";
+import {TechnicanTeamsComponent} from "../components/admin/technican-teams/technican-teams.component";
 
 
 const routes: Routes = [
@@ -21,7 +20,6 @@ const routes: Routes = [
   {path: 'equipment', component: EquipmentComponent},
   {path: 'building', component: BuildingComponent},
   {path: 'newissue', component: NewissueComponent},
-  {path: 'semester-program', component: SemesterProgramComponent},
   {path: 'technician-team', component: TechnicanTeamsComponent}
 ];
 

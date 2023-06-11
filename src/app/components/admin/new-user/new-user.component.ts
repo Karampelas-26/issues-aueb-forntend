@@ -12,7 +12,7 @@ import { CommitteeService } from 'src/app/services/committee.service';
 export class NewUserComponent implements OnInit {
 
   constructor(private committee: CommitteeService, private snackBar: MatSnackBar, private formBuilder: FormBuilder){}
-  
+
   createUser: CreateUser = {
     email: '',
     phone: '',
@@ -24,10 +24,15 @@ export class NewUserComponent implements OnInit {
     technicianTeam: ''
   };
 
-
+  issueTypes: string[] = [];
   selectedFile!: File;
 
-  ngOnInit(): void {  }
+  ngOnInit(): void {
+    this.committee.getStaticEnums().subscribe({
+      next: (value: any) => this.issueTypes = value.IssueTypes,
+      error: err => console.error(err)
+    })
+  }
 
   onCreate() {
     this.committee.createUser(this.createUser).subscribe({

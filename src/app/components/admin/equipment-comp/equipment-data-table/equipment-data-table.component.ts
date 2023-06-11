@@ -32,19 +32,19 @@ export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
   }
 
   ngOnInit():void{
-    this.dataSource.initData();
+    this.setData();
   }
 
+  setData(){
+    this.dataSource.initData();
+  }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
-  onUpdate(equipmentId:number){
-    let dialogRef = this.dialog.open(AddEquipmentToSiteModalComponent,{
-      width: '500px',
-      height:'500px'
-    });
+  onUpdate(equipment: any){
+    let dialogRef = this.dialog.open(AddEquipmentToSiteModalComponent, {data: equipment, width: '300px'});
   }
   onDelete(equipmentId:number){
     let dialogRef = this.dialog.open(DeleteModalComponent);
@@ -54,9 +54,9 @@ export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
         if(result) {
           this.committeeService.deleteEquipment(equipmentId).subscribe({
             next: res => {
-              
+
               //here i want to remove the user: User from dataSource.data.value[]
-      
+
               const updatedData = this.dataSource.data.value.filter(item => item.id !== equipmentId);
               this.dataSource.data.next(updatedData);
               console.log(res)
@@ -64,7 +64,7 @@ export class EquipmentDataTableComponent implements OnInit ,AfterViewInit{
             error: err => console.error(err)
           })
         }
-      }, 
+      },
       error: (err) => console.error(err)
     })
   }

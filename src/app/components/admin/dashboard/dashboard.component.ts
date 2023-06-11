@@ -45,10 +45,6 @@ export class DashboardComponent implements OnInit{
             label: 'Νέα βλάβη',
             path: './newissue',
         },
-        {
-            label: 'Εισαγωγή προγράμματος διδασκαλίας',
-            path: './semester-program',
-        },
     ];
   }
   ngOnInit(): void {

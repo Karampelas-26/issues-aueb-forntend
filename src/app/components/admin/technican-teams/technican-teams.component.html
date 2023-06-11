@@ -1,0 +1,49 @@
+<div class="container-xxl p-5">
+
+  <mat-accordion>
+
+
+    <mat-expansion-panel *ngFor="let team of technicalTeams | keyvalue" class="m-2">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{team.key}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let technician of team.value">
+        <div class="d-flex justify-content-between">
+          <p>{{technician.lastname + " " + technician.firstname}}</p>
+          <button mat-icon-button (click)="onRemove(technician)"><mat-icon>remove</mat-icon></button>
+        </div>
+      </div>
+
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="m-2">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Technician Without Tech Team
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div *ngFor="let technician of techWithoutTeam">
+          <div class="d-flex flex-row justify-content-between align-items-baseline h-100">
+            <p>
+              {{technician.lastname + " " + technician.firstname}}
+            </p>
+            <mat-form-field appearance="outline">
+              <mat-label>Επιλέξτε μια τεχνική ομάδα</mat-label>
+              <mat-select (selectionChange)="onOptionSelected($event, technician)">
+                <mat-option *ngFor="let team of techTeams" [value]="team">{{team}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+
+
+
+</div>

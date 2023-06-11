@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CreateBuilding } from 'src/app/interface/Create-building';
 import { CommitteeService } from 'src/app/services/committee.service';
-import {CreateSites} from "../../../interface/Create-sites";
+import {CreateSites} from "../../../../interface/Create-sites";
 
 @Component({
   selector: 'app-insertnewbuilding',
@@ -41,24 +41,11 @@ export class InsertnewbuildingComponent implements OnInit{
         this.siteOnFlors.set(floor, updatedSites);
       }
     }
-    // this.noOfSites--;
-    // if(this.noOfSites<0){
-    //   this.noOfSites = 0;
-    // }
-    // this.floors[y] = this.noOfSites;
-    // if(this.noOfSites === 0){
-    //   this.floors.pop();
-    // }
   }
 
   createfloorComponent(){
     this.siteOnFlors.set(this.floor, [])
     this.floor++;
-    // if(this.noOfSites != 1){
-    //   this.noOfSites = 1;
-    // }
-    // this.floors.push(this.noOfSites);
-    // console.log(this.floors);
   }
 
   handleKeyUp(y:number){
@@ -73,14 +60,10 @@ export class InsertnewbuildingComponent implements OnInit{
     else {
       this.siteOnFlors.set(floor, [siteName]);
     }
-    console.log(this.siteOnFlors)
 
-    // this.handleKeyUp(y);
-    // console.log(siteName)
   }
 
   completeAddingBuilding(){
-    console.log(this.siteOnFlors)
 
     let sites: CreateSites[] = [];
     for(let [key, value] of this.siteOnFlors.entries()){

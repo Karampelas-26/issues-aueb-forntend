@@ -10,3 +10,8 @@
 .close-btn{
     background-color: #F44336;
 }
+
+.scrollable-content {
+  max-height: 350px;
+  overflow-y: auto;
+}

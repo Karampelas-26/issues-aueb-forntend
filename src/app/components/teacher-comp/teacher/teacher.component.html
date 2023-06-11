@@ -2,11 +2,9 @@
     <div class="container-xxl d-flex justify-content-evenly p-0 m-0 wrapper">
 
         <div class="sticky-buttons d-flex align-items-center">
-
-            <button mat-raised-button matBadge="5" matBadgeColor="warn" color="primary" class="me-3">
+            <button mat-raised-button matTooltip="Επιλέξτε τις αίθουσες που σας ενδιαφέρουν" class="me-3" (click)="openPreferences()">Preferences</button>
+            <button mat-raised-button [matBadge]="notifications.length" matBadgeColor="warn" color="primary" class="me-3" (click)="openNotififcations()">
                 Notifications
-            </button>
-            <button mat-fab color="warn" class="me-3"><mat-icon>crisis_alert</mat-icon>
             </button>
         </div>
         <!-- inputs for new issue -->
@@ -33,7 +31,7 @@
               <button  matSuffix mat-icon-button>
                 <mat-icon>search</mat-icon>
               </button>
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                   {{option}}
                 </mat-option>
@@ -56,8 +54,8 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>Τίτλος</mat-label>
-              <textarea matInput placeholder="Τίτλος βλάβης..." formControlName="title"></textarea>
+              <mat-label>Περιγραφή</mat-label>
+              <textarea matInput placeholder="Περιγραφή βλάβης..." formControlName="description"></textarea>
             </mat-form-field>
 
             <div>
@@ -77,10 +75,10 @@
                 <div class="w-100 h-100 d-flex justify-content-center align-items-center">
                     <button mat-icon-button (click)="previousPage()"><mat-icon >arrow_back_ios</mat-icon></button>
                     <div class="quick-view-wrapper">
-                        <div class="quick-view" *ngFor="let issue of selectedIssues">
-                            <span>{{issue.class}}</span>
-                            <span>{{issue.issue}}</span>
-                            <span class="border border-0 rounded-pill ps-2 pe-2 m-0" style="background-color:{{issue.color}}">{{issue.status}}</span>
+                        <div class="quick-view" *ngFor="let issue of issues">
+                            <span>{{issue.siteName}}</span>
+                            <span>{{issue.title}}</span>
+                            <span class="border border-0 rounded-pill ps-2 pe-2 m-0" [ngStyle]="{ 'background-color': statusColors[issue.status], 'width': '120px', 'text-align': 'center'}" >{{issue.status}}</span>
                         </div>
                     </div>
                     <button mat-icon-button (click)="nextPage()"><mat-icon>arrow_forward_ios</mat-icon></button>

@@ -3,32 +3,32 @@
     <div class="d-flex flex-column justify-content-center p-3 m-0 ">
 
         <p class="h2">Δημιουργία νέου χρήστη</p>
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Όνομα</mat-label>
             <input matInput [(ngModel)]="createUser.firstname">
         </mat-form-field>
 
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Επίθετο</mat-label>
             <input matInput  [(ngModel)]="createUser.lastname">
         </mat-form-field>
 
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Email</mat-label>
             <input matInput [(ngModel)]="createUser.email">
         </mat-form-field>
 
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Τηλέφωνο</mat-label>
             <input matInput [(ngModel)]="createUser.phone">
         </mat-form-field>
 
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Διεύθυνση</mat-label>
             <input matInput [(ngModel)]="createUser.address">
         </mat-form-field>
 
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Φύλλο</mat-label>
             <mat-select placeholder="Επιλέξτε φύλλο" [(ngModel)]="createUser.gender">
                 <mat-option value="M">Άνδρας</mat-option>
@@ -36,29 +36,28 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance = "outline"> 
+        <mat-form-field appearance = "outline">
             <mat-label>Ρόλος</mat-label>
             <mat-select placeholder="Επιλέξτε ρόλο" [(ngModel)]="createUser.role">
                 <mat-option value="TEACHER">Καθηγητής</mat-option>
                 <mat-option value="TECHNICIAN">Τεχνκός</mat-option>
-                <mat-option value="ADMIN">Διοικητική επιτροπή</mat-option> 
+                <mat-option value="ADMIN">Διοικητική επιτροπή</mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance = "outline" *ngIf="createUser.role == 'TECHNICIAN'"> 
+        <mat-form-field appearance = "outline" *ngIf="createUser.role == 'TECHNICIAN'">
             <mat-label>Ρόλος</mat-label>
             <mat-select placeholder="Επιλέξτε τεχνική ομάδα" [(ngModel)]="createUser.technicianTeam">
-                <mat-option value="NOC">NOC</mat-option>
-                <mat-option value="ELECTRICIANS">Ηλεκτρολόγοι</mat-option>
+                <mat-option *ngFor="let issue of issueTypes" [value]="issue">{{issue}}</mat-option>
             </mat-select>
         </mat-form-field>
-        
+
         <div>
             <button mat-raised-button class="mt-2" color="primary" (click)="onCreate()">Δημιουργία χρήστη</button>
         </div>
 
     </div>
-    
+
     <!--insert csv with users-->
     <div class="csv-with-users d-flex flex-column justify-content-center p-3 m-0 ">
         <div>
@@ -69,6 +68,6 @@
             <div>
                 <button mat-raised-button class="mt-2" color="primary" (click)="uploadFile()">Ανέβασμα αρχείου</button>
             </div>
-        </div>   
+        </div>
     </div>
 </div>

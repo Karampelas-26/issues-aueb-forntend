@@ -7,5 +7,6 @@ export interface User {
     lastname: string,
     gender: string,
     creationDate: Date,
+    technicalTeam: string,
     role: string,
 }
