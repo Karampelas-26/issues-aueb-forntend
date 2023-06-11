@@ -72,7 +72,6 @@ export class EquipmentDataTableSource extends DataSource<Equipment>{
   initData(): void {
     this.committeeService.getEquipment().subscribe({
       next: (equipments: Equipment[]) => {
-        console.table(equipments)
         this.data.next(equipments);
       },
       error: err => console.error(err)

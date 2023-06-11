@@ -25,7 +25,7 @@
           <button  matSuffix mat-icon-button>
             <mat-icon>search</mat-icon>
           </button>
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
             <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
               {{option}}
             </mat-option>
@@ -48,8 +48,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Τίτλος</mat-label>
-          <textarea matInput placeholder="Τίτλος βλάβης..." formControlName="title"></textarea>
+          <mat-label>Περιγραφή</mat-label>
+          <textarea matInput placeholder="Περιγραφή βλάβης..." formControlName="description"></textarea>
         </mat-form-field>
 
         <div>

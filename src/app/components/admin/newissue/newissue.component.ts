@@ -5,6 +5,7 @@ import {Equipment} from "../../../interface/Equipment";
 import {map, startWith} from "rxjs/operators";
 import {CommitteeService} from "../../../services/committee.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatAutocompleteSelectedEvent} from "@angular/material/autocomplete";
 
 @Component({
   selector: 'app-newissue',
@@ -29,7 +30,7 @@ export class NewissueComponent implements OnInit{
       buildingName: new FormControl('', Validators.required),
       issueType: new FormControl(),
       equipment: new FormControl(),
-      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
 
     })
 
@@ -42,11 +43,6 @@ export class NewissueComponent implements OnInit{
     this.committeeService.getBuildingsWithSites().subscribe({
       next: (res: Map<string, string[]>) => this.buildingsWithSites = new Map<string, string[]>(Object.entries(res)),
       error: err => console.error(err)
-    })
-
-    this.committeeService.getEquipments().subscribe({
-      next: (res: Equipment[]) => this.equipments = res,
-      error: err => console.log(err)
     })
 
     this.committeeService.getStaticEnums().subscribe({
@@ -70,12 +66,13 @@ export class NewissueComponent implements OnInit{
         equipment: this.issueForm.get("equipmentId")?.value,
         title: this.issueForm.get("title")?.value
       }
-      console.log(this.issueForm.value)
       this.committeeService.submitIssue(this.issueForm.value).subscribe({
         next: (res: any) => {
           this.snackBar.open('Success: ' + res.message, "Close", {
             duration: 3000
           });
+          this.issueForm.reset();
+          this.siteName.reset();
           console.log(res)
         },
         error: err => {
@@ -99,5 +96,16 @@ export class NewissueComponent implements OnInit{
       this.siteName.reset();
       this.options = [];
     }
+  }
+
+  onOptionSelected(event: MatAutocompleteSelectedEvent) {
+    console.log(event.option.value)
+    this.committeeService.getSiteEquipments(event.option.value).subscribe({
+      next: (value: Equipment[]) => {
+        console.log(value)
+        this.equipments = value
+      },
+      error: err => console.error(err)
+    })
   }
 }

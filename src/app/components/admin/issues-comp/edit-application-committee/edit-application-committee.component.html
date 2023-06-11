@@ -9,7 +9,7 @@
       <p class="h4">Τίτλος</p>
       <p>{{data.title}}</p>
 
-      <p class="h4">Τεχνικός Εξοπλισμός</p>
+      <p class="h4">Είδος βλάβης</p>
       <p>{{data.issueType}}</p>
 
       <p class="h4">Κτήριο</p>
@@ -21,7 +21,7 @@
       <p class="h4">Ημερομηνία δήλωσης</p>
       <p>{{data.createDate | date: 'dd/MM/yyyy'}}</p>
 
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Περιγραφή</mat-label>
         <textarea matInput placeholder="Περιγραφή βλάβης..." [(ngModel)]="data.description"></textarea>
       </mat-form-field>
@@ -55,6 +55,16 @@
     <div class="bg-secondary m-0 p-4 d-flex flex-column justify-content-between">
 
       <div class="d-flex flex-column">
+
+        <mat-form-field class="pt-1">
+          <mat-label>Κατάσταση</mat-label>
+          <mat-select placeholder="Επιλέξτε κατάσταση" [(ngModel)]="data.status">
+            <mat-option value="REJECTED">REJECTED</mat-option>
+            <mat-option value="VALIDATED">VALIDATED</mat-option>
+            <mat-option value="ASSIGNED">ASSIGNED</mat-option>
+            <mat-option value="COMPLETED">COMPLETED</mat-option>
+          </mat-select>
+        </mat-form-field>
 
         <mat-form-field class="pt-1">
           <mat-label>Εντολοδόχος</mat-label>

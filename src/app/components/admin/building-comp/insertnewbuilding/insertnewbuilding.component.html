@@ -21,10 +21,9 @@
        </button>
 
     </div>
-    <div class="">
+    <div class="scrollable-content">
       <div *ngFor="let floor of siteOnFlors | keyvalue">
         <p class="h4">{{floor.key + 1 }}ος όροφος</p>
-<!--        <button mat-raised-button (click) = "onAddSiteFromFloor(floor.key)">Προσθήκη αίθουσας</button>-->
         <div *ngFor="let site of floor.value">
           <mat-form-field appearance = "outline" >
             <mat-label>Όνομα αίθουσας</mat-label>
@@ -38,10 +37,10 @@
         </mat-form-field>
       </div>
       <div class = "bottom d-flex p-3">
-          <button mat-raised-button class="complete-btn"(click) = "completeAddingBuilding()">
+          <button mat-raised-button color="accent" (click) = "completeAddingBuilding()">
               Ολοκλήρωση
           </button>
-          <button mat-raised-button  class="close-btn ms-3" mat-dialog-close>
+          <button mat-raised-button color="warn" class="ms-3" mat-dialog-close>
              Ακύρωση
           </button>
       </div>

@@ -2,22 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from '../components/login/login.component';
 import { ApplicationsComponent } from '../components/technician/applications/applications.component';
-import { IssuesComponent } from '../components/admin/issues-comp/issues/issues.component';
-import { StatisticsComponent } from '../components/admin/statistics-panel/statistics/statistics.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { TeacherComponent } from '../components/teacher/teacher.component';
+import { TeacherComponent } from '../components/teacher-comp/teacher/teacher.component';
 import { AuthGuard } from '../guard/auth.guard';
 import { UnauthrorizedComponent } from '../components/unauthrorized/unauthrorized.component';
 import { ForgotPasswordComponent } from '../components/forgot-password/forgot-password.component';
 import { DashboardComponent } from '../components/admin/dashboard/dashboard.component';
-import { UsersComponent } from '../components/admin/users-comp/users/users.component';
-import { NewUserComponent } from '../components/admin/new-user/new-user.component';
-import { EquipmentComponent } from '../components/admin/equipment-comp/equipment/equipment.component';
-import { BuildingComponent } from '../components/admin/building/building.component';
-import { NewissueComponent } from '../components/admin/newissue/newissue.component';
-import { SemesterProgramComponent } from '../components/admin/semester-program/semester-program.component';
 import { ActivateComponent } from '../components/activate/activate.component';
-import {TechnicanTeamsComponent} from "../components/admin/users-comp/technican-teams/technican-teams.component";
+import {TechnicanTeamsComponent} from "../components/admin/technican-teams/technican-teams.component";
 
 const routes: Routes = [
   {path: "", redirectTo: '/login', pathMatch: 'full'},

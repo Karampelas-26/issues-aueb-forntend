@@ -16,12 +16,12 @@ export class EditApplicationCommitteeComponent {
 
   technicians: User[] = [];
   hasComment = false;
-
+  status: string [] = [];
   newComment: string = '';
   personalInfo!: User;
   constructor(private dialogRef: MatDialogRef<EditApplicationCommitteeComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private committeeService: CommitteeService) {}
   ngOnInit(): void {
-
+    console.log(this.data)
     this.committeeService.getPersonalInfo().subscribe({
       next: (user: User) => this.personalInfo = user,
       error: err => console.error(err)
@@ -32,6 +32,10 @@ export class EditApplicationCommitteeComponent {
         this.technicians = techs;
       },
       error: err => console.error(err)
+    })
+
+    this.committeeService.getStaticEnums().subscribe({
+      next: (value: any) => this.status = value.Status
     })
   }
 
@@ -55,6 +59,7 @@ export class EditApplicationCommitteeComponent {
     if(this.data.assigneeTechId){
       this.data.status = "ASSIGNED";
     }
+    console.log(this.data)
     this.committeeService.updateApplication(this.data).subscribe({
       next: (application: Application) => console.log(application),
       error: err => console.error(err)

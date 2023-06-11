@@ -1,0 +1,21 @@
+<div class="container d-flex flex-column justify-content-between h-100 p-3">
+
+  <mat-form-field class="mt-2" appearance="outline">
+    <mat-label>Επιλέξτε αίθουσες</mat-label>
+    <mat-select [formControl]="sites" multiple>
+      <mat-select-trigger>
+        {{sites.value?.[0] || ''}}
+        <span *ngIf="(sites.value?.length || 0) > 1">
+        (+{{(sites.value?.length || 0) - 1}} {{sites.value?.length === 2 ? 'other' : 'others'}})
+      </span>
+      </mat-select-trigger>
+      <mat-option *ngFor="let site of sitesName" [value]="site">{{site}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="d-flex justify-content-between">
+    <button mat-raised-button color="accent" (click)="onSave()">Save</button>
+    <button mat-raised-button color="warn" (click)="onClose()">Close</button>
+  </div>
+
+</div>

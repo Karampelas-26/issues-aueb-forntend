@@ -39,7 +39,7 @@ import { AppRoutingModule } from './routers/app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { TeacherComponent } from './components/teacher/teacher.component';
+import { TeacherComponent } from './components/teacher-comp/teacher/teacher.component';
 import { ApplicationsComponent } from './components/technician/applications/applications.component';
 import { IssuesComponent } from './components/admin/issues-comp/issues/issues.component';
 import { StatisticsComponent } from './components/admin/statistics-panel/statistics/statistics.component';
@@ -54,12 +54,11 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { BarChartComponent } from './components/admin/statistics-panel/bar-chart/bar-chart.component';
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { EquipmentComponent } from './components/admin/equipment-comp/equipment/equipment.component';
-import { BuildingComponent } from './components/admin/building/building.component';
+import { BuildingComponent } from './components/admin/building-comp/building/building.component';
 import { NewissueComponent } from './components/admin/newissue/newissue.component';
-import { SemesterProgramComponent } from './components/admin/semester-program/semester-program.component';
 import { ActivateComponent } from './components/activate/activate.component';
 import { AuthInterceptor } from './services/auth.interceptor';
-import { InsertnewbuildingComponent } from './components/admin/insertnewbuilding/insertnewbuilding.component';
+import { InsertnewbuildingComponent } from './components/admin/building-comp/insertnewbuilding/insertnewbuilding.component';
 import { AddfloorComponent } from './components/admin/addfloor/addfloor.component';
 import { EquipmentDataTableComponent } from './components/admin/equipment-comp/equipment-data-table/equipment-data-table.component';
 import { EditApplicationComponent } from './components/technician/edit-application/edit-application.component';
@@ -72,7 +71,9 @@ import { EditApplicationCommitteeComponent } from './components/admin/issues-com
 import { DeleteModalComponent } from './components/admin/equipment-comp/delete-modal/delete-modal.component';
 import { AddEquipmentModalComponent } from './components/admin/equipment-comp/add-equipment-modal/add-equipment-modal.component';
 import { AddEquipmentToSiteModalComponent } from './components/admin/equipment-comp/add-equipment-to-site-modal/add-equipment-to-site-modal.component';
-import { TechnicanTeamsComponent } from './components/admin/users-comp/technican-teams/technican-teams.component';
+import { TechnicanTeamsComponent } from './components/admin/technican-teams/technican-teams.component';
+import { PreferencesModalComponent } from './components/teacher-comp/preferences-modal/preferences-modal.component';
+import { NotificationsComponent } from './components/teacher-comp/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,6 @@ import { TechnicanTeamsComponent } from './components/admin/users-comp/technican
     EquipmentComponent,
     BuildingComponent,
     NewissueComponent,
-    SemesterProgramComponent,
     ActivateComponent,
     InsertnewbuildingComponent,
     AddfloorComponent,
@@ -110,6 +110,8 @@ import { TechnicanTeamsComponent } from './components/admin/users-comp/technican
     AddEquipmentModalComponent,
     AddEquipmentToSiteModalComponent,
     TechnicanTeamsComponent,
+    PreferencesModalComponent,
+    NotificationsComponent,
 
   ],
   imports: [

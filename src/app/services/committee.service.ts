@@ -178,14 +178,43 @@ export class CommitteeService {
     return this.http.get(`${this.url}statistics/getApplicationsByMonth`, httpOptionsTemp);
   }
 
-  public createEquipment(data:CreateEquipment):Observable<CreateEquipment>{
-    return this.http.post<CreateEquipment>(`${this.url}createEquipment`,data,this.httpOptions);
+  public createEquipment(equipment: string):Observable<CreateEquipment>{
+    return this.http.post<CreateEquipment>(`${this.url}createEquipment`, equipment, this.httpOptions);
   }
 
   public downloadStats() {
     return this.http.get(`${this.url}downloadStatistics`, {responseType: 'blob'});
   }
 
+  public getTechnicalTeams(): Observable<Map<string, User[]>> {
+    return this.http.get<Map<string, User[]>>(`${this.url}getTechnicalTeams`, this.httpOptions);
+  }
+
+  public getBuildingsSitesWithEquipmentType(data: any) {
+    let httpTemp = {...this.httpOptions}
+    httpTemp.params = httpTemp.params.set("typeOfEquipment", data);
+    return this.http.get(`${this.url}getSiteContainEquipment`, httpTemp);
+  }
+
+  public getTechnicalTeamsWithoutTeam(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.url}getTechsWithoutTeams`, this.httpOptions);
+  }
+
+  public deleteEquipmentInSites(id: number, uncheckedSites: string[]) {
+    return this.http.put(`${this.url}deleteEquipmentsOnSite/${id}`, uncheckedSites, this.httpOptions);
+  }
+
+  public addEquipmentInSites(id: number, sites: string[] | null) {
+    return this.http.put(`${this.url}addEquipmentsOnSite/${id}`, sites, this.httpOptions);
+  }
+
+  public getSiteEquipments(value: string): Observable<Equipment[]> {
+    let tempHttpOptions = {...this.httpOptions}
+    if(value){
+      tempHttpOptions.params = tempHttpOptions.params.set("siteName", value);
+    }
+    return this.http.get<Equipment[]>(`${this.commonUrl}getEquipmentsOfSiteName`, tempHttpOptions);
+  }
 }
 
 
