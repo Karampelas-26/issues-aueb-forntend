@@ -35,12 +35,12 @@ export class AddEquipmentModalComponent implements OnInit{
     this.committeeService.createEquipment(this.typeOfEquipment).subscribe({
       next:(res: any) =>{
         console.log(res.message);
+        this.dialogRef.close(true);
       },
       error:(err) =>{
         console.error(err);
       }
     })
-    this.dialogRef.close(true);
   }
 
   onClose(){

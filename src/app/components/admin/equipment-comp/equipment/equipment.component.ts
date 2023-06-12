@@ -20,10 +20,11 @@ export class EquipmentComponent implements OnInit{
   }
 
   onAddEquipment():void{
-    this.dialog.open(AddEquipmentModalComponent);
-    this.dialog.afterAllClosed.subscribe({
+    const diaologRef = this.dialog.open(AddEquipmentModalComponent);
+    diaologRef.afterClosed().subscribe({
       next: (result: any) => {
-        if(result) {
+        console.log(result)
+        if (result) {
           this.equipmentTable.setData();
         }
       },

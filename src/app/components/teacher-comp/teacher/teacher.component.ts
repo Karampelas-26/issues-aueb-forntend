@@ -50,30 +50,13 @@ export class TeacherComponent implements OnInit {
   constructor(private teachService: TeacherService, private snackBar: MatSnackBar, private dialog: MatDialog){}
 
   ngOnInit(): void {
-    this.teachService.getApplications().subscribe({
-      next: (res: ApplicationTeacher[]) => {
-        console.log(res)
-        this.issues = res;
-      },
-      error: (err) => {
-        console.error(err);
-
-      }
-    })
-
-
-
+    this.setData();
     this.issueForm = new FormGroup({
       buildingName: new FormControl('', Validators.required),
       issueType: new FormControl(),
       equipment: new FormControl(),
       description: new FormControl(''),
 
-    })
-
-    this.teachService.getNotifications().subscribe({
-      next: (value: Notification[]) => this.notifications = value,
-      error: err => console.error(err)
     })
 
     this.issueForm.addControl("siteName", this.siteName)
@@ -87,16 +70,31 @@ export class TeacherComponent implements OnInit {
       error: err => console.error(err)
     })
 
-    // this.teachService.getEquipments().subscribe({
-    //   next: (res: Equipment[]) => this.equipments = res,
-    //   error: err => console.log(err)
-    // })
-
     this.teachService.getStaticEnums().subscribe({
       next: (res: any) => this.issueTypes = res.IssueTypes,
       error: err => console.error(err)
     })
   }
+
+  setData() {
+    this.teachService.getApplications().subscribe({
+      next: (res: ApplicationTeacher[]) => {
+        this.issues = res;
+        this.selectedIssues = this.issues.slice(this.index,this.index+7);
+      },
+      error: (err) => {
+        console.error(err);
+
+      }
+    })
+
+    this.teachService.getNotifications().subscribe({
+      next: (value: Notification[]) => this.notifications = value,
+      error: err => console.error(err)
+    })
+
+  }
+
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -140,6 +138,9 @@ export class TeacherComponent implements OnInit {
           this.snackBar.open('Success: ' + res.message, "Close", {
             duration: 3000
           });
+          this.siteName.reset();
+          this.issueForm.reset();
+          this.setData();
           console.log(res)
         },
         error: err => {
@@ -167,6 +168,13 @@ export class TeacherComponent implements OnInit {
 
   openPreferences() {
     let dialogRef = this.dialog.open(PreferencesModalComponent, {width: '300px', height: '400px'});
+    dialogRef.afterClosed().subscribe({
+      next: value => {
+        if(value){
+          this.setData();
+        }
+      }
+    })
   }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent) {

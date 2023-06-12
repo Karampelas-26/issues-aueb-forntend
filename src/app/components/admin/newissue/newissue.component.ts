@@ -102,7 +102,6 @@ export class NewissueComponent implements OnInit{
     console.log(event.option.value)
     this.committeeService.getSiteEquipments(event.option.value).subscribe({
       next: (value: Equipment[]) => {
-        console.log(value)
         this.equipments = value
       },
       error: err => console.error(err)

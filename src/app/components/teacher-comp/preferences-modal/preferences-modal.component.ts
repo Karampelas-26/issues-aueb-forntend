@@ -45,12 +45,12 @@ export class PreferencesModalComponent implements OnInit{
         console.error(err)
       }
     })
-    this.dialogRef.close();
+    this.dialogRef.close(true);
 
   }
 
   onClose(){
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
 

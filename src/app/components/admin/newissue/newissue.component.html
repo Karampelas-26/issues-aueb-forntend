@@ -40,7 +40,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" *ngIf="issueForm.get('issueType')?.value == 'EQUIPMENT'">
           <mat-label>Επιλέξτε τεχνικό εξοπλισμό</mat-label>
           <mat-select formControlName="equipment">
             <mat-option *ngFor="let equip of equipments" [value]="equip.id">{{equip.typeOfEquipment}}</mat-option>
