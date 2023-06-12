@@ -63,9 +63,10 @@ export class NewissueComponent implements OnInit{
       const data = {
         siteName: this.siteName.value,
         issueType: this.issueForm.get("issueType")?.value,
-        equipment: this.issueForm.get("equipmentId")?.value,
-        title: this.issueForm.get("title")?.value
+        equipment: this.issueForm.get("equipment")?.value,
+        description: this.issueForm.get("description")?.value
       }
+      console.log(data)
       this.committeeService.submitIssue(this.issueForm.value).subscribe({
         next: (res: any) => {
           this.snackBar.open('Success: ' + res.message, "Close", {

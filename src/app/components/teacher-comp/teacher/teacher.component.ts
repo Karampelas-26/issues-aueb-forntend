@@ -129,7 +129,7 @@ export class TeacherComponent implements OnInit {
       const data = {
         siteName: this.siteName.value,
         issueType: this.issueForm.get("issueType")?.value,
-        equipment: this.issueForm.get("equipmentId")?.value,
+        equipment: this.issueForm.get("equipment")?.value,
         description: this.issueForm.get("description")?.value
       }
       console.log(data)
