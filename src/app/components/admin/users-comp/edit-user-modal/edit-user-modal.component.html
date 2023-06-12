@@ -1,52 +1,35 @@
 <div class="d-flex flex-column justify-content-center p-4">
     <p class="h2">Δημιουργία νέου χρήστη</p>
-    <mat-form-field appearance = "outline"> 
+    <mat-form-field appearance = "outline">
         <mat-label>Όνομα</mat-label>
         <input matInput [(ngModel)]="data.firstname">
     </mat-form-field>
 
-    <mat-form-field appearance = "outline"> 
+    <mat-form-field appearance = "outline">
         <mat-label>Επίθετο</mat-label>
         <input matInput  [(ngModel)]="data.lastname">
     </mat-form-field>
 
-    <mat-form-field appearance = "outline"> 
+    <mat-form-field appearance = "outline">
         <mat-label>Email</mat-label>
         <input matInput [(ngModel)]="data.email">
     </mat-form-field>
 
-    <mat-form-field appearance = "outline"> 
+    <mat-form-field appearance = "outline">
         <mat-label>Τηλέφωνο</mat-label>
         <input matInput [(ngModel)]="data.phone">
     </mat-form-field>
 
-    <mat-form-field appearance = "outline"> 
+    <mat-form-field appearance = "outline">
         <mat-label>Διεύθυνση</mat-label>
         <input matInput [(ngModel)]="data.address">
     </mat-form-field>
 
-    <mat-form-field appearance = "outline"> 
+    <mat-form-field appearance = "outline">
         <mat-label>Φύλλο</mat-label>
         <mat-select placeholder="Επιλέξτε φύλλο" [(ngModel)]="data.gender">
             <mat-option value="M">Άνδρας</mat-option>
             <mat-option value="F">Γυναίκα</mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance = "outline"> 
-        <mat-label>Ρόλος</mat-label>
-        <mat-select placeholder="Επιλέξτε ρόλο" [(ngModel)]="data.role">
-            <mat-option value="TEACHER">Καθηγητής</mat-option>
-            <mat-option value="TECHNICIAN">Τεχνκός</mat-option>
-            <mat-option value="ADMIN">Διοικητική επιτροπή</mat-option> 
-        </mat-select>
-    </mat-form-field>
-
-    <mat-form-field appearance = "outline" *ngIf="data.role == 'TECHNICIAN'"> 
-        <mat-label>Ρόλος</mat-label>
-        <mat-select placeholder="Επιλέξτε τεχνική ομάδα" [(ngModel)]="data.technicianTeam">
-            <mat-option value="NOC">NOC</mat-option>
-            <mat-option value="ELECTRICIANS">Ηλεκτρολόγοι</mat-option>
         </mat-select>
     </mat-form-field>
 

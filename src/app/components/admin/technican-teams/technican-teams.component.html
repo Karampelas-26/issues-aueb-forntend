@@ -13,7 +13,7 @@
       <div *ngFor="let technician of team.value">
         <div class="d-flex justify-content-between">
           <p>{{technician.lastname + " " + technician.firstname}}</p>
-          <button mat-icon-button (click)="onRemove(technician)"><mat-icon>remove</mat-icon></button>
+          <button mat-icon-button (click)="onRemove($event, technician)"><mat-icon>remove</mat-icon></button>
         </div>
       </div>
 

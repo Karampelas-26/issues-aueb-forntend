@@ -88,7 +88,6 @@ export class DataTableDataSource extends DataSource<Application> {
   initData(): void {
     this.technicianService.getApplications().subscribe({
       next: (applications: Application[]) => {
-        console.table(applications)
         this.data.next(applications);
       },
       error: (err) => {

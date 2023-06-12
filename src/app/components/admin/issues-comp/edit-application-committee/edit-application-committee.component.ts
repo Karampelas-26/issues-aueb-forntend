@@ -21,7 +21,6 @@ export class EditApplicationCommitteeComponent {
   personalInfo!: User;
   constructor(private dialogRef: MatDialogRef<EditApplicationCommitteeComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private committeeService: CommitteeService) {}
   ngOnInit(): void {
-    console.log(this.data)
     this.committeeService.getPersonalInfo().subscribe({
       next: (user: User) => this.personalInfo = user,
       error: err => console.error(err)

@@ -33,7 +33,10 @@ export class TechnicanTeamsComponent implements OnInit {
     });
 
     this.committeeService.getTechnicalTeamsWithoutTeam().subscribe({
-      next: value => this.techWithoutTeam = value,
+      next: value => {
+        console.log("refresh")
+        this.techWithoutTeam = value
+      },
       error: err => console.error(err)
     })
   }
@@ -44,7 +47,8 @@ export class TechnicanTeamsComponent implements OnInit {
     this.updateUser(user);
   }
 
-  onRemove(technician: User) {
+  onRemove(event: Event,technician: User) {
+    event.stopPropagation();
     technician.technicalTeam = '';
     this.updateUser(technician)
   }
@@ -54,6 +58,7 @@ export class TechnicanTeamsComponent implements OnInit {
       next: (value: any) => {
         console.log(value.message)
         this.snackBar.open("Success: " + value.message, 'Close')
+        this.getData();
       },
       error: err => {
         console.error(err.error.message)
@@ -61,6 +66,6 @@ export class TechnicanTeamsComponent implements OnInit {
       }
     })
 
-    this.getData();
   }
+
 }

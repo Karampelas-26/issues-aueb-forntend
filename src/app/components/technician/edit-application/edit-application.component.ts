@@ -21,7 +21,7 @@ export class EditApplicationComponent implements OnInit {
   personalInfo!: User;
   constructor(private dialogRef: MatDialogRef<EditApplicationComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private technicianService: TechnicianService) {}
   ngOnInit(): void {
-
+    console.log(this.data)
     this.technicianService.getPersonalInfo().subscribe({
       next: (user: User) => this.personalInfo = user,
       error: err => console.error(err)

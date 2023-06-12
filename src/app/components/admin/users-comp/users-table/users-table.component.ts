@@ -22,7 +22,7 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
   dataSource: UsersTableDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'email', 'firstname', 'lastname', 'phone', 'address', 'gender', 'creationDate', 'role', 'action'];
+  displayedColumns = ['email', 'firstname', 'lastname', 'phone', 'address', 'gender', 'createdDate', 'role', 'action'];
 
   constructor(private committeeService: CommitteeService, private datePipe: DatePipe, private dialog: MatDialog) {
     this.dataSource = new UsersTableDataSource(committeeService);
@@ -53,9 +53,9 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
               const updatedData = this.dataSource.data.value.map(item =>
                 item.id === editedUser.id ? editedUser : item
               );
-      
+
               this.dataSource.data.next(updatedData);
-            }, 
+            },
             error: (err) => console.error(err)
           })
           console.log('Data saved:', editedUser);
@@ -75,9 +75,9 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
         if(result) {
           this.committeeService.deleteUser(userId).subscribe({
             next: res => {
-              
+
               //here i want to remove the user: User from dataSource.data.value[]
-      
+
               const updatedData = this.dataSource.data.value.filter(item => item.id !== userId);
               this.dataSource.data.next(updatedData);
               console.log(res)
@@ -85,7 +85,7 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
             error: err => console.error(err)
           })
         }
-      }, 
+      },
       error: (err) => console.error(err)
     })
   }

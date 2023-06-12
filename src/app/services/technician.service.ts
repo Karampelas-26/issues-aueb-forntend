@@ -90,4 +90,8 @@ export class TechnicianService {
   public getPersonalInfo(): Observable<User> {
     return this.http.get<User>(`${this.commonUrl}getPersonalInfo`, this.httpOptions);
   }
+
+  public getMyWork(): Observable<Application[]> {
+    return this.http.get<Application[]>(`${this.commonUrl}getApplicationsByUser`, this.httpOptions);
+  }
 }

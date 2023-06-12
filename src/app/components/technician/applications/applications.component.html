@@ -1,6 +1,6 @@
 <mat-sidenav-container class="vh-100" >
     <mat-sidenav #sidenav [fixedInViewport]="true" class="sidenav-width" >
-        
+
         <div class="m-4">
             <p class="h3">Φίλτρα<mat-icon class="ms-2">tune</mat-icon></p>
             <hr>
@@ -25,7 +25,7 @@
                       </mat-autocomplete>
                     </mat-form-field>
                 </form>
-                  
+
             </div>
             <hr>
             <div class="mt-2 mb-2">
@@ -37,7 +37,7 @@
                         {{ building }}
                       </mat-option>
                     </mat-select>
-                </mat-form-field> 
+                </mat-form-field>
             </div>
             <hr>
             <div class="mt-2 mb-2">
@@ -62,7 +62,7 @@
                     <button mat-button (click)="onClear()">Καθαρισμός</button>
                 </div>
             </div>
-            
+
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -74,15 +74,16 @@
                     Φίλτρα
                     <mat-icon matSuffix>tune</mat-icon>
                 </button>
+                <button mat-button class="ms-3" (click)="onMyWork()">Οι δουλείες μου</button>
             </div>
-        
+
             <div>
               <app-data-table></app-data-table>
             </div>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
-  
+
 
 
 

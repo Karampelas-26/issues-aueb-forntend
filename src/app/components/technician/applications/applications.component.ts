@@ -126,5 +126,12 @@ export class ApplicationsComponent implements OnInit{
       this.options = [];
     }
   }
+
+  onMyWork() {
+    this.techService.getMyWork().subscribe({
+      next: value => this.dataTable.refreshData(value),
+      error: err => console.error(err)
+    })
+  }
 }
 

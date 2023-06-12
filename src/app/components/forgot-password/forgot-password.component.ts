@@ -11,10 +11,13 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class ForgotPasswordComponent implements OnInit{
 
+  hide = true;
+  hideC = true;
+
   hasSendOTP = false;
 
   forgotPassword: ForgotPasswordRequest = {
-    email: 'george.karampelas.26@gmail.com'
+    email: ''
   }
 
   resetPassword: ResetPasswordRequest = {
@@ -30,7 +33,7 @@ export class ForgotPasswordComponent implements OnInit{
   constructor(private auth: AuthenticationService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    
+
     this.isLoggedIn = this.auth.getLoggedIn();
 
     this.auth.isLoggedIn$.subscribe((status: boolean) => {
@@ -43,20 +46,25 @@ export class ForgotPasswordComponent implements OnInit{
 
   onForgotPassword() {
     this.auth.forgotPassword(this.forgotPassword).subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log(response);
         this.hasSendOTP = !this.hasSendOTP;
-        console.log(this.resetPassword.email)
+        this.resetPassword.email = '';
+        this.snackBar.open(response.message, "Close", {
+          duration: 3000
+        });
       },
       error: (err) => {
-        //bgaze na emfanizei error message
+        this.snackBar.open(err.error.message, "Close", {
+          duration: 3000
+        });
         console.error(err);
       }
     })
   }
 
   onResetPassword() {
-    if(this.checkPassword === this.resetPassword.password) {
+    if(this.checkPassword !== this.resetPassword.password) {
       this.snackBar.open('Error: Οι κωδικοί πρόσβασης δεν ταιριάζουν.', "Close", {
         duration: 3000
       });
@@ -64,12 +72,22 @@ export class ForgotPasswordComponent implements OnInit{
     }
     this.resetPassword.email = this.forgotPassword.email;
     this.auth.resetPassword(this.resetPassword).subscribe({
-      next: (res) => {
+      next: (res: any) => {
+        this.snackBar.open(res.message, "Close", {
+          duration: 3000
+        });
         console.log(res);
+        this.resetPassword.email = '';
+        this.resetPassword.password = '';
+        this.resetPassword.otp = '';
+        this.checkPassword = '';
       },
       error: (err) => {
+        this.snackBar.open(err.error.message, "Close", {
+          duration: 3000
+        });
         console.error(err);
-        
+
       }
     })
   }

@@ -46,10 +46,10 @@ export class UsersTableDataSource extends DataSource<User> {
     if (!this.sort || !this.sort.active || this.sort.direction === '') {
       return data;
     }
-  
+
     const sortState: Sort = { active: this.sort.active, direction: this.sort.direction };
     const sortedData = data.slice();
-  
+
     // Perform sorting based on the active sort state
     sortedData.sort((a, b) => {
       const isAsc = sortState.direction === 'asc';
@@ -71,12 +71,12 @@ export class UsersTableDataSource extends DataSource<User> {
         case 'role':
           return compare(a.role, b.role, isAsc);
         case 'creationDate':
-          return compare(a.creationDate, b.creationDate, isAsc);
+          return compare(a.createdDate, b.createdDate, isAsc);
         default:
           return 0;
       }
     });
-  
+
     return sortedData;
   }
 
