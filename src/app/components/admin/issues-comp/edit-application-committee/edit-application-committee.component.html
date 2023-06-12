@@ -6,27 +6,29 @@
   <div class="d-flex justify-content-between m-0 p-0">
 
     <div class="p-4">
-      <p class="h4">Τίτλος</p>
+      <p class="h5">Τίτλος</p>
       <p>{{data.title}}</p>
 
-      <p class="h4">Είδος βλάβης</p>
-      <p>{{data.issueType}}</p>
+<!--      <p class="h5">Είδος βλάβης</p>-->
+<!--      <p>{{data.issueType}}</p>-->
 
-      <p class="h4">Κτήριο</p>
+      <p class="h5">Κτήριο</p>
       <p>{{data.buildingName}}</p>
 
-      <p class="h4">Αίθουσα</p>
+      <p class="h5">Αίθουσα</p>
       <p>{{data.siteName}}</p>
 
-      <p class="h4">Ημερομηνία δήλωσης</p>
+      <p class="h5">Ημερομηνία δήλωσης</p>
       <p>{{data.createDate | date: 'dd/MM/yyyy'}}</p>
 
+      <p class="h5">Περιγραφή</p>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Περιγραφή</mat-label>
         <textarea matInput placeholder="Περιγραφή βλάβης..." [(ngModel)]="data.description"></textarea>
       </mat-form-field>
 
       <div>
+        <p class="h5">Σχόλια</p>
         <div class="scrollable-content">
           <mat-card *ngFor="let comment of this.data.comments" class="comment">
             <mat-card-header>
@@ -55,6 +57,15 @@
     <div class="bg-secondary m-0 p-4 d-flex flex-column justify-content-between">
 
       <div class="d-flex flex-column">
+
+        <mat-form-field class="pt-1">
+          <mat-label>Είδος βλάβης</mat-label>
+          <mat-select placeholder="Επιλέξτε είδος βλάβης" [(ngModel)]="data.issueType">
+            <mat-option *ngFor="let issue of typeOfIssues" [value]="issue">
+              {{issue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
         <mat-form-field class="pt-1">
           <mat-label>Κατάσταση</mat-label>

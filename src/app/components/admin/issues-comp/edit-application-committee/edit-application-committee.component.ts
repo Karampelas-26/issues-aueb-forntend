@@ -19,6 +19,7 @@ export class EditApplicationCommitteeComponent {
   status: string [] = [];
   newComment: string = '';
   personalInfo!: User;
+  typeOfIssues: string[] = [];
   constructor(private dialogRef: MatDialogRef<EditApplicationCommitteeComponent>, @Inject(MAT_DIALOG_DATA) public data: Application, private datePipe: DatePipe, private committeeService: CommitteeService) {}
   ngOnInit(): void {
     this.committeeService.getPersonalInfo().subscribe({
@@ -34,7 +35,10 @@ export class EditApplicationCommitteeComponent {
     })
 
     this.committeeService.getStaticEnums().subscribe({
-      next: (value: any) => this.status = value.Status
+      next: (value: any) => {
+        this.typeOfIssues = value.IssueTypes
+        this.status = value.Status
+      }
     })
   }
 
